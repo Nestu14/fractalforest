@@ -1,0 +1,10 @@
+name: ProcTree
+version: ${project.version}
+main: com.eclipsekingdom.proctree.ProcTree
+api-version: 1.13
+authors: [sword]
+description: A spigot plugin that adds procedurally generated trees
+website: eclipsekingdom.com
+
+commands:
+  ptree:
