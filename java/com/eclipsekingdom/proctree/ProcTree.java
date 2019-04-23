@@ -1,6 +1,7 @@
 package com.eclipsekingdom.proctree;
 
 import com.eclipsekingdom.proctree.commands.CommandTree;
+import com.eclipsekingdom.proctree.listeners.TreeListener;
 import com.eclipsekingdom.proctree.managers.TreeManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,7 +15,7 @@ public final class ProcTree extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-
+        new TreeListener(this);
         this.getCommand("ptree").setExecutor(new CommandTree(this));
 
     }
