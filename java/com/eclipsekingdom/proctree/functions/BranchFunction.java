@@ -1,6 +1,6 @@
 package com.eclipsekingdom.proctree.functions;
 
-public class BranchFunction {
+public abstract class BranchFunction {
 
     private String functionString;
 
@@ -9,17 +9,10 @@ public class BranchFunction {
         this.functionString = functionString;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
+    public String toString(){
+        return functionString;
     }
 
-    public int f(int x){
-        return 0;
-    }
-
-    public int g(int y){
-        return 0;
-    }
+    public abstract double f(double x);
 
 }

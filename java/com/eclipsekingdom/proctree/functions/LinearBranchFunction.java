@@ -12,13 +12,8 @@ public class LinearBranchFunction extends BranchFunction {
     }
 
     @Override
-    public int f(int x){
+    public double f(double x){
         return (int)(coX*x);
-    }
-
-    @Override
-    public int g(int y){
-        return (int)(y/coX);
     }
 
 }

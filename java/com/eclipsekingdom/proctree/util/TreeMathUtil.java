@@ -1,6 +1,5 @@
 package com.eclipsekingdom.proctree.util;
 
-import com.eclipsekingdom.proctree.trees.fractal.FractalBranch;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
@@ -8,11 +7,17 @@ import java.util.Random;
 public class TreeMathUtil {
 
 
-    public static Vector getRandomPerpVector(FractalBranch branch){
+    public static Vector getRandomPerpVector(Vector v){
         Vector rV = new Vector(Math.random(), Math.random(), Math.random());
-        Vector bV = branch.getDirection();
-        Vector pV = rV.subtract(bV.multiply(dot(rV, bV) / dot(bV, bV)));
+        Vector pV = rV.subtract(v.clone().multiply(dot(rV, v) / dot(v, v)));
         return pV;
+    }
+
+    public static Vector getPerpVector(Vector v1, Vector v2){
+        double x = v1.getY()*v2.getZ() - v1.getZ()*v2.getY();
+        double y = v1.getZ()*v2.getX() - v1.getX()*v2.getZ();
+        double z = v1.getX()*v2.getY() - v1.getY()*v2.getX();
+        return new Vector(x,y,z);
     }
 
     public static double dot(Vector a, Vector b){
@@ -43,9 +48,9 @@ public class TreeMathUtil {
         return Math.sqrt(v.getX()*v.getX() + v.getY()*v.getY() + v.getZ()*v.getZ());
     }
 
-    public static void setMagnitude(Vector v, double mag){
-        double s = Math.sqrt((v.getX()*v.getX()+v.getY()*v.getY()+v.getZ()*v.getZ())/(mag*mag));
-        v.multiply(s);
+    public static Vector setMagnitude(Vector v, double mag){
+        double s = Math.sqrt((mag*mag)/(v.getX()*v.getX()+v.getY()*v.getY()+v.getZ()*v.getZ()));
+        return v.clone().multiply(s);
     }
 
 }

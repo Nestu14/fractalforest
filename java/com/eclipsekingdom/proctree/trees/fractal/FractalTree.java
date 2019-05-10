@@ -2,7 +2,6 @@ package com.eclipsekingdom.proctree.trees.fractal;
 
 import com.eclipsekingdom.proctree.util.TreeMathUtil;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -17,9 +16,9 @@ public abstract class FractalTree {
         return species;
     }
 
-    private FractalBranch root;
-    public FractalBranch getRoot() {
-        return root;
+    private FractalBranch trunk;
+    public FractalBranch getTrunk() {
+        return trunk;
     }
 
     private ArrayList<FractalBranch> branches = new ArrayList<>();
@@ -28,6 +27,14 @@ public abstract class FractalTree {
     }
     public void addBranch(FractalBranch branch){
         branches.add(branch);
+    }
+
+    private ArrayList<FractalRoot> roots = new ArrayList<>();
+    public ArrayList<FractalRoot> getRoots() {
+        return roots;
+    }
+    public void addRoot(FractalRoot root){
+        roots.add(root);
     }
 
     private double branchIterations = 0;
@@ -39,105 +46,67 @@ public abstract class FractalTree {
     }
 
     public FractalTree(Location location){
-        this.root = generateRoot(location);
-        addBranch(root);
+        this.trunk = generateTrunk(location);
+        addBranch(trunk);
     }
 
     public abstract void show();
 
     public abstract void generate();
 
-    public abstract FractalBranch generateRoot(Location location);
+    public abstract FractalBranch generateTrunk(Location location);
 
 
     /* ---  Single Iteration Methods  --- */
 
-    public void split(int splitNumber, boolean splitOnSameLine,double angleRange, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed){
+    public void split(int splitNumber,double angleRange, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed, double clumpFactor){
         for(int i = getBranches().size() - 1; i>=0; i--){
-            if(splitNumber == 2){
-                splitBranchTwo(branches.get(i), angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed, splitOnSameLine);
-            }else if(splitNumber == 3){
-                splitBranchThree(branches.get(i), angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed, splitOnSameLine);
-            }
+            splitBranch(branches.get(i), splitNumber, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed, clumpFactor);
         }
         increment();
     }
 
-    public void splitWR(int splitNumber, boolean splitOnSameLine, double minThickness, double maxThickness, double minAngle, double maxAngle, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed){ //weighted angle ranges
+    public void splitMixed(int minSplit, int maxSplit, double angleRange, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed, double clumpFactor){
+        for(int i = branches.size() - 1; i >= 0; i--){
+            int numBranches = (int)TreeMathUtil.random(minSplit, maxSplit + 1);
+            splitBranch(branches.get(i), numBranches, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed, clumpFactor);
+        }
+    }
+
+
+    public void splitMixedWR(int minSplit, int maxSplit, double value, double minValue, double maxValue, double minAngle, double maxAngle, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed, double clumpFactor){
         for(int i = getBranches().size() - 1; i>=0; i--){
-            double angleRange = TreeMathUtil.map(branches.get(i).getRadius(), minThickness, maxThickness, maxAngle, minAngle);
-            split(splitNumber, splitOnSameLine, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed);
+            double angleRange = TreeMathUtil.map(value, minValue, maxValue, maxAngle, minAngle);
+            splitMixed(minSplit, maxSplit, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed, clumpFactor);
         }
         increment();
     }
+
+
+    public void splitWR(int splitNumber, double value, double minValue, double maxValue, double minAngle, double maxAngle, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed, double clumpFactor){
+        for(int i = getBranches().size() - 1; i>=0; i--){
+            double angleRange = TreeMathUtil.map(value, minValue, maxValue, maxAngle, minAngle);
+            split(splitNumber, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed, clumpFactor);
+        }
+        increment();
+    }
+
 
 
     /* ---  Single Branch Split methods  --- */
-    private void splitBranchTwo(FractalBranch branch, double angleRange, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed, boolean splitOnSameLine){
-        if(!branch.isFinished()){
-            Vector rPerp = TreeMathUtil.getRandomPerpVector(branch);
-            Vector axisA;
-            Vector axisB;
-            double angleA;
-            double angleB;
-            if(splitOnSameLine){
-                axisA = rPerp;
-                axisB = rPerp;
-                angleA = TreeMathUtil.random(-1 * angleRange, 0);
-                angleB = TreeMathUtil.random(0, angleRange);
-            }else{
-                Vector startingA = rPerp;
-                Vector startingB = rPerp.clone().rotateAroundAxis(branch.getDirection(), Math.PI);
-                axisA = startingA.rotateAroundAxis(branch.getDirection(), Math.PI);
-                axisB = startingB.rotateAroundAxis(branch.getDirection(), Math.PI);
-                angleA = TreeMathUtil.random(0, angleRange);
-                angleB = TreeMathUtil.random(0, angleRange);
-            }
-            FractalBranch ba = branch.branch(axisA, angleA, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed);
-            FractalBranch bb = branch.branch(axisB, angleB, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed);
-            if (ba != null && bb != null) {
-                addBranch(ba);
-                addBranch(bb);
-            }
-        }
-    }
 
-    private void splitBranchThree(FractalBranch branch, double angleRange, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed, boolean splitOnSameLine){
+    private void splitBranch(FractalBranch branch, int numBranches, double angleRange, double minLenRed, double maxLenRed, double minRadRed, double maxRadRed, double clumpFactor){
         if(!branch.isFinished()){
-            Vector rPerp = TreeMathUtil.getRandomPerpVector(branch);
-            Vector axisA;
-            Vector axisB;
-            Vector axisC;
-            double angleA;
-            double angleB;
-            double angleC;
-            if(splitOnSameLine){
-                axisA = rPerp;
-                axisB = rPerp;
-                axisC = rPerp;
-                angleA = TreeMathUtil.random(-1 * angleRange, -1 * angleRange/3);
-                angleB = TreeMathUtil.random(-1 * angleRange/3, angleRange/3);
-                angleC = TreeMathUtil.random(angleRange/3, angleRange);
-            }else{
-                //clump branches together by rotating by less ******
-                Vector startingA = rPerp;
-                Vector startingB = rPerp.clone().rotateAroundAxis(branch.getDirection(), 1 * Math.PI * 2 / 3);
-                Vector startingC = rPerp.clone().rotateAroundAxis(branch.getDirection(), 2 * Math.PI * 2 / 3);
-
-                axisA = startingA.rotateAroundAxis(branch.getDirection(), Math.PI * 2 / 3);
-                axisB = startingB.rotateAroundAxis(branch.getDirection(), Math.PI * 2 / 3);
-                axisC = startingC.rotateAroundAxis(branch.getDirection(), Math.PI * 2 / 3);
-                angleA = TreeMathUtil.random(0, angleRange);
-                angleB = TreeMathUtil.random(0, angleRange);
-                angleC = TreeMathUtil.random(0, angleRange);
-            }
-            FractalBranch ba = branch.branch(axisA, angleA, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed);
-            FractalBranch bb = branch.branch(axisB, angleB, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed);
-            FractalBranch bc = branch.branch(axisC, angleC, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed);
-            if (ba != null && bb != null && bc != null) {
-                addBranch(ba);
-                addBranch(bb);
-                addBranch(bc);
+            Vector rPerp = TreeMathUtil.getRandomPerpVector(branch.getDirection());
+            double totalRad = Math.PI * 2 * (1 - clumpFactor);
+            for(int i = 0; i< numBranches; i++){
+                Vector starting = rPerp.clone().rotateAroundAxis(branch.getDirection(), i * totalRad / numBranches);
+                Vector axis = starting.clone().rotateAroundAxis(branch.getDirection(), totalRad / numBranches);
+                double angle = TreeMathUtil.random(0,angleRange);
+                FractalBranch b = branch.branch(axis, angle, angleRange, minLenRed, maxLenRed, minRadRed, maxRadRed);
+                if(b != null){
+                    addBranch(b);
+                }
             }
         }
     }

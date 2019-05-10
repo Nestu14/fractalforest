@@ -1,8 +1,11 @@
 package com.eclipsekingdom.proctree.managers;
 
 import com.eclipsekingdom.proctree.ProcTree;
-import com.eclipsekingdom.proctree.trees.fractal.legacy.LegacyTree;
-import com.eclipsekingdom.proctree.trees.fractal.species.OakFractalMassiveV1;
+import com.eclipsekingdom.proctree.trees.fractal.species.OakFractalMassive2B;
+import com.eclipsekingdom.proctree.trees.fractal.species.OakFractalMassive3B;
+import com.eclipsekingdom.proctree.trees.fractal.species.OakFractal4B;
+import com.eclipsekingdom.proctree.trees.fractal.species.OakFractalMixed;
+import com.eclipsekingdom.proctree.trees.legacy.LegacyTree;
 import org.bukkit.Location;
 public class TreeManager {
 
@@ -19,10 +22,26 @@ public class TreeManager {
         legacyTree.build();
     }
 
-    public void test(Location location){
-        OakFractalMassiveV1 t = new OakFractalMassiveV1(location);
+    public void spawnFOak2B(Location location){
+        OakFractalMassive2B t = new OakFractalMassive2B(location);
         t.show();
 
+    }
+
+    public void spawnFOak3B(Location location){
+        OakFractalMassive3B t = new OakFractalMassive3B(location);
+        t.show();
+    }
+
+
+    public void spawnFOak4B(Location location){
+        OakFractal4B t = new OakFractal4B(location);
+        t.show();
+    }
+
+    public void spawnFOakMixed(Location location){
+        OakFractalMixed  t = new OakFractalMixed(location);
+        t.show();
     }
 
 

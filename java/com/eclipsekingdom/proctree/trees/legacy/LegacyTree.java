@@ -1,4 +1,4 @@
-package com.eclipsekingdom.proctree.trees.fractal.legacy;
+package com.eclipsekingdom.proctree.trees.legacy;
 
 import com.eclipsekingdom.proctree.BranchDirection;
 import com.eclipsekingdom.proctree.functions.BranchFunction;
@@ -122,10 +122,10 @@ public class LegacyTree {
         }
 
         Location prevGrowth = null;
-        for(int l = 0; l < maxLength; l++){
-            int branchLength = l;
-            int branchHeight = curveUp.f(l);
-            int branchCurve = curveSide.f(l);
+        for(double l = 0; l < maxLength; l++){
+            double branchLength = l;
+            double branchHeight = curveUp.f(l);
+            double branchCurve = curveSide.f(l);
             if(branchCurve > maxCurve || branchHeight > maxHeight){
                 if(prevGrowth != null){
                     addLeaves(prevGrowth,1,100, random);
@@ -180,7 +180,7 @@ public class LegacyTree {
 
     }
 
-    private void connectBranchSegments(Location newGrowth, Location oldGrowth, Material branchMaterial, BranchFunction curveUp, BranchFunction curveSide, int maxLength, int maxCurve, int maxHeight, int l){
+    private void connectBranchSegments(Location newGrowth, Location oldGrowth, Material branchMaterial, BranchFunction curveUp, BranchFunction curveSide, int maxLength, int maxCurve, int maxHeight, double l){
         double gapDistance = newGrowth.distance(oldGrowth);
         if(gapDistance <= 1){
             return;
