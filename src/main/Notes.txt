@@ -1,0 +1,15 @@
+
+*curve functions instead of just straight lines
+*calculate distance on plane perpendicular to vector to center point of each block and check if less than radius of branch
+
+Resources:
+* https://github.com/supereggbert/proctree.js/ - proctree
+* https://www.instructables.com/id/Procedurally-Generated-Trees/
+* https://github.com/jarikomppa/proctree
+
+* fib
+* saplings
+* genome editor
+* world populator
+* pine trees
+* web a[[
