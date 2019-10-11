@@ -1,0 +1,11 @@
+name: FractalForest
+version: 1.1
+main: com.eclipsekingdom.fractalforest.FractalForest
+api-version: 1.13
+authors: [sword]
+description: A spigot plugin that adds procedurally generated trees to Minecraft
+website: eclipsekingdom.com
+
+commands:
+  sapling:
+  fractalforest:
