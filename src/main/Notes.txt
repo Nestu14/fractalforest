@@ -14,4 +14,12 @@ Resources:
 * pine trees
 * web app
 
+Tree types
+- nether
+- pine
+- end
+
 -- update --
+* permission forest.pop
+* world populators
+* added permission and command descriptions to plugin.yml for better permission plugin compatibility

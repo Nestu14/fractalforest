@@ -35,7 +35,7 @@ public class PluginConfig {
     }
 
     public static int getPhasePeriod() {
-        return phasePeriod;
+        return phasePeriod*20;
     }
 
     public static boolean isProceduralTreeLeafDecay(){

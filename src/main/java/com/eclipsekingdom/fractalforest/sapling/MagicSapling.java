@@ -29,7 +29,7 @@ public class MagicSapling extends BukkitRunnable {
         if (Tag.SAPLINGS.isTagged(saplingBlock.getType())) {
             if (countdown <= 0) {
                 SaplingListener.locationToSapling.remove(saplingBlock.getLocation());
-                tree.grow(PluginConfig.getPhasePeriod()*20);
+                tree.grow(PluginConfig.getPhasePeriod());
                 cancel();
             } else {
                 seed.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, seed, 9, 0.5,0.7,0.5);

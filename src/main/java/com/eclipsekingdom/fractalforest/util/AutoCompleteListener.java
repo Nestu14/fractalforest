@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.sapling;
+package com.eclipsekingdom.fractalforest.util;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
 import com.eclipsekingdom.fractalforest.Permissions;

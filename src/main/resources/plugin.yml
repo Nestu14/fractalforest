@@ -1,11 +1,29 @@
 name: FractalForest
-version: 1.1
+version: 1.2
 main: com.eclipsekingdom.fractalforest.FractalForest
 api-version: 1.13
 authors: [sword]
 description: A spigot plugin that adds procedurally generated trees to Minecraft
 website: eclipsekingdom.com
+load: POSTWORLD
 
 commands:
-  sapling:
   fractalforest:
+    description: display plugin information
+  sapling:
+    description: summon a magic sapling
+    permission: forest.sapling
+  tpop:
+    description: edit tree populators
+    permission: forest.pop
+
+permissions:
+  forest.*:
+    description: grants all permissions
+    default: op
+  forest.sapling:
+    description: grants access to sapling command
+    default: op
+  forest.pop:
+    description: grants access to tpop command
+    default: op
