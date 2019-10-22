@@ -14,8 +14,8 @@ import org.bukkit.inventory.Inventory;
 public class Home extends PopPageContents {
 
     @Override
-    public Inventory populate(Inventory menu, TreePopulator pop) {
-
+    public Inventory populate(Inventory menu, PopSessionData popSessionData) {
+        TreePopulator pop = popSessionData.getPopulator();
         menu.setItem(4, Icons.createIcon(Material.NAME_TAG, ChatColor.DARK_GRAY + pop.getName()));
         menu.setItem(10, Icons.BACKGROUND_ITEM);
         menu.setItem(11, Icons.createIcon(Material.GRASS_BLOCK, ChatColor.DARK_PURPLE + "Worlds"));
@@ -42,13 +42,13 @@ public class Home extends PopPageContents {
             MenuUtil.playClickSound(player);
             TreePopulator pop = popSessionData.getPopulator();
             pop.setEnabled(!pop.isEnabled());
-            populate(menu, pop);
+            populate(menu, popSessionData);
         }else if(slot == 11 || slot == 13){
             MenuUtil.playClickSound(player);
             PopPage to = slot == 11? PopPageType.WORLD_OVERVIEW.getPage() : PopPageType.GENERATION.getPage();
             popSessionData.setCurrent(to);
             popSessionData.setTransitioning(true);
-            player.openInventory(to.getInventory(popSessionData.getPopulator()));
+            player.openInventory(to.getInventory(popSessionData));
             popSessionData.setTransitioning(false);
         }
     }

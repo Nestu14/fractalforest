@@ -5,7 +5,6 @@ import com.eclipsekingdom.fractalforest.gui.Page;
 import com.eclipsekingdom.fractalforest.gui.pop.page.PopPageContents;
 import com.eclipsekingdom.fractalforest.gui.pop.page.PopPageType;
 import com.eclipsekingdom.fractalforest.gui.pop.session.PopSessionData;
-import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -22,8 +21,8 @@ public class PopPage extends Page {
         this.baseInventory = MenuUtil.createGenericPop(this);
     }
 
-    public Inventory getInventory(TreePopulator populator) {
-        return pageContents.populate(baseInventory, populator);
+    public Inventory getInventory(PopSessionData popSessionData) {
+        return pageContents.populate(baseInventory, popSessionData);
     }
 
     public void processClick(Player player, Inventory menu, PopSessionData popSessionData, int slot) {
@@ -31,7 +30,7 @@ public class PopPage extends Page {
             MenuUtil.playClickSound(player);
             PopPage prev = previousPage.getPage();
             popSessionData.setTransitioning(true);
-            player.openInventory(prev.getInventory(popSessionData.getPopulator()));
+            player.openInventory(prev.getInventory(popSessionData));
             popSessionData.setTransitioning(false);
             popSessionData.setCurrent(prev);
         } else {

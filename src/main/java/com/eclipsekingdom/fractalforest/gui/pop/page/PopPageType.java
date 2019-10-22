@@ -12,9 +12,10 @@ public enum PopPageType {
     BIOME_SELECT(new PopPage(BIOME_OVERVIEW, 6,"Biome Selection", new BiomeSelect())),
     TREE_OVERVIEW(new PopPage(GENERATION, 4, "Trees", new TreeOverview())),
     TREE_SELECT(new PopPage(TREE_OVERVIEW, 6, "Tree Selection", new TreeSelect())),
-    SPAWNER(new PopPage(HOME, 3, "Spawner", new Spawner())),
+    SPAWNER(new PopPage(GENERATION, 3, "Spawner", new Spawner())),
     CHANCE(new PopPage(SPAWNER, 3, "Spawn Chance", new Chance())),
-    AMOUNT(new PopPage(SPAWNER, 3, "Spawn Amount", new Amount())),
+    AMOUNT_MIN(new PopPage(SPAWNER, 3, "Spawn AmountMax Min", new AmountMin())),
+    AMOUNT_MAX(new PopPage(SPAWNER, 3, "Spawn AmountMax Max", new AmountMax())),
 
     ;
 

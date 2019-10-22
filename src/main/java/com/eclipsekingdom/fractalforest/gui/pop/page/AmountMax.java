@@ -9,36 +9,35 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 import static com.eclipsekingdom.fractalforest.gui.Icons.BACKGROUND_ITEM;
 
-public class Chance extends PopPageContents {
+public class AmountMax extends PopPageContents {
 
     @Override
     public Inventory populate(Inventory menu, PopSessionData popSessionData) {
 
-        double chance = popSessionData.getCurrentSpawner().getChance() * 100;
+        int max = popSessionData.getCurrentSpawner().getMax();
 
-        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Chance per Chunk"));
+        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Max tree number"));
         menu.setItem(7, Icons.createBiome(popSessionData.getCurrentBiome()));
         menu.setItem(8, Icons.createSpecies(popSessionData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
-        NumberFormat formatter = new DecimalFormat("#0.00");
+        menu.setItem(11, BACKGROUND_ITEM);
 
-        if (chance > 0) {
-            menu.setItem(11, Icons.VALUE_MANIPULATOR("-10", formatter.format(chance) + "%"));
-            menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", formatter.format(chance) + "%"));
+        if (max > popSessionData.getCurrentSpawner().getMin()) {
+            menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", max + " trees"));
         } else {
-            menu.setItem(11, BACKGROUND_ITEM);
             menu.setItem(12, BACKGROUND_ITEM);
         }
 
-        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Chance per Chunk", formatter.format(chance) + "%"));
+        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Max tree number", max + " trees"));
 
-        menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", formatter.format(chance) + "%"));
-        menu.setItem(15, Icons.VALUE_MANIPULATOR("+10", formatter.format(chance) + "%"));
+        if (max < 7) {
+            menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", max + " trees"));
+        } else {
+            menu.setItem(14, BACKGROUND_ITEM);
+        }
+        menu.setItem(15, BACKGROUND_ITEM);
         menu.setItem(16, BACKGROUND_ITEM);
 
         return menu;
@@ -49,31 +48,32 @@ public class Chance extends PopPageContents {
         TreeSpawner spawner = popSessionData.getCurrentSpawner();
         int change = 0;
         switch (slot) {
-            case 11:
-                change = -10;
-                break;
             case 12:
                 change = -1;
                 break;
             case 14:
                 change = 1;
                 break;
-            case 15:
-                change = 10;
-                break;
             default:
                 break;
         }
 
-        if (change < 0 && spawner.getChance() == 0) {
+        if (change < 0 && spawner.getMax() == spawner.getMin()) {
+            change = 0;
+        }
+
+        if (change > 0 && spawner.getMax() == 7) {
             change = 0;
         }
 
         if (change != 0) {
             MenuUtil.playClickSound(player);
-            spawner.setChance(spawner.getChance() + change/100d);
-            if (spawner.getChance() < 0) {
-                spawner.setChance(0);
+            spawner.setMax(spawner.getMax() + change);
+            if (spawner.getMax() < spawner.getMin()) {
+                spawner.setMax(spawner.getMin());
+            }
+            if (spawner.getMax() > 7) {
+                spawner.setMax(7);
             }
             populate(menu, popSessionData);
         }

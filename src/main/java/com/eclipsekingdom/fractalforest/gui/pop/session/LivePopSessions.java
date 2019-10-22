@@ -24,8 +24,9 @@ public class LivePopSessions {
         end(player);
         UUID playerID = player.getUniqueId();
         PopPage home = PopPageType.HOME.getPage();
-        playerToData.put(playerID, new PopSessionData(home, populator, initialCreate));
-        player.openInventory(home.getInventory(populator));
+        PopSessionData popSessionData = new PopSessionData(home, populator, initialCreate);
+        playerToData.put(playerID, popSessionData );
+        player.openInventory(home.getInventory(popSessionData));
     }
 
     public static void end(Player player) {

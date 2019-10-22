@@ -18,8 +18,12 @@ Tree types
 - nether
 - pine
 - end
+- underwater tree
+
+Tree specific spawn conditions
 
 -- update --
 * permission forest.pop
 * world populators
+* tree populator gui
 * added permission and command descriptions to plugin.yml for better permission plugin compatibility
