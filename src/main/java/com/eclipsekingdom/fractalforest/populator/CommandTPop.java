@@ -103,7 +103,7 @@ public class CommandTPop implements CommandExecutor {
         if (args.length > 1) {
             TreePopulator pop = PopCache.getPopulator(args[1]);
             if (pop != null) {
-                PopCache.registerPopulator(pop);
+                PopCache.removePopulator(pop);
                 player.sendMessage(SUCCESS_TPOP_REMOVE.getFromPop(pop.getName()));
             } else {
                 player.sendMessage(WARN_TPOP_NOT_FOUND.getFromPop(args[1]));

@@ -12,6 +12,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -130,17 +131,23 @@ public class Generation extends PopPageContents {
                         try{
                             Biome biome = Biome.valueOf(biomeItem.getItemMeta().getDisplayName());
                             List<TreeSpawner> treeSpawners = pop.getBiomeToTreeSpawner().get(biome);
-                            int index = slot/9 -2;
-                            if(index < treeSpawners.size()){
-                                MenuUtil.playClickSound(player);
-                                TreeSpawner treeSpawner = treeSpawners.get(index);
-                                popSessionData.setCurrentSpawner(treeSpawner);
-                                popSessionData.setCurrentBiome(biome);
-                                PopPage spawner = PopPageType.SPAWNER.getPage();
-                                popSessionData.setCurrent(spawner);
-                                popSessionData.setTransitioning(true);
-                                player.openInventory(spawner.getInventory(popSessionData));
-                                popSessionData.setTransitioning(false);
+                            ItemStack spawnStack = menu.getItem(slot);
+                            if(spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType()){
+                                ItemMeta meta = spawnStack.getItemMeta();
+                                String name = meta.getDisplayName();
+                                for(TreeSpawner treeSpawner: treeSpawners){
+                                    if(treeSpawner.getSpecies().toString().equals(name)){
+                                        MenuUtil.playClickSound(player);
+                                        popSessionData.setCurrentSpawner(treeSpawner);
+                                        popSessionData.setCurrentBiome(biome);
+                                        PopPage spawner = PopPageType.SPAWNER.getPage();
+                                        popSessionData.setCurrent(spawner);
+                                        popSessionData.setTransitioning(true);
+                                        player.openInventory(spawner.getInventory(popSessionData));
+                                        popSessionData.setTransitioning(false);
+                                        break;
+                                    }
+                                }
                             }
                         }catch (Exception e){
                         }

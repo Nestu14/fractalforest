@@ -59,7 +59,6 @@ public class PopInputListener implements Listener {
             if (LivePopSessions.hasSession(player)) {
                 PopSessionData stormSessionData = LivePopSessions.getData(player);
                 if (!stormSessionData.isTransitioning()) {
-                    attemptObjectInitialize(player);
                     LivePopSessions.end(player);
                 }
             }
@@ -70,7 +69,6 @@ public class PopInputListener implements Listener {
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
         if (LivePopSessions.hasSession(player)) {
-            attemptObjectInitialize(player);
             LivePopSessions.end(player);
         }
     }
@@ -79,16 +77,9 @@ public class PopInputListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
         if (LivePopSessions.hasSession(player)) {
-            attemptObjectInitialize(player);
             LivePopSessions.end(player);
         }
     }
 
-    private void attemptObjectInitialize(Player player) {
-        PopSessionData stormSessionData = LivePopSessions.getData(player);
-        if (stormSessionData.isInitialCreate()) {
-            stormSessionData.getPopulator().initialize(player);
-        }
-    }
 
 }

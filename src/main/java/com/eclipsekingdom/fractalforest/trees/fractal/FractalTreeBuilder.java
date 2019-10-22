@@ -12,14 +12,14 @@ import com.eclipsekingdom.fractalforest.util.LeafData;
 import com.eclipsekingdom.fractalforest.util.SegmentIterator;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
 import com.eclipsekingdom.fractalforest.util.theme.material.IMaterialFactory;
-import com.google.common.collect.ImmutableSet;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 
 public class FractalTreeBuilder extends Tree {
 

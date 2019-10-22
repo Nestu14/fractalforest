@@ -22,8 +22,11 @@ Tree types
 
 Tree specific spawn conditions
 
+* fix biome scrolling
+
+* better populator default (min and max 0 and 1)
+* better restrictions on % and amounts;
+
+* display enabled/disabled populators differently in /list
+
 -- update --
-* permission forest.pop
-* world populators
-* tree populator gui
-* added permission and command descriptions to plugin.yml for better permission plugin compatibility

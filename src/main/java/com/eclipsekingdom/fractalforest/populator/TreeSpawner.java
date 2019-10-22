@@ -4,8 +4,12 @@ import com.eclipsekingdom.fractalforest.phylo.Species;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TreeSpawner {
+
+    private static Random random = new Random();
+
     private Species species;
     private double chance;
     private int min;
@@ -26,6 +30,10 @@ public class TreeSpawner {
         this.chance = chance;
         this.min = min;
         this.max = max;
+    }
+
+    public int nextAmount(){
+        return random.nextInt(max+1-min) + min;
     }
 
     public Species getSpecies() {

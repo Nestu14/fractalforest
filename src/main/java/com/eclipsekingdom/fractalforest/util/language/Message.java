@@ -36,7 +36,7 @@ public enum Message {
     STATUS_TPOP_DISABLED("Status - tpop disabled", "§cDisabled"),
     STATUS_NOT_FOUND("Status - not found", "Not Found"),
 
-    CONSOLE_TPOP_ERROR("Console - populator error", "§Unable to load Console %pop%"),
+    CONSOLE_TPOP_ERROR("Console - populator error", "§Unable to load populator %pop%"),
 
     ;
 

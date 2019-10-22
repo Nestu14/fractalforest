@@ -17,7 +17,14 @@ public class WhiteListedBlocks {
             .add(Material.SOUL_SAND)
             .add(Material.SAND)
             .add(Material.GRAVEL)
-            .add(Material.GRASS_PATH).build();
+            .add(Material.GRASS_PATH)
+            .add(Material.SPRUCE_LEAVES)
+            .add(Material.JUNGLE_LEAVES)
+            .add(Material.DARK_OAK_LEAVES)
+            .add(Material.BIRCH_LEAVES)
+            .add(Material.OAK_LEAVES)
+            .add(Material.ACACIA_LEAVES)
+            .add().build();
 
 
     public static ImmutableSet<Material> rootWhiteList = new ImmutableSet.Builder<Material>()

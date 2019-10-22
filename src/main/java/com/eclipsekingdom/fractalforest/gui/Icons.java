@@ -29,14 +29,14 @@ public class Icons {
         return icon;
     }
 
-    public static ItemStack createTreeSpawner(TreeSpawner treeSpawner){
+    public static ItemStack createTreeSpawner(TreeSpawner treeSpawner) {
         Species species = treeSpawner.getSpecies();
         ItemStack itemStack = new ItemStack(species.getSapling().getType());
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(species.toString());
         List<String> lore = new ArrayList<>();
         NumberFormat formatter = new DecimalFormat("#0.00");
-        lore.add(ChatColor.GRAY + "Chance: " + formatter.format(treeSpawner.getChance()*100) + "%");
+        lore.add(ChatColor.GRAY + "Chance: " + formatter.format(treeSpawner.getChance() * 100) + "%");
         lore.add(ChatColor.GRAY + "min: " + treeSpawner.getMin() + " trees");
         lore.add(ChatColor.GRAY + "max: " + treeSpawner.getMax() + " trees");
         meta.setLore(lore);
@@ -45,7 +45,7 @@ public class Icons {
     }
 
 
-    public static ItemStack createSpecies(Species species){
+    public static ItemStack createSpecies(Species species) {
         ItemStack itemStack = new ItemStack(species.getSapling().getType());
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(species.toString());
@@ -75,7 +75,7 @@ public class Icons {
         return itemStack;
     }
 
-    public static ItemStack createBiome(Biome biome){
+    public static ItemStack createBiome(Biome biome) {
         ItemStack itemStack = new ItemStack(getMaterial(biome));
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(biome.toString());
@@ -122,8 +122,122 @@ public class Icons {
                 return Material.OAK_LOG;
             case PLAINS:
                 return Material.GRASS_BLOCK;
+            case SWAMP:
+                return Material.LILY_PAD;
+            case DESERT:
+                return Material.SAND;
+            case BADLANDS:
+                return Material.RED_TERRACOTTA;
+            case MODIFIED_BADLANDS_PLATEAU:
+                return Material.RED_TERRACOTTA;
+            case MOUNTAINS:
+                return Material.STONE;
+            case SNOWY_BEACH:
+                return Material.SNOW_BLOCK;
+            case SWAMP_HILLS:
+                return Material.LILY_PAD;
+            case DESERT_HILLS:
+                return Material.SAND;
+            case MOUNTAIN_EDGE:
+                return Material.STONE;
+            case ERODED_BADLANDS:
+                return Material.RED_TERRACOTTA;
+            case BADLANDS_PLATEAU:
+                return Material.RED_TERRACOTTA;
+            case GRAVELLY_MOUNTAINS:
+                return Material.GRAVEL;
+            case WOODED_BADLANDS_PLATEAU:
+                return Material.RED_TERRACOTTA;
+            case MODIFIED_GRAVELLY_MOUNTAINS:
+                return Material.GRAVEL;
+            case OCEAN:
+                return Material.WATER_BUCKET;
+            case NETHER:
+                return Material.NETHERRACK;
+            case THE_END:
+                return Material.END_STONE;
+            case BEACH:
+                return Material.SAND;
+            case RIVER:
+                return Material.WATER_BUCKET;
+            case JUNGLE:
+                return Material.JUNGLE_LOG;
+            case SAVANNA:
+                return Material.ACACIA_LOG;
+            case THE_VOID:
+                return Material.ENDER_PEARL;
+            case COLD_OCEAN:
+                return Material.WATER_BUCKET;
+            case DEEP_OCEAN:
+                return Material.WATER_BUCKET;
+            case ICE_SPIKES:
+                return Material.ICE;
+            case WARM_OCEAN:
+                return Material.WATER_BUCKET;
+            case END_BARRENS:
+                return Material.END_STONE;
+            case JUNGLE_EDGE:
+                return Material.JUNGLE_LOG;
+            case STONE_SHORE:
+                return Material.STONE;
+            case DESERT_LAKES:
+                return Material.WATER_BUCKET;
+            case END_MIDLANDS:
+                return Material.END_STONE;
+            case FROZEN_OCEAN:
+                return Material.ICE;
+            case FROZEN_RIVER:
+                return Material.ICE;
+            case JUNGLE_HILLS:
+                return Material.JUNGLE_LOG;
+            case WOODED_HILLS:
+                return Material.OAK_LOG;
+            case BAMBOO_JUNGLE:
+                return Material.BAMBOO;
+            case END_HIGHLANDS:
+                return Material.END_STONE;
+            case LUKEWARM_OCEAN:
+                return Material.WATER_BUCKET;
+            case DEEP_COLD_OCEAN:
+                return Material.WATER_BUCKET;
+            case DEEP_WARM_OCEAN:
+                return Material.WATER_BUCKET;
+            case MODIFIED_JUNGLE:
+                return Material.JUNGLE_LOG;
+            case MUSHROOM_FIELDS:
+                return Material.RED_MUSHROOM_BLOCK;
+            case SAVANNA_PLATEAU:
+                return Material.ACACIA_LOG;
+            case GIANT_TREE_TAIGA:
+                return Material.SPRUCE_LOG;
+            case SUNFLOWER_PLAINS:
+                return Material.SUNFLOWER;
+            case DEEP_FROZEN_OCEAN:
+                return Material.ICE;
+            case SHATTERED_SAVANNA:
+                return Material.ACACIA_LOG;
+            case SMALL_END_ISLANDS:
+                return Material.END_STONE;
+            case GIANT_SPRUCE_TAIGA:
+                return Material.SPRUCE_LOG;
+            case BAMBOO_JUNGLE_HILLS:
+                return Material.BAMBOO;
+            case DEEP_LUKEWARM_OCEAN:
+                return Material.WATER_BUCKET;
+            case MODIFIED_JUNGLE_EDGE:
+                return Material.JUNGLE_LOG;
+            case MUSHROOM_FIELD_SHORE:
+                return Material.RED_MUSHROOM;
+            case GIANT_TREE_TAIGA_HILLS:
+                return Material.SPRUCE_LOG;
+            case GIANT_SPRUCE_TAIGA_HILLS:
+                return Material.SPRUCE_LOG;
+            case SHATTERED_SAVANNA_PLATEAU:
+                return Material.ACACIA_LOG;
+            case MODIFIED_WOODED_BADLANDS_PLATEAU:
+                return Material.RED_TERRACOTTA;
             default:
-                return Material.GRAY_TERRACOTTA;
+                return Material.CYAN_TERRACOTTA;
         }
     }
 
