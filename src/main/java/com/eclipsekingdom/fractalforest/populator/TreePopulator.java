@@ -79,8 +79,8 @@ public class TreePopulator extends BlockPopulator {
                         int z = chunkZ + random.nextInt(15);
                         Location location = getHighestValid(world, x, z);
                         if (location != null) {
-                            ITree tree = spawner.getSpecies().getIndividual(location);
-                            tree.grow(0);
+                            ITree tree = spawner.getSpecies().getIndividual(null, location);
+                            tree.growInstant();
                         }
                     }
 

@@ -30,3 +30,5 @@ Tree specific spawn conditions
 * display enabled/disabled populators differently in /list
 
 -- update --
+* small menu bug fixes and visual changes
+* removed color formatting from language file

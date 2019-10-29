@@ -11,6 +11,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
+import static com.eclipsekingdom.fractalforest.util.language.Message.STATUS_TPOP_DISABLED;
+import static com.eclipsekingdom.fractalforest.util.language.Message.STATUS_TPOP_ENABLED;
+
 public class Home extends PopPageContents {
 
     @Override
@@ -24,7 +27,7 @@ public class Home extends PopPageContents {
         menu.setItem(14, Icons.BACKGROUND_ITEM);
         boolean enabled = pop.isEnabled();
         Material material = enabled? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE;
-        String label = enabled? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled";
+        String label = enabled? ChatColor.GREEN + STATUS_TPOP_ENABLED.toString() : ChatColor.RED + STATUS_TPOP_DISABLED.toString();
         menu.setItem(15, Icons.createIcon(material, label));
         menu.setItem(16, Icons.BACKGROUND_ITEM);
         menu.setItem(22, Icons.CLOSE);

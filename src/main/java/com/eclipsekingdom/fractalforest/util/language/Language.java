@@ -1,6 +1,7 @@
 package com.eclipsekingdom.fractalforest.util.language;
 
 import com.eclipsekingdom.fractalforest.util.ConsoleSender;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -46,7 +47,7 @@ public class Language {
         try{
             config.save(file);
         } catch (Exception e){
-            ConsoleSender.sendMessage(CONSOLE_FILE_ERROR.getFromFile(file.getName()));
+            ConsoleSender.sendMessage(ChatColor.RED + CONSOLE_FILE_ERROR.getFromFile(file.getName()));
         }
     }
 

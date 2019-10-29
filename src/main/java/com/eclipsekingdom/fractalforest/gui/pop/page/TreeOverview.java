@@ -35,7 +35,7 @@ public class TreeOverview extends PopPageContents {
             int index = i + 10;
             if (treeSpawnerSize > i + offset) {
                 TreeSpawner treeSpawner = spawners.get(i + offset);
-                menu.setItem(index, Icons.createTreeSpawner(treeSpawner));
+                menu.setItem(index, Icons.createTreeSpawnerType(treeSpawner));
                 if (treeSpawnerSize > 1) {
                     menu.setItem(index + 9, Icons.createIcon(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "X"));
                 } else {

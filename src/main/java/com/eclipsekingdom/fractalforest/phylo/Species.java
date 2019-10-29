@@ -9,6 +9,7 @@ import com.eclipsekingdom.fractalforest.util.theme.ThemeType;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -39,30 +40,30 @@ public enum Species {
         this.scale = scale;
     }
 
-    public ITree getIndividual(Location seed) {
+    public ITree getIndividual(Player planter, Location seed) {
         switch (this) {
             case MAGNOLIA:
-                return new FractalTreeBuilder(seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.MAGNOLIA.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.MAGNOLIA.value()));
             case BUCK_EYE:
-                return new FractalTreeBuilder(seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.BUCK_EYE.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.BUCK_EYE.value()));
             case OAK:
-                return new FractalTreeBuilder(seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.OAK.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.OAK.value()));
             case FALL_OAK:
-                return new FractalTreeBuilder(seed, ThemeType.FALL_OAK.value(), new FractalGrowthPattern(GenomeType.OAK.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.FALL_OAK.value(), new FractalGrowthPattern(GenomeType.OAK.value()));
             case ELM:
-                return new FractalTreeBuilder(seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.ELM.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.ELM.value()));
             case FALL_ELM:
-                return new FractalTreeBuilder(seed, ThemeType.FALL_ELM.value(), new FractalGrowthPattern(GenomeType.ELM.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.FALL_ELM.value(), new FractalGrowthPattern(GenomeType.ELM.value()));
             case BIRCH:
-                return new FractalTreeBuilder(seed, ThemeType.BIRCH.value(), new FractalGrowthPattern(GenomeType.BIRCH.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.BIRCH.value(), new FractalGrowthPattern(GenomeType.BIRCH.value()));
             case FALL_BIRCH:
-                return new FractalTreeBuilder(seed, ThemeType.FALL_BIRCH.value(), new FractalGrowthPattern(GenomeType.BIRCH.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.FALL_BIRCH.value(), new FractalGrowthPattern(GenomeType.BIRCH.value()));
             case FALL_MAPLE:
-                return new FractalTreeBuilder(seed, ThemeType.FALL_MAPLE.value(), new FractalGrowthPattern(GenomeType.OAK.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.FALL_MAPLE.value(), new FractalGrowthPattern(GenomeType.OAK.value()));
             case WEIRWOOD:
-                return new FractalTreeBuilder(seed, ThemeType.WEIRWOOD.value(), new FractalGrowthPattern(GenomeType.WEIRWOOD.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.WEIRWOOD.value(), new FractalGrowthPattern(GenomeType.WEIRWOOD.value()));
             case FLOWERING_HAWTHORN:
-                return new FractalTreeBuilder(seed, ThemeType.FLOWERING_HAWTHORN.value(), new FractalGrowthPattern(GenomeType.BUCK_EYE.value()));
+                return new FractalTreeBuilder(planter, seed, ThemeType.FLOWERING_HAWTHORN.value(), new FractalGrowthPattern(GenomeType.BUCK_EYE.value()));
             default:
                 return null;
         }

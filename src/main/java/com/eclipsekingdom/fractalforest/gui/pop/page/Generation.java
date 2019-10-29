@@ -123,7 +123,7 @@ public class Generation extends PopPageContents {
                         player.openInventory(trees.getInventory(popSessionData));
                         popSessionData.setTransitioning(false);
                     }
-                }else{
+                }else if(!isCorner(slot)){
                     int top = slot%9 + 9;
                     ItemStack biomeItem = menu.getItem(top);
                     if(biomeItem != null){
@@ -132,7 +132,7 @@ public class Generation extends PopPageContents {
                             Biome biome = Biome.valueOf(biomeItem.getItemMeta().getDisplayName());
                             List<TreeSpawner> treeSpawners = pop.getBiomeToTreeSpawner().get(biome);
                             ItemStack spawnStack = menu.getItem(slot);
-                            if(spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType()){
+                            if(spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType() && spawnStack.getType() != Material.WRITABLE_BOOK){
                                 ItemMeta meta = spawnStack.getItemMeta();
                                 String name = meta.getDisplayName();
                                 for(TreeSpawner treeSpawner: treeSpawners){
@@ -155,6 +155,11 @@ public class Generation extends PopPageContents {
                 }
             }
         }
+    }
+
+
+    private boolean isCorner(int slot) {
+        return slot % 9 == 0 || (slot + 1) % 9 == 0;
     }
 
 }

@@ -44,6 +44,15 @@ public class Icons {
         return itemStack;
     }
 
+    public static ItemStack createTreeSpawnerType(TreeSpawner treeSpawner) {
+        Species species = treeSpawner.getSpecies();
+        ItemStack itemStack = new ItemStack(species.getSapling().getType());
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setDisplayName(species.toString());
+        itemStack.setItemMeta(meta);
+        return itemStack;
+    }
+
 
     public static ItemStack createSpecies(Species species) {
         ItemStack itemStack = new ItemStack(species.getSapling().getType());

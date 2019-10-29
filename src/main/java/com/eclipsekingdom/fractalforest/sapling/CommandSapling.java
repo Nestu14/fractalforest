@@ -9,6 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import static com.eclipsekingdom.fractalforest.util.language.Message.WARN_NO_PERMISSION;
+
 public class CommandSapling implements CommandExecutor {
 
     @Override
@@ -42,7 +44,7 @@ public class CommandSapling implements CommandExecutor {
                     player.sendMessage(ChatColor.RED + "Format is /sapling [type]");
                 }
             }else{
-                player.sendMessage(ChatColor.RED + "You do not have permission for this command");
+                player.sendMessage(ChatColor.RED + WARN_NO_PERMISSION.toString());
             }
 
         }

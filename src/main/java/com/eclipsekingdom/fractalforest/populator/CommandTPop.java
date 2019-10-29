@@ -34,7 +34,7 @@ public class CommandTPop implements CommandExecutor {
                     } else if (subCommand.equalsIgnoreCase("delete")) {
                         processRemove(player, args);
                     } else if (subCommand.equalsIgnoreCase("list")) {
-                        processStormListRequest(player);
+                        processPopListRequest(player);
                     } else {
                         PluginHelp.showPop(player);
                     }
@@ -42,7 +42,7 @@ public class CommandTPop implements CommandExecutor {
                     PluginHelp.showPop(player);
                 }
             } else {
-                sender.sendMessage(ChatColor.RED + "You do not have permission for this command");
+                sender.sendMessage(ChatColor.RED + WARN_NO_PERMISSION.toString());
             }
         }
 
@@ -60,7 +60,7 @@ public class CommandTPop implements CommandExecutor {
                 player.sendMessage(ChatColor.RED + status.message);
             }
         }else{
-            player.sendMessage(WARN_TPOP_EXISTS.getFromPop(name));
+            player.sendMessage(WARN_TPOP_EXISTS.getColoredFromPop(name, ChatColor.RED));
         }
     }
 
@@ -71,10 +71,10 @@ public class CommandTPop implements CommandExecutor {
                 TreePopulator pop = PopCache.getPopulator(name);
                 LivePopSessions.launch(player, pop, false);
             } else {
-                player.sendMessage(WARN_TPOP_NOT_FOUND.getFromPop(name));
+                player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(name, ChatColor.RED));
             }
         } else {
-            player.sendMessage(FORMAT_EDIT_TPOP.toString());
+            player.sendMessage(ChatColor.RED + FORMAT_EDIT_TPOP.toString());
         }
     }
 
@@ -87,15 +87,15 @@ public class CommandTPop implements CommandExecutor {
                 NameStatus status = NameValidation.clean(to);
                 if (status == NameStatus.VALID) {
                     pop.setName(to);
-                    player.sendMessage(SUCCESS_TPOP_RENAME.getFromPop(to));
+                    player.sendMessage(SUCCESS_TPOP_RENAME.getColoredFromPop(to, ChatColor.GREEN));
                 } else {
                     player.sendMessage(ChatColor.RED + status.message);
                 }
             } else {
-                player.sendMessage(WARN_TPOP_NOT_FOUND.getFromPop(args[1]));
+                player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));
             }
         } else {
-            player.sendMessage(SUGGEST_TPOP_HELP.toString());
+            player.sendMessage(ChatColor.RED + SUGGEST_TPOP_HELP.toString());
         }
     }
 
@@ -104,16 +104,16 @@ public class CommandTPop implements CommandExecutor {
             TreePopulator pop = PopCache.getPopulator(args[1]);
             if (pop != null) {
                 PopCache.removePopulator(pop);
-                player.sendMessage(SUCCESS_TPOP_REMOVE.getFromPop(pop.getName()));
+                player.sendMessage(SUCCESS_TPOP_REMOVE.getColoredFromPop(pop.getName(), ChatColor.GREEN));
             } else {
-                player.sendMessage(WARN_TPOP_NOT_FOUND.getFromPop(args[1]));
+                player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));
             }
         } else {
-            player.sendMessage(SUGGEST_TPOP_HELP.toString());
+            player.sendMessage(ChatColor.RED + SUGGEST_TPOP_HELP.toString());
         }
     }
 
-    public static void processStormListRequest(Player player) {
+    public static void processPopListRequest(Player player) {
         player.sendMessage(ChatColor.GOLD + "- - - Tree Populators - - -");
         boolean found = false;
         for (TreePopulator pop : PopCache.getPopulators()) {

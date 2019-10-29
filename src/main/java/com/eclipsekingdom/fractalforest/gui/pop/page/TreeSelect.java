@@ -31,7 +31,7 @@ public class TreeSelect extends PopPageContents {
         for (Species species : Species.values()) {
             if (!containsSpecies(currentSpawners, species)) {
                 if (index < 44) {
-                    menu.setItem(index, Icons.createTreeSpawner(TreeSpawner.defaultTreeSpawner(species)));
+                    menu.setItem(index, Icons.createTreeSpawnerType(TreeSpawner.defaultTreeSpawner(species)));
                 }
                 if ((index + 2) % 9 == 0) {
                     index += 3;

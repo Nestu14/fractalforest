@@ -3,6 +3,7 @@ package com.eclipsekingdom.fractalforest.populator;
 import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.util.ConsoleSender;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -105,7 +106,7 @@ public class PopFlatFile {
                         tPops.add(populator);
                     }
                 } catch (Exception e) {
-                    ConsoleSender.sendMessage(CONSOLE_TPOP_ERROR.getFromPop(name));
+                    ConsoleSender.sendMessage(CONSOLE_TPOP_ERROR.getColoredFromPop(name, ChatColor.RESET));
                 }
             }
         }
@@ -117,7 +118,7 @@ public class PopFlatFile {
         try {
             config.save(file);
         } catch (Exception e) {
-            ConsoleSender.sendMessage(CONSOLE_FILE_ERROR.getFromFile(file.getName()));
+            ConsoleSender.sendMessage(ChatColor.RED + CONSOLE_FILE_ERROR.getFromFile(file.getName()));
         }
     }
 

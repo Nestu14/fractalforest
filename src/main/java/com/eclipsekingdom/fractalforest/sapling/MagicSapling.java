@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class MagicSapling extends BukkitRunnable {
@@ -17,9 +18,9 @@ public class MagicSapling extends BukkitRunnable {
     private Block saplingBlock;
     private ITree tree;
 
-    public MagicSapling(Species species, Location seed) {
+    public MagicSapling(Player planter, Species species, Location seed) {
         this.seed = seed;
-        this.tree = species.getIndividual(seed);
+        this.tree = species.getIndividual(planter, seed);
         this.saplingBlock = seed.getBlock();
         runTaskTimer(FractalForest.plugin, 0, 20 * 1);
     }
@@ -29,7 +30,7 @@ public class MagicSapling extends BukkitRunnable {
         if (Tag.SAPLINGS.isTagged(saplingBlock.getType())) {
             if (countdown <= 0) {
                 SaplingListener.locationToSapling.remove(saplingBlock.getLocation());
-                tree.grow(PluginConfig.getPhasePeriod());
+                tree.growPhased(PluginConfig.getPhasePeriod());
                 cancel();
             } else {
                 seed.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, seed, 9, 0.5,0.7,0.5);
