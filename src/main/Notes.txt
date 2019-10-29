@@ -32,3 +32,7 @@ Tree specific spawn conditions
 -- update --
 * small menu bug fixes and visual changes
 * removed color formatting from language file
+* prevented simultaneous edit conflict by only allowing one player to edit tree populator at a time
+* added core protect
+* added towny, pplot, worldguard, redprotect, griefprevention
+* save populator after edit to prevent data loss on crash

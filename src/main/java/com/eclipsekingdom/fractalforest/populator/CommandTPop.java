@@ -50,17 +50,23 @@ public class CommandTPop implements CommandExecutor {
     }
 
     private void processCreate(Player player, String[] args) {
+
+
         String name = args.length > 1 ? args[1] : getDefaultString();
         NameStatus status = NameValidation.clean(name);
-        if(!PopCache.hasPopulator(name)){
-            if (status == NameStatus.VALID) {
-                TreePopulator pop = TreePopulator.defaultPopulator(name, player.getWorld());
-                LivePopSessions.launch(player, pop, true);
+        if (!LivePopSessions.isBusy(name)) {
+            if (!PopCache.hasPopulator(name)) {
+                if (status == NameStatus.VALID) {
+                    TreePopulator pop = TreePopulator.defaultPopulator(name, player.getWorld());
+                    LivePopSessions.launch(player, pop, true);
+                } else {
+                    player.sendMessage(ChatColor.RED + status.message);
+                }
             } else {
-                player.sendMessage(ChatColor.RED + status.message);
+                player.sendMessage(WARN_TPOP_EXISTS.getColoredFromPop(name, ChatColor.RED));
             }
-        }else{
-            player.sendMessage(WARN_TPOP_EXISTS.getColoredFromPop(name, ChatColor.RED));
+        } else {
+            player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LivePopSessions.getEditor(name)));
         }
     }
 
@@ -68,8 +74,12 @@ public class CommandTPop implements CommandExecutor {
         if (args.length > 1) {
             String name = args[1];
             if (PopCache.hasPopulator(name)) {
-                TreePopulator pop = PopCache.getPopulator(name);
-                LivePopSessions.launch(player, pop, false);
+                if (!LivePopSessions.isBusy(name)) {
+                    TreePopulator pop = PopCache.getPopulator(name);
+                    LivePopSessions.launch(player, pop, false);
+                } else {
+                    player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LivePopSessions.getEditor(name)));
+                }
             } else {
                 player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(name, ChatColor.RED));
             }

@@ -16,6 +16,7 @@ public enum Message {
     WARN_NO_PERMISSION("Warn - no permission", "You do not have permission for this command"),
     WARN_TPOP_NOT_FOUND("Warn - populator not found", "Populator %pop% not found"),
     WARN_TPOP_EXISTS("Console - populator exists", "A populator named %pop% already exists"),
+    WARN_BUSY_TPOP("Warn - busy populator", "Player %player% is busy editing the requested populator"),
 
     SUCCESS_TPOP_CREATE("Success - populator create", "Populator %pop% was created"),
     SUCCESS_TPOP_RENAME("Success - populator rename", "Populator renamed to %pop%"),
@@ -52,7 +53,7 @@ public enum Message {
     }
 
     private String get() {
-        return messageSetting.getMessage();
+        return ChatColor.translateAlternateColorCodes('&', messageSetting.getMessage());
     }
 
     public String getFromPlugin(String namespace) {
@@ -64,6 +65,11 @@ public enum Message {
     public String getColoredFromPop(String namespace, ChatColor base) {
         return base + get().replaceAll("%pop%", highlight + namespace + base);
     }
+
+    public String getFromPlayer(String playerName) {
+        return get().replaceAll("%player%", playerName);
+    }
+
 
     public String getFromFile(String fileName) {
         return get().replaceAll("%file%", fileName);
