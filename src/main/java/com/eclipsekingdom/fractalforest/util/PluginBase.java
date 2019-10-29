@@ -18,6 +18,7 @@ public class PluginBase {
     public static String redProtectNameSpace = "RedProtect";
     public static String coreProtectNameSpace = "CoreProtect";
     public static String townyNameSpace = "Towny";
+    public static String residenceNameSpace = "Residence";
     public static String griefPreventionNameSpace = "GriefPrevention";
 
     private static ImmutableList<String> possibleRegionDependencies = new ImmutableList.Builder<String>()
@@ -26,6 +27,7 @@ public class PluginBase {
             .add(redProtectNameSpace)
             .add(townyNameSpace)
             .add(griefPreventionNameSpace)
+            .add(residenceNameSpace)
             .build();
 
     private static Map<String, Plugin> regionPlugins = new HashMap<>();

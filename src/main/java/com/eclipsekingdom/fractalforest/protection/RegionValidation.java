@@ -31,6 +31,8 @@ public class RegionValidation {
                 regionProtectors.add(new TownyProtection(plugin));
             } else if (name.equals(PluginBase.griefPreventionNameSpace)) {
                 regionProtectors.add(new GriefPreventionProtection(plugin));
+            } else if (name.equals(PluginBase.residenceNameSpace)) {
+                regionProtectors.add(new ResidenceProtection(plugin));
             }
         }
     }

@@ -5,7 +5,7 @@ api-version: 1.13
 authors: [sword]
 description: A spigot plugin that adds procedurally generated trees to Minecraft
 website: eclipsekingdom.com
-softdepend: [PlayerPlot, WorldGuard, RedProtect, Towny, CoreProtect, GriefPrevention]
+softdepend: [PlayerPlot, WorldGuard, RedProtect, Towny, CoreProtect, GriefPrevention, Residence]
 load: POSTWORLD
 
 commands:
