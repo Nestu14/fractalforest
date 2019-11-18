@@ -46,10 +46,12 @@ public class SaplingListener implements Listener {
                 ItemStack singleSapling = itemStack.clone();
                 singleSapling.setAmount(1);
                 Species species = getSpecies(itemStack);
-                if (e.getPlayer().getGameMode() != GameMode.CREATIVE) itemStack.setAmount(itemStack.getAmount() - 1);
-                Location location = e.getBlock().getLocation();
-                locationToSapling.put(location, singleSapling);
-                new MagicSapling(e.getPlayer(), species, location.clone().add(0.5, 0, 0.5));
+                if(species != null){
+                    if (e.getPlayer().getGameMode() != GameMode.CREATIVE) itemStack.setAmount(itemStack.getAmount() - 1);
+                    Location location = e.getBlock().getLocation();
+                    locationToSapling.put(location, singleSapling);
+                    new MagicSapling(e.getPlayer(), species, location.clone().add(0.5, 0, 0.5));
+                }
             }
         }
     }

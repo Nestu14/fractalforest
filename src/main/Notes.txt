@@ -30,9 +30,6 @@ Tree specific spawn conditions
 * display enabled/disabled populators differently in /list
 
 -- update --
-* small menu bug fixes and visual changes
-* removed color formatting from language file
-* prevented simultaneous edit conflict by only allowing one player to edit tree populator at a time
-* added core protect
-* added towny, pplot, worldguard, redprotect, griefprevention, residence
-* save populator after edit to prevent data loss on crash
+
+* sapling item error handling if species not recognized
+* new player plot API

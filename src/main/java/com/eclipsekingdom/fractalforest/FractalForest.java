@@ -39,5 +39,6 @@ public final class FractalForest extends JavaPlugin {
         SaplingListener.shutdown();
         LivePopSessions.disable();
         PopCache.save();
+        RegionValidation.shutdown();
     }
 }

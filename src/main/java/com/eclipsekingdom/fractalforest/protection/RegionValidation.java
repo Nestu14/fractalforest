@@ -1,6 +1,8 @@
 package com.eclipsekingdom.fractalforest.protection;
 
+import com.eclipsekingdom.fractalforest.FractalForest;
 import com.eclipsekingdom.fractalforest.util.PluginBase;
+import me.angeschossen.lands.api.landsaddons.LandsAddon;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -15,6 +17,14 @@ public class RegionValidation {
 
     public RegionValidation(PluginBase pluginBase) {
         loadProtections(pluginBase);
+    }
+
+    private static boolean usingLands = false;
+    private static LandsAddon landsAddon;
+    private static String landsKey;
+
+    public static boolean isUsingLands() {
+        return usingLands;
     }
 
     private void loadProtections(PluginBase pluginBase) {
@@ -33,6 +43,11 @@ public class RegionValidation {
                 regionProtectors.add(new GriefPreventionProtection(plugin));
             } else if (name.equals(PluginBase.residenceNameSpace)) {
                 regionProtectors.add(new ResidenceProtection(plugin));
+            } else if (name.equals(PluginBase.landsNameSpace)) {
+                this.landsAddon = new LandsAddon(FractalForest.plugin, false);
+                this.landsKey = landsAddon.initialize();
+                regionProtectors.add(new LandsProtection(landsAddon));
+                usingLands = true;
             }
         }
     }
@@ -44,6 +59,12 @@ public class RegionValidation {
             }
         }
         return true;
+    }
+
+    public static void shutdown() {
+        if (isUsingLands()) {
+            landsAddon.disable(landsKey);
+        }
     }
 
 }
