@@ -1,8 +1,8 @@
 package com.eclipsekingdom.fractalforest.gui;
 
-import com.eclipsekingdom.fractalforest.populator.TreePopulator;
-import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
-import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
+import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
+import com.eclipsekingdom.fractalforest.gen.pop.TreeSpawner;
+import com.eclipsekingdom.fractalforest.gen.pop.util.TreeBiome;
 
 public class PopData {
 

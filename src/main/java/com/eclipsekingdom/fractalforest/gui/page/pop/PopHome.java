@@ -5,12 +5,11 @@ import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
-import com.eclipsekingdom.fractalforest.populator.TreePopulator;
-import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
-import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
+import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
+import com.eclipsekingdom.fractalforest.gen.pop.TreeSpawner;
+import com.eclipsekingdom.fractalforest.gen.pop.util.TreeBiome;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class Generation implements PageContents {
+public class PopHome implements PageContents {
 
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
@@ -35,7 +34,7 @@ public class Generation implements PageContents {
                 biomes.add(biome);
             }
         }
-        menu.setItem(4, Icons.createIcon(Material.WHEAT_SEEDS, ChatColor.GREEN + "Generator"));
+        menu.setItem(4, Icons.createIcon(Material.NAME_TAG, ChatColor.GRAY + pop.getName()));
 
         int offset = sessionData.getPageOffsetX();
         int biomesSize = biomeToTreeSpawners.size();

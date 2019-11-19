@@ -4,7 +4,7 @@ import com.eclipsekingdom.fractalforest.gui.*;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
-import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
+import com.eclipsekingdom.fractalforest.gen.pop.TreeSpawner;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

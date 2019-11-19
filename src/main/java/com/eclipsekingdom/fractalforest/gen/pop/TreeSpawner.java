@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.populator;
+package com.eclipsekingdom.fractalforest.gen.pop;
 
 import com.eclipsekingdom.fractalforest.phylo.Species;
 

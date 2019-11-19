@@ -1,8 +1,8 @@
-package com.eclipsekingdom.fractalforest.populator;
+package com.eclipsekingdom.fractalforest.gen.pop;
 
 import com.eclipsekingdom.fractalforest.Permissions;
+import com.eclipsekingdom.fractalforest.gen.pop.util.NameValidation;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
-import com.eclipsekingdom.fractalforest.populator.util.NameValidation;
 import com.eclipsekingdom.fractalforest.util.PluginHelp;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -56,7 +56,7 @@ public class CommandTPop implements CommandExecutor {
         if (!LiveSessions.isBusyPopBusy(name)) {
             if (!PopCache.hasPopulator(name)) {
                 if (status == NameValidation.Status.VALID) {
-                    TreePopulator pop = TreePopulator.defaultPopulator(name, player.getWorld());
+                    TreePopulator pop = TreePopulator.defaultPopulator(name);
                     LiveSessions.launchPop(player, pop, true);
                 } else {
                     player.sendMessage(ChatColor.RED + status.message);

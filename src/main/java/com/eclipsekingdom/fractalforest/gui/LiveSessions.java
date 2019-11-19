@@ -1,9 +1,9 @@
 package com.eclipsekingdom.fractalforest.gui;
 
+import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
+import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.gui.page.Page;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
-import com.eclipsekingdom.fractalforest.populator.PopCache;
-import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -26,8 +26,8 @@ public class LiveSessions {
     public static void launchPop(Player player, TreePopulator populator, boolean initialCreate) {
         end(player);
         UUID playerID = player.getUniqueId();
-        Page home = PageType.HOME.getPage();
-        SessionData sessionData = new SessionData(home);
+        Page home = PageType.POP_HOME.getPage();
+        SessionData sessionData = new SessionData(SessionData.Type.POP, home);
         PopData popData = new PopData(populator, initialCreate);
         sessionData.setPopData(popData);
         playerToData.put(playerID, sessionData);
@@ -38,7 +38,17 @@ public class LiveSessions {
         end(player);
         UUID playerID = player.getUniqueId();
         Page home = PageType.SAPLING_OVERVIEW.getPage();
-        SessionData sessionData = new SessionData(home);
+        SessionData sessionData = new SessionData(SessionData.Type.SAP, home);
+        playerToData.put(playerID, sessionData);
+        player.openInventory(home.getInventory(sessionData));
+    }
+
+    public static void launchGen(Player player) {
+        end(player);
+        UUID playerID = player.getUniqueId();
+        Page home = PageType.GEN_HOME.getPage();
+        SessionData sessionData = new SessionData(SessionData.Type.GEN, home);
+        sessionData.setGenData(new GenData());
         playerToData.put(playerID, sessionData);
         player.openInventory(home.getInventory(sessionData));
     }
@@ -67,7 +77,7 @@ public class LiveSessions {
 
     public static boolean isBusyPopBusy(String popName) {
         for (SessionData data : playerToData.values()) {
-            if (data.getPopData() != null && data.getPopData().getPopulator().getName().equalsIgnoreCase(popName)) {
+            if (data.getType() == SessionData.Type.POP && data.getPopData().getPopulator().getName().equalsIgnoreCase(popName)) {
                 return true;
             }
         }
@@ -77,7 +87,7 @@ public class LiveSessions {
     public static String getPopEditor(String popName) {
         for (Map.Entry<UUID, SessionData> entry : playerToData.entrySet()) {
             SessionData data = entry.getValue();
-            if (data.getPopData() != null && data.getPopData().getPopulator().getName().equalsIgnoreCase(popName)) {
+            if (data.getType() == SessionData.Type.POP && data.getPopData().getPopulator().getName().equalsIgnoreCase(popName)) {
                 return getPlayerName(entry.getKey());
             }
         }
@@ -96,6 +106,25 @@ public class LiveSessions {
                 return "";
             }
         }
+    }
+
+    public static boolean isBusyGen() {
+        for (SessionData data : playerToData.values()) {
+            if (data.getType() == SessionData.Type.GEN) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getGenEditor() {
+        for (Map.Entry<UUID, SessionData> entry : playerToData.entrySet()) {
+            SessionData data = entry.getValue();
+            if (data.getType() == SessionData.Type.GEN) {
+                return getPlayerName(entry.getKey());
+            }
+        }
+        return "";
     }
 
 }

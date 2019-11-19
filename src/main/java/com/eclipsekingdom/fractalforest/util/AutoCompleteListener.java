@@ -1,10 +1,8 @@
 package com.eclipsekingdom.fractalforest.util;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
-import com.eclipsekingdom.fractalforest.Permissions;
-import com.eclipsekingdom.fractalforest.phylo.Species;
-import com.eclipsekingdom.fractalforest.populator.PopCache;
-import com.eclipsekingdom.fractalforest.populator.TreePopulator;
+import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
+import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

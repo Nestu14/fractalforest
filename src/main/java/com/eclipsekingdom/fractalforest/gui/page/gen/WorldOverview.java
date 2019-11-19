@@ -1,11 +1,11 @@
-package com.eclipsekingdom.fractalforest.gui.page.pop;
+package com.eclipsekingdom.fractalforest.gui.page.gen;
 
-import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gen.Generator;
+import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
-import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,15 +17,18 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WorldOverview implements PageContents {
 
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
-        PopData popData = sessionData.getPopData();
-        TreePopulator pop = popData.getPopulator();
-        List<World> worlds = pop.getWorlds();
+        /*
+        List<World> worlds = new ArrayList<>();
+        for (World world : Generator.getWorlds()) {
+            worlds.add(world);
+        }
         menu.setItem(4, Icons.createIcon(Material.GRASS_BLOCK, ChatColor.DARK_PURPLE + "Worlds"));
 
         int offset = sessionData.getPageOffsetX();
@@ -36,14 +39,7 @@ public class WorldOverview implements PageContents {
             if (worldsSize > i + offset) {
                 World world = worlds.get(i + offset);
                 Environment environment = world.getEnvironment();
-                Material material;
-                if (environment == Environment.THE_END) {
-                    material = Material.END_STONE;
-                } else if (environment == Environment.NETHER) {
-                    material = Material.NETHERRACK;
-                } else {
-                    material = Material.GRASS_BLOCK;
-                }
+                Material material = getMaterial(environment);
                 menu.setItem(index, Icons.createIcon(material, world.getName()));
                 if (worldsSize > 1) {
                     menu.setItem(index + 9, Icons.createIcon(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "X"));
@@ -63,20 +59,28 @@ public class WorldOverview implements PageContents {
         menu.setItem(30, Icons.createIcon(Material.ARROW, "Scroll Left"));
         menu.setItem(31, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetX()));
         menu.setItem(32, Icons.createIcon(Material.ARROW, "Scroll Right"));
-
+        */
         return menu;
+    }
+
+    private Material getMaterial(Environment environment) {
+        if (environment == Environment.THE_END) {
+            return Material.END_STONE;
+        } else if (environment == Environment.NETHER) {
+            return Material.NETHERRACK;
+        } else {
+            return Material.GRASS_BLOCK;
+        }
     }
 
     @Override
     public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
-        PopData popData = sessionData.getPopData();
         if (slot == 30) {
             sessionData.scrollLeft(player, this, menu);
         } else if (slot == 32) {
             sessionData.scrollRight(player, this, menu);
         } else {
             ItemStack itemStack = menu.getItem(slot);
-            TreePopulator pop = popData.getPopulator();
             if (itemStack != null) {
                 Material material = itemStack.getType();
                 if (material == Material.LIME_STAINED_GLASS_PANE) {
@@ -89,7 +93,7 @@ public class WorldOverview implements PageContents {
                         World world = Bukkit.getWorld(name);
                         if (world != null) {
                             MenuUtil.playClickSound(player);
-                            pop.getWorlds().remove(world);
+                            //Generator.removeWorld(world);
                             populate(menu, sessionData);
                         }
                     }

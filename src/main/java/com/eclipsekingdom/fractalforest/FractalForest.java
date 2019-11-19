@@ -1,9 +1,11 @@
 package com.eclipsekingdom.fractalforest;
 
+import com.eclipsekingdom.fractalforest.gen.CommandTGenerator;
+import com.eclipsekingdom.fractalforest.gen.Generator;
+import com.eclipsekingdom.fractalforest.gen.pop.CommandTPop;
+import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.gui.InputListener;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
-import com.eclipsekingdom.fractalforest.populator.CommandTPop;
-import com.eclipsekingdom.fractalforest.populator.PopCache;
 import com.eclipsekingdom.fractalforest.protection.RegionValidation;
 import com.eclipsekingdom.fractalforest.sapling.CommandSapling;
 import com.eclipsekingdom.fractalforest.sapling.SaplingListener;
@@ -24,10 +26,13 @@ public final class FractalForest extends JavaPlugin {
         new RegionValidation(pluginBase);
 
         new PopCache();
+        new Generator();
+        new LiveSessions();
 
         getCommand("sapling").setExecutor(new CommandSapling());
         getCommand("fractalforest").setExecutor(new CommandFractalForest());
         getCommand("tpop").setExecutor(new CommandTPop());
+        getCommand("tgenerator").setExecutor(new CommandTGenerator());
 
         new AutoCompleteListener();
         new SaplingListener();
@@ -38,6 +43,7 @@ public final class FractalForest extends JavaPlugin {
     public void onDisable() {
         SaplingListener.shutdown();
         LiveSessions.disable();
+        Generator.save();
         PopCache.save();
         RegionValidation.shutdown();
     }

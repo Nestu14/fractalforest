@@ -1,6 +1,6 @@
-package com.eclipsekingdom.fractalforest.populator;
+package com.eclipsekingdom.fractalforest.gen.pop;
 
-import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
+import com.eclipsekingdom.fractalforest.gen.pop.util.TreeBiome;
 import com.eclipsekingdom.fractalforest.trees.ITree;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.*;
@@ -16,51 +16,22 @@ import java.util.Random;
 public class TreePopulator extends BlockPopulator {
 
     private String name;
-    private boolean enabled;
-    private boolean initialized;
-    private List<World> worlds;
     private LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner;
 
-    public static TreePopulator defaultPopulator(String name, World world) {
-        ArrayList<World> worlds = new ArrayList<>();
-        worlds.add(world);
+    public static TreePopulator defaultPopulator(String name) {
         LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner = new LinkedHashMap<>();
         biomeToTreeSpawner.put(TreeBiome.FOREST, TreeSpawner.defaultTreeSpawners());
-        return new TreePopulator(name, worlds, true, biomeToTreeSpawner);
+        return new TreePopulator(name, biomeToTreeSpawner);
     }
 
-    public TreePopulator(String name, List<World> worlds, boolean enabled, LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner) {
-        this.initialized = false;
+    public TreePopulator(String name, LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner) {
         this.name = name;
-        this.worlds = worlds;
-        this.enabled = enabled;
         this.biomeToTreeSpawner = biomeToTreeSpawner;
     }
 
     public void initialize(Player player) {
-        initialize();
-        player.sendMessage(ChatColor.GREEN + "Tree populator " + ChatColor.GRAY + name + ChatColor.GREEN + " created");
-    }
-
-    public void initialize() {
-        initialized = true;
-        addToWorlds();
         PopCache.registerPopulator(this);
-    }
-
-    private void addToWorlds() {
-        for (World world : worlds) {
-            if (world != null) {
-                List<BlockPopulator> populators = world.getPopulators();
-                for (int i = populators.size() - 1; i >= 0; i--) {
-                    BlockPopulator populator = populators.get(i);
-                    if (populator.toString().contains("TreePopulator")) {
-                        populators.remove(populator);
-                    }
-                }
-                world.getPopulators().add(this);
-            }
-        }
+        player.sendMessage(ChatColor.GREEN + "Tree pop " + ChatColor.GRAY + name + ChatColor.GREEN + " created");
     }
 
     @Override
@@ -144,27 +115,6 @@ public class TreePopulator extends BlockPopulator {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<World> getWorlds() {
-        return worlds;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        if (initialized) {
-            if (enabled) {
-                addToWorlds();
-            } else {
-                for (World world : worlds) {
-                    world.getPopulators().remove(this);
-                }
-            }
-        }
     }
 
     public LinkedHashMap<TreeBiome, List<TreeSpawner>> getBiomeToTreeSpawner() {

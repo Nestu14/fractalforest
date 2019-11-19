@@ -17,6 +17,9 @@ commands:
   tpop:
     description: edit tree populators
     permission: forest.pop
+  tgenerator:
+    description: edit the tree generator
+    permission: forest.gen
 
 permissions:
   forest.*:
@@ -27,4 +30,7 @@ permissions:
     default: op
   forest.pop:
     description: grants access to tpop command
+    default: op
+  forest.gen:
+    description: grants access to /tgeneration
     default: op

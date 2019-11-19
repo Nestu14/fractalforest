@@ -1,11 +1,10 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
 import com.eclipsekingdom.fractalforest.phylo.Species;
-import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
-import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
+import com.eclipsekingdom.fractalforest.gen.pop.TreeSpawner;
+import com.eclipsekingdom.fractalforest.gen.pop.util.TreeBiome;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 

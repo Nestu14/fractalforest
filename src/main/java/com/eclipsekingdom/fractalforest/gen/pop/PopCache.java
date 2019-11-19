@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.populator;
+package com.eclipsekingdom.fractalforest.gen.pop;
 
 import java.util.ArrayList;
 import java.util.List;

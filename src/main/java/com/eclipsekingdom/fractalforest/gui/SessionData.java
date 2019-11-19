@@ -10,16 +10,23 @@ import org.bukkit.inventory.Inventory;
 public class SessionData {
 
     private PopData popData;
+    private GenData genData;
+    private Type type;
 
     private Page current;
     private boolean transitioning = false;
     private int pageOffsetX;
     private int pageOffsetY;
 
-    public SessionData(Page start) {
+    public SessionData(Type type, Page start) {
         this.pageOffsetX = 0;
         this.pageOffsetY = 0;
         this.current = start;
+        this.type = type;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public PopData getPopData() {
@@ -28,6 +35,14 @@ public class SessionData {
 
     public void setPopData(PopData popData) {
         this.popData = popData;
+    }
+
+    public GenData getGenData() {
+        return genData;
+    }
+
+    public void setGenData(GenData genData) {
+        this.genData = genData;
     }
 
     public Page getCurrent() {
@@ -86,6 +101,10 @@ public class SessionData {
         }
         MenuUtil.playClickSound(player);
         contents.populate(menu, this);
+    }
+
+    public enum Type {
+        POP, GEN, SAP;
     }
 
 }
