@@ -1,6 +1,7 @@
 package com.eclipsekingdom.fractalforest.populator;
 
 import com.eclipsekingdom.fractalforest.phylo.Species;
+import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
 import com.eclipsekingdom.fractalforest.util.ConsoleSender;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,8 +32,8 @@ public class PopFlatFile {
             }
             config.set(key + ".worlds", worldNames);
             config.set(key + ".enabled", pop.isEnabled());
-            for (Map.Entry<Biome, List<TreeSpawner>> entry : pop.getBiomeToTreeSpawner().entrySet()) {
-                Biome biome = entry.getKey();
+            for (Map.Entry<TreeBiome, List<TreeSpawner>> entry : pop.getBiomeToTreeSpawner().entrySet()) {
+                TreeBiome biome = entry.getKey();
                 List<TreeSpawner> spawners = entry.getValue();
                 String biomeKey = key + ".generator." + biome.toString();
                 for (TreeSpawner spawner : spawners) {
@@ -68,12 +69,12 @@ public class PopFlatFile {
 
                     boolean enabled = config.getBoolean(key + ".enabled", true);
 
-                    LinkedHashMap<Biome, List<TreeSpawner>> biomeToTreeSpawners = new LinkedHashMap<>();
+                    LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawners = new LinkedHashMap<>();
 
                     if (config.contains(key + ".generator")) {
                         for (String biomeString : config.getConfigurationSection(key + ".generator").getKeys(false)) {
                             try {
-                                Biome biome = Biome.valueOf(biomeString);
+                                TreeBiome biome = TreeBiome.valueOf(biomeString);
                                 String biomeKey = key + ".generator." + biomeString;
                                 List<TreeSpawner> spawners = new ArrayList<>();
                                 if (config.contains(biomeKey)) {

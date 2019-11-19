@@ -7,6 +7,7 @@ import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
+import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
@@ -24,7 +25,7 @@ public class TreeSelect implements PageContents {
         PopData popData = sessionData.getPopData();
         TreePopulator pop = popData.getPopulator();
         menu.setItem(4, Icons.createIcon(Material.OAK_SAPLING, "Tree Selection"));
-        Biome biome = popData.getCurrentBiome();
+        TreeBiome biome = popData.getCurrentBiome();
         menu.setItem(8, Icons.createBiome(biome));
 
         List<TreeSpawner> currentSpawners = pop.getBiomeToTreeSpawner().get(biome);
@@ -74,7 +75,7 @@ public class TreeSelect implements PageContents {
                 Species species = Species.valueOf(name);
                 if (species != null) {
                     TreeSpawner treeSpawner = TreeSpawner.defaultTreeSpawner(species);
-                    Biome biome = popData.getCurrentBiome();
+                    TreeBiome biome = popData.getCurrentBiome();
                     popData.getPopulator().getBiomeToTreeSpawner().get(biome).add(treeSpawner);
                     sessionData.transition(player, PageType.TREE_OVERVIEW);
                 }

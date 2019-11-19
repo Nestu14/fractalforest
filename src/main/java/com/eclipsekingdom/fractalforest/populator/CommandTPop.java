@@ -2,8 +2,7 @@ package com.eclipsekingdom.fractalforest.populator;
 
 import com.eclipsekingdom.fractalforest.Permissions;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
-import com.eclipsekingdom.fractalforest.populator.validation.NameStatus;
-import com.eclipsekingdom.fractalforest.populator.validation.NameValidation;
+import com.eclipsekingdom.fractalforest.populator.util.NameValidation;
 import com.eclipsekingdom.fractalforest.util.PluginHelp;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -53,10 +52,10 @@ public class CommandTPop implements CommandExecutor {
 
 
         String name = args.length > 1 ? args[1] : getDefaultString();
-        NameStatus status = NameValidation.clean(name);
+        NameValidation.Status status = NameValidation.clean(name);
         if (!LiveSessions.isBusyPopBusy(name)) {
             if (!PopCache.hasPopulator(name)) {
-                if (status == NameStatus.VALID) {
+                if (status == NameValidation.Status.VALID) {
                     TreePopulator pop = TreePopulator.defaultPopulator(name, player.getWorld());
                     LiveSessions.launchPop(player, pop, true);
                 } else {
@@ -94,8 +93,8 @@ public class CommandTPop implements CommandExecutor {
             TreePopulator pop = PopCache.getPopulator(from);
             if (pop != null) {
                 String to = args[2];
-                NameStatus status = NameValidation.clean(to);
-                if (status == NameStatus.VALID) {
+                NameValidation.Status status = NameValidation.clean(to);
+                if (status == NameValidation.Status.VALID) {
                     pop.setName(to);
                     player.sendMessage(SUCCESS_TPOP_RENAME.getColoredFromPop(to, ChatColor.GREEN));
                 } else {

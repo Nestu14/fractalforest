@@ -7,8 +7,8 @@ import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
+import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
 import org.bukkit.Material;
-import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
@@ -26,13 +26,13 @@ public class BiomeSelect implements PageContents {
         PopData popData = sessionData.getPopData();
         TreePopulator pop = popData.getPopulator();
         menu.setItem(4, Icons.createIcon(Material.GRASS_BLOCK, "Biome Selection"));
-        Set<Biome> currentBiomes = pop.getBiomeToTreeSpawner().keySet();
+        Set<TreeBiome> currentBiomes = pop.getBiomeToTreeSpawner().keySet();
 
 
         int offsetY = sessionData.getPageOffsetY();
-        List<Biome> biomes = new ArrayList<>();
-        for (Biome biome : Biome.values()) {
-            if (!currentBiomes.contains(biome)) {
+        List<TreeBiome> biomes = new ArrayList<>();
+        for (TreeBiome biome : TreeBiome.values()) {
+            if (!currentBiomes.contains(biome) && biome != TreeBiome.NONE) {
                 biomes.add(biome);
             }
         }
@@ -40,7 +40,7 @@ public class BiomeSelect implements PageContents {
         int index = 10;
         for (int i = 0; i < 28; i++) {
             int biomeIndex = i + (7 * offsetY);
-            if (biomeIndex < biomes.size() ) {
+            if (biomeIndex < biomes.size()) {
                 menu.setItem(index, Icons.createBiome(biomes.get(biomeIndex)));
             } else {
                 menu.setItem(index, Icons.BACKGROUND_ITEM);
@@ -68,7 +68,7 @@ public class BiomeSelect implements PageContents {
                 ItemMeta meta = itemStack.getItemMeta();
                 String name = meta.hasDisplayName() ? meta.getDisplayName() : "";
                 try {
-                    Biome biome = Biome.valueOf(name);
+                    TreeBiome biome = TreeBiome.valueOf(name);
                     TreePopulator pop = popData.getPopulator();
                     pop.getBiomeToTreeSpawner().put(biome, TreeSpawner.defaultTreeSpawners());
                     sessionData.transition(player, PageType.BIOME_OVERVIEW);

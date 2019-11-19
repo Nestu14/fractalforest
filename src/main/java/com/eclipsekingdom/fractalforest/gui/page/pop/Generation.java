@@ -1,12 +1,13 @@
 package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.PopData;
+import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
-import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
+import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -19,7 +20,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Generation implements PageContents {
 
@@ -28,10 +28,12 @@ public class Generation implements PageContents {
         PopData popData = sessionData.getPopData();
         TreePopulator pop = popData.getPopulator();
 
-        LinkedHashMap<Biome, List<TreeSpawner>> biomeToTreeSpawners = pop.getBiomeToTreeSpawner();
-        List<Biome> biomes = new ArrayList<>();
-        for (Biome biome : biomeToTreeSpawners.keySet()) {
-            biomes.add(biome);
+        LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawners = pop.getBiomeToTreeSpawner();
+        List<TreeBiome> biomes = new ArrayList<>();
+        for (TreeBiome biome : biomeToTreeSpawners.keySet()) {
+            if(biome != TreeBiome.NONE){
+                biomes.add(biome);
+            }
         }
         menu.setItem(4, Icons.createIcon(Material.WHEAT_SEEDS, ChatColor.GREEN + "Generator"));
 
@@ -41,7 +43,8 @@ public class Generation implements PageContents {
         for (int i = 0; i < 7; i++) {
             int index = i + 10;
             if (biomesSize > i + offset) {
-                createColumn(menu, index, biomes.get(i + offset), biomeToTreeSpawners, sessionData.getPageOffsetY());
+                TreeBiome biome = biomes.get(i + offset);
+                createColumn(menu, index, biome, biomeToTreeSpawners.get(biome), sessionData.getPageOffsetY());
             } else {
                 if (biomesSize > i - 1 + offset) {
                     menu.setItem(index, Icons.createIcon(Material.WRITABLE_BOOK, ChatColor.GRAY + "Edit"));
@@ -66,9 +69,8 @@ public class Generation implements PageContents {
         return menu;
     }
 
-    private void createColumn(Inventory menu, int column, Biome biome, Map<Biome, List<TreeSpawner>> biomeToTreeSpawners, int offsetY) {
+    private void createColumn(Inventory menu, int column, TreeBiome biome, List<TreeSpawner> treeSpawners, int offsetY) {
         menu.setItem(column, Icons.createBiome(biome));
-        List<TreeSpawner> treeSpawners = biomeToTreeSpawners.get(biome);
         int offset = offsetY;
         int spawnersSize = treeSpawners.size();
         for (int i = 0; i < 3; i++) {
@@ -106,7 +108,7 @@ public class Generation implements PageContents {
                     } else {
                         int top = slot % 9 + 9;
                         ItemStack biomeItem = menu.getItem(top);
-                        Biome biome = Biome.valueOf(biomeItem.getItemMeta().getDisplayName());
+                        TreeBiome biome = TreeBiome.valueOf(biomeItem.getItemMeta().getDisplayName());
                         popData.setCurrentBiome(biome);
                         sessionData.transition(player, PageType.TREE_OVERVIEW);
                     }
@@ -116,7 +118,7 @@ public class Generation implements PageContents {
                     if (biomeItem != null) {
                         TreePopulator pop = popData.getPopulator();
                         try {
-                            Biome biome = Biome.valueOf(biomeItem.getItemMeta().getDisplayName());
+                            TreeBiome biome = TreeBiome.valueOf(biomeItem.getItemMeta().getDisplayName());
                             List<TreeSpawner> treeSpawners = pop.getBiomeToTreeSpawner().get(biome);
                             ItemStack spawnStack = menu.getItem(slot);
                             if (spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType() && spawnStack.getType() != Material.WRITABLE_BOOK) {

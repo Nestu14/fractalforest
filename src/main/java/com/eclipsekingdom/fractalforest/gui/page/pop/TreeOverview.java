@@ -8,6 +8,8 @@ import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
+import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
+import com.eclipsekingdom.fractalforest.trees.Tree;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -25,7 +27,7 @@ public class TreeOverview implements PageContents {
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
         TreePopulator pop = popData.getPopulator();
-        Biome biome = popData.getCurrentBiome();
+        TreeBiome biome = popData.getCurrentBiome();
         List<TreeSpawner> spawners = pop.getBiomeToTreeSpawner().get(biome);
 
         menu.setItem(4, Icons.createIcon(Material.WRITABLE_BOOK, ChatColor.DARK_GRAY + "Edit Tree Spawners"));
@@ -82,7 +84,7 @@ public class TreeOverview implements PageContents {
                         String name = meta.hasDisplayName() ? meta.getDisplayName() : "";
                         Species species = Species.from(name);
                         if (species != null) {
-                            Biome biome = popData.getCurrentBiome();
+                            TreeBiome biome = popData.getCurrentBiome();
                             List<TreeSpawner> spawners = pop.getBiomeToTreeSpawner().get(biome);
                             for (TreeSpawner spawner : spawners) {
                                 if (spawner.getSpecies() == species) {

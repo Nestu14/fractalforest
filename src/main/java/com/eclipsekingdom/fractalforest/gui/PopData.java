@@ -2,13 +2,13 @@ package com.eclipsekingdom.fractalforest.gui;
 
 import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
-import org.bukkit.block.Biome;
+import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
 
 public class PopData {
 
     private TreePopulator populator;
     private boolean initialCreate;
-    private Biome currentBiome;
+    private TreeBiome currentBiome;
     private TreeSpawner currentSpawner;
 
     public PopData(TreePopulator populator, boolean initialCreate) {
@@ -28,11 +28,11 @@ public class PopData {
         return currentBiome != null;
     }
 
-    public Biome getCurrentBiome() {
+    public TreeBiome getCurrentBiome() {
         return currentBiome;
     }
 
-    public void setCurrentBiome(Biome currentBiome) {
+    public void setCurrentBiome(TreeBiome currentBiome) {
         this.currentBiome = currentBiome;
     }
 

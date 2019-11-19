@@ -1,9 +1,9 @@
 package com.eclipsekingdom.fractalforest.populator;
 
+import com.eclipsekingdom.fractalforest.populator.util.TreeBiome;
 import com.eclipsekingdom.fractalforest.trees.ITree;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.*;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
@@ -19,17 +19,17 @@ public class TreePopulator extends BlockPopulator {
     private boolean enabled;
     private boolean initialized;
     private List<World> worlds;
-    private LinkedHashMap<Biome, List<TreeSpawner>> biomeToTreeSpawner;
+    private LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner;
 
     public static TreePopulator defaultPopulator(String name, World world) {
         ArrayList<World> worlds = new ArrayList<>();
         worlds.add(world);
-        LinkedHashMap<Biome, List<TreeSpawner>> biomeToTreeSpawner = new LinkedHashMap<>();
-        biomeToTreeSpawner.put(Biome.FOREST, TreeSpawner.defaultTreeSpawners());
+        LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner = new LinkedHashMap<>();
+        biomeToTreeSpawner.put(TreeBiome.FOREST, TreeSpawner.defaultTreeSpawners());
         return new TreePopulator(name, worlds, true, biomeToTreeSpawner);
     }
 
-    public TreePopulator(String name, List<World> worlds, boolean enabled, LinkedHashMap<Biome, List<TreeSpawner>> biomeToTreeSpawner) {
+    public TreePopulator(String name, List<World> worlds, boolean enabled, LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner) {
         this.initialized = false;
         this.name = name;
         this.worlds = worlds;
@@ -68,9 +68,9 @@ public class TreePopulator extends BlockPopulator {
         int chunkX = source.getX() * 16;
         int chunkZ = source.getZ() * 16;
 
-        Biome biome = world.getBiome(chunkX, chunkZ);
-        if (biomeToTreeSpawner.containsKey(biome)) {
-            List<TreeSpawner> spawners = biomeToTreeSpawner.get(biome);
+        TreeBiome treeBiome = TreeBiome.from(world.getBiome(chunkX, chunkZ));
+        if (biomeToTreeSpawner.containsKey(treeBiome)) {
+            List<TreeSpawner> spawners = biomeToTreeSpawner.get(treeBiome);
             for (TreeSpawner spawner : spawners) {
                 if (random.nextDouble() < spawner.getChance()) {
                     int amount = spawner.nextAmount();
@@ -167,7 +167,7 @@ public class TreePopulator extends BlockPopulator {
         }
     }
 
-    public LinkedHashMap<Biome, List<TreeSpawner>> getBiomeToTreeSpawner() {
+    public LinkedHashMap<TreeBiome, List<TreeSpawner>> getBiomeToTreeSpawner() {
         return biomeToTreeSpawner;
     }
 }
