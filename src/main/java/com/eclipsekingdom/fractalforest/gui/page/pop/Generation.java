@@ -89,21 +89,13 @@ public class Generation implements PageContents {
     public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
         PopData popData = sessionData.getPopData();
         if (slot == 26) {
-            MenuUtil.playClickSound(player);
-            sessionData.scrollUp();
-            populate(menu, sessionData);
+            sessionData.scrollUp(player, this, menu);
         } else if (slot == 44) {
-            MenuUtil.playClickSound(player);
-            sessionData.scrollDown();
-            populate(menu, sessionData);
+            sessionData.scrollDown(player, this, menu);
         } else if (slot == 48) {
-            MenuUtil.playClickSound(player);
-            sessionData.scrollLeft();
-            populate(menu, sessionData);
+            sessionData.scrollLeft(player, this, menu);
         } else if (slot == 50) {
-            MenuUtil.playClickSound(player);
-            sessionData.scrollRight();
-            populate(menu, sessionData);
+            sessionData.scrollRight(player, this, menu);
         } else {
             ItemStack itemStack = menu.getItem(slot);
             if (itemStack != null && itemStack.getType() != Icons.BACKGROUND_ITEM.getType()) {

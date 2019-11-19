@@ -2,8 +2,10 @@ package com.eclipsekingdom.fractalforest.gui;
 
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.Page;
+import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 public class SessionData {
 
@@ -18,10 +20,6 @@ public class SessionData {
         this.pageOffsetX = 0;
         this.pageOffsetY = 0;
         this.current = start;
-    }
-
-    public boolean hasPopData() {
-        return popData != null;
     }
 
     public PopData getPopData() {
@@ -60,26 +58,34 @@ public class SessionData {
     }
 
 
-    public void scrollUp() {
+    public void scrollUp(Player player, PageContents contents, Inventory menu) {
         pageOffsetY--;
         if (pageOffsetY < 0) {
             pageOffsetY = 0;
         }
+        MenuUtil.playClickSound(player);
+        contents.populate(menu, this);
     }
 
-    public void scrollDown() {
+    public void scrollDown(Player player, PageContents contents, Inventory menu) {
         pageOffsetY++;
+        MenuUtil.playClickSound(player);
+        contents.populate(menu, this);
     }
 
-    public void scrollRight() {
+    public void scrollRight(Player player, PageContents contents, Inventory menu) {
         pageOffsetX++;
+        MenuUtil.playClickSound(player);
+        contents.populate(menu, this);
     }
 
-    public void scrollLeft() {
+    public void scrollLeft(Player player, PageContents contents, Inventory menu) {
         pageOffsetX--;
         if (pageOffsetX < 0) {
             pageOffsetX = 0;
         }
+        MenuUtil.playClickSound(player);
+        contents.populate(menu, this);
     }
 
 }

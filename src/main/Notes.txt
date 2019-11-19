@@ -1,3 +1,19 @@
+/*
+SpaceColinizationGrowth spaceColinizationGrowth = new SpaceColinizationGrowth(77, 1, 7, 9, 9, 1, 7);
+spaceColinizationGrowth.generateTree();
+Vector seed = target.getLocation().toVector();
+World world = target.getLocation().getWorld();
+for(Segment b: spaceColinizationGrowth.getBranches()){
+    double radius = (b.getPosition().getY() < 9)? 1: 0.5;
+    for(Block block: new SegmentIterator(world,b.getPosition().add(seed),b.getEnd(1).add(seed), radius)){
+        block.setType(Material.OAK_LOG);
+    }
+}
+for(LeafCluster leaves: spaceColinizationGrowth.getLeaves()){
+    buildLeaves(world, seed, leaves);
+}
+*/
+
 
 *curve functions instead of just straight lines
 *calculate distance on plane perpendicular to vector to center point of each block and check if less than radius of segment
@@ -22,13 +38,12 @@ Tree types
 
 Tree specific spawn conditions
 
-* fix biome scrolling
-
 * better populator default (min and max 0 and 1)
 * better restrictions on % and amounts;
 
-* display enabled/disabled populators differently in /list
+* display enabled/disabled populators differently in /list -- >> <<
 
 -- update --
 
 * delete sapling after placement
+* fixed biomes scroll bug

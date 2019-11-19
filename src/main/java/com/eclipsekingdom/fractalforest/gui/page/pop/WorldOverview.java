@@ -70,13 +70,9 @@ public class WorldOverview implements PageContents {
     public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
         PopData popData = sessionData.getPopData();
         if (slot == 30) {
-            MenuUtil.playClickSound(player);
-            sessionData.scrollLeft();
-            populate(menu, sessionData);
+            sessionData.scrollLeft(player, this, menu);
         } else if (slot == 32) {
-            MenuUtil.playClickSound(player);
-            sessionData.scrollRight();
-            populate(menu, sessionData);
+            sessionData.scrollRight(player, this, menu);
         } else {
             ItemStack itemStack = menu.getItem(slot);
             TreePopulator pop = popData.getPopulator();

@@ -37,7 +37,7 @@ public class LiveSessions {
     public static void launchSpecies(Player player) {
         end(player);
         UUID playerID = player.getUniqueId();
-        Page home = PageType.HOME.getPage();
+        Page home = PageType.SPECIES_OVERVIEW.getPage();
         SessionData sessionData = new SessionData(home);
         playerToData.put(playerID, sessionData);
         player.openInventory(home.getInventory(sessionData));
