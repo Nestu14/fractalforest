@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.gui.page.species;
+package com.eclipsekingdom.fractalforest.gui.page.sapling;
 
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Set;
 
-public class SpeciesOverview implements PageContents {
+public class SaplingOverview implements PageContents {
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
 

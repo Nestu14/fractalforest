@@ -1,9 +1,9 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
 import com.eclipsekingdom.fractalforest.gui.page.pop.*;
-import com.eclipsekingdom.fractalforest.gui.page.species.SpeciesOverview;
+import com.eclipsekingdom.fractalforest.gui.page.sapling.SaplingOverview;
 
-import static com.eclipsekingdom.fractalforest.gui.page.MenuType.SPECIES;
+import static com.eclipsekingdom.fractalforest.gui.page.MenuType.SAPLING;
 import static com.eclipsekingdom.fractalforest.gui.page.MenuType.TREE_POPULATOR;
 
 public enum PageType {
@@ -21,7 +21,7 @@ public enum PageType {
     AMOUNT_MIN(new Page(TREE_POPULATOR, 3, "Spawn AmountMax Min", new AmountMin(), SPAWNER)),
     AMOUNT_MAX(new Page(TREE_POPULATOR, 3, "Spawn AmountMax Max", new AmountMax(), SPAWNER)),
 
-    SPECIES_OVERVIEW(new Page(SPECIES, 6, "Selection", new SpeciesOverview(), null));
+    SAPLING_OVERVIEW(new Page(SAPLING, 6, "Selection", new SaplingOverview(), null));
 
     private Page page;
 
