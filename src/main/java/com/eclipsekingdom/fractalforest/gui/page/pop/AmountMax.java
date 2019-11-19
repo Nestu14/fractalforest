@@ -1,30 +1,31 @@
-package com.eclipsekingdom.fractalforest.gui.pop.page;
+package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.Icons;
-import com.eclipsekingdom.fractalforest.gui.MenuUtil;
-import com.eclipsekingdom.fractalforest.gui.pop.session.PopSessionData;
+import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.page.Icons;
+import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
+import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import static com.eclipsekingdom.fractalforest.gui.Icons.BACKGROUND_ITEM;
+import static com.eclipsekingdom.fractalforest.gui.page.Icons.BACKGROUND_ITEM;
 
-public class AmountMax extends PopPageContents {
+public class AmountMax implements PageContents {
 
     @Override
-    public Inventory populate(Inventory menu, PopSessionData popSessionData) {
-
-        int max = popSessionData.getCurrentSpawner().getMax();
+    public Inventory populate(Inventory menu, SessionData sessionData) {
+        PopData popData = sessionData.getPopData();
+        int max = popData.getCurrentSpawner().getMax();
 
         menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Max tree number"));
-        menu.setItem(7, Icons.createBiome(popSessionData.getCurrentBiome()));
-        menu.setItem(8, Icons.createSpecies(popSessionData.getCurrentSpawner().getSpecies()));
+        menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
+        menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
         menu.setItem(11, BACKGROUND_ITEM);
 
-        if (max > popSessionData.getCurrentSpawner().getMin()) {
+        if (max > popData.getCurrentSpawner().getMin()) {
             menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", max + " trees"));
         } else {
             menu.setItem(12, BACKGROUND_ITEM);
@@ -44,8 +45,9 @@ public class AmountMax extends PopPageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, PopSessionData popSessionData, int slot) {
-        TreeSpawner spawner = popSessionData.getCurrentSpawner();
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+        PopData popData = sessionData.getPopData();
+        TreeSpawner spawner = popData.getCurrentSpawner();
         int change = 0;
         switch (slot) {
             case 12:
@@ -75,7 +77,7 @@ public class AmountMax extends PopPageContents {
             if (spawner.getMax() > 7) {
                 spawner.setMax(7);
             }
-            populate(menu, popSessionData);
+            populate(menu, sessionData);
         }
     }
 }

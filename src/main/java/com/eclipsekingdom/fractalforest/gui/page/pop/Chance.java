@@ -1,8 +1,9 @@
-package com.eclipsekingdom.fractalforest.gui.pop.page;
+package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.Icons;
-import com.eclipsekingdom.fractalforest.gui.MenuUtil;
-import com.eclipsekingdom.fractalforest.gui.pop.session.PopSessionData;
+import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.page.Icons;
+import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
+import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,18 +13,20 @@ import org.bukkit.inventory.Inventory;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import static com.eclipsekingdom.fractalforest.gui.Icons.BACKGROUND_ITEM;
+import static com.eclipsekingdom.fractalforest.gui.page.Icons.BACKGROUND_ITEM;
 
-public class Chance extends PopPageContents {
+public class Chance implements PageContents {
 
     @Override
-    public Inventory populate(Inventory menu, PopSessionData popSessionData) {
+    public Inventory populate(Inventory menu, SessionData sessionData) {
 
-        double chance = popSessionData.getCurrentSpawner().getChance() * 100;
+        PopData popData = sessionData.getPopData();
+
+        double chance = popData.getCurrentSpawner().getChance() * 100;
 
         menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Chance per Chunk"));
-        menu.setItem(7, Icons.createBiome(popSessionData.getCurrentBiome()));
-        menu.setItem(8, Icons.createSpecies(popSessionData.getCurrentSpawner().getSpecies()));
+        menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
+        menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
         NumberFormat formatter = new DecimalFormat("#0.00");
 
@@ -45,8 +48,9 @@ public class Chance extends PopPageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, PopSessionData popSessionData, int slot) {
-        TreeSpawner spawner = popSessionData.getCurrentSpawner();
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+        PopData popData = sessionData.getPopData();
+        TreeSpawner spawner = popData.getCurrentSpawner();
         int change = 0;
         switch (slot) {
             case 11:
@@ -75,7 +79,7 @@ public class Chance extends PopPageContents {
             if (spawner.getChance() < 0) {
                 spawner.setChance(0);
             }
-            populate(menu, popSessionData);
+            populate(menu, sessionData);
         }
     }
 }

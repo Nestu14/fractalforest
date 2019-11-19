@@ -31,5 +31,4 @@ Tree specific spawn conditions
 
 -- update --
 
-* sapling item error handling if species not recognized
-* new player plot API
+* delete sapling after placement

@@ -1,8 +1,9 @@
-package com.eclipsekingdom.fractalforest.gui.pop.page;
+package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.Icons;
-import com.eclipsekingdom.fractalforest.gui.pop.PopPage;
-import com.eclipsekingdom.fractalforest.gui.pop.session.PopSessionData;
+import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.page.Icons;
+import com.eclipsekingdom.fractalforest.gui.page.PageContents;
+import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -15,23 +16,24 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Collections;
 
-public class Spawner extends PopPageContents {
+public class Spawner implements PageContents {
 
     @Override
-    public Inventory populate(Inventory menu, PopSessionData popSessionData) {
+    public Inventory populate(Inventory menu, SessionData sessionData) {
+        PopData popData = sessionData.getPopData();
 
-        TreeSpawner spawner = popSessionData.getCurrentSpawner();
+        TreeSpawner spawner = popData.getCurrentSpawner();
 
         menu.setItem(4, Icons.createIcon(Material.DISPENSER, ChatColor.DARK_GRAY + "Tree Spawner"));
-        menu.setItem(7, Icons.createBiome(popSessionData.getCurrentBiome()));
-        menu.setItem(8, Icons.createSpecies(popSessionData.getCurrentSpawner().getSpecies()));
+        menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
+        menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
 
         menu.setItem(10, Icons.BACKGROUND_ITEM);
         ItemStack chanceItem = new ItemStack(Material.MELON_SEEDS);
         ItemMeta meta = chanceItem.getItemMeta();
         meta.setDisplayName(ChatColor.DARK_GRAY + "Chance per Chunk");
         NumberFormat formatter = new DecimalFormat("#0.00");
-        meta.setLore(Collections.singletonList(ChatColor.GRAY + formatter.format(spawner.getChance()*100) + "%"));
+        meta.setLore(Collections.singletonList(ChatColor.GRAY + formatter.format(spawner.getChance() * 100) + "%"));
         chanceItem.setItemMeta(meta);
 
         menu.setItem(11, chanceItem);
@@ -59,25 +61,13 @@ public class Spawner extends PopPageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, PopSessionData popSessionData, int slot) {
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
         if (slot == 11) {
-            PopPage chance = PopPageType.CHANCE.getPage();
-            popSessionData.setCurrent(chance);
-            popSessionData.setTransitioning(true);
-            player.openInventory(chance.getInventory(popSessionData));
-            popSessionData.setTransitioning(false);
+            sessionData.transition(player, PageType.CHANCE);
         } else if (slot == 13) {
-            PopPage overview = PopPageType.AMOUNT_MIN.getPage();
-            popSessionData.setCurrent(overview);
-            popSessionData.setTransitioning(true);
-            player.openInventory(overview.getInventory(popSessionData));
-            popSessionData.setTransitioning(false);
+            sessionData.transition(player, PageType.AMOUNT_MIN);
         } else if (slot == 15) {
-            PopPage overview = PopPageType.AMOUNT_MAX.getPage();
-            popSessionData.setCurrent(overview);
-            popSessionData.setTransitioning(true);
-            player.openInventory(overview.getInventory(popSessionData));
-            popSessionData.setTransitioning(false);
+            sessionData.transition(player, PageType.AMOUNT_MAX);
         }
     }
 }

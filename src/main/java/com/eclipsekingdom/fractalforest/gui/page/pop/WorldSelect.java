@@ -1,9 +1,9 @@
-package com.eclipsekingdom.fractalforest.gui.pop.page;
+package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.Icons;
-import com.eclipsekingdom.fractalforest.gui.MenuUtil;
-import com.eclipsekingdom.fractalforest.gui.pop.PopPage;
-import com.eclipsekingdom.fractalforest.gui.pop.session.PopSessionData;
+import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.page.Icons;
+import com.eclipsekingdom.fractalforest.gui.page.PageContents;
+import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class WorldSelect extends PopPageContents {
+public class WorldSelect implements PageContents {
 
     private static Set<World> worlds = buildWorldSet();
 
@@ -30,8 +30,9 @@ public class WorldSelect extends PopPageContents {
     }
 
     @Override
-    public Inventory populate(Inventory menu, PopSessionData popSessionData) {
-        TreePopulator pop = popSessionData.getPopulator();
+    public Inventory populate(Inventory menu, SessionData sessionData) {
+        PopData popData = sessionData.getPopData();
+        TreePopulator pop = popData.getPopulator();
         menu.setItem(4, Icons.createIcon(Material.GRASS_BLOCK, "World Selection"));
         List<World> currentWorlds = pop.getWorlds();
 
@@ -70,21 +71,17 @@ public class WorldSelect extends PopPageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, PopSessionData popSessionData, int slot) {
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+        PopData popData = sessionData.getPopData();
         ItemStack itemStack = menu.getItem(slot);
         if (itemStack != null && itemStack.getType() != Material.AIR) {
             ItemMeta meta = itemStack.getItemMeta();
             String name = meta.hasDisplayName() ? meta.getDisplayName() : "";
             World world = Bukkit.getWorld(name);
             if (world != null) {
-                MenuUtil.playClickSound(player);
-                TreePopulator pop = popSessionData.getPopulator();
+                TreePopulator pop = popData.getPopulator();
                 pop.getWorlds().add(world);
-                PopPage overview = PopPageType.WORLD_OVERVIEW.getPage();
-                popSessionData.setCurrent(overview);
-                popSessionData.setTransitioning(true);
-                player.openInventory(overview.getInventory(popSessionData));
-                popSessionData.setTransitioning(false);
+                sessionData.transition(player, PageType.WORLD_OVERVIEW);
             }
         }
     }

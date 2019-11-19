@@ -1,13 +1,13 @@
 package com.eclipsekingdom.fractalforest;
 
-import com.eclipsekingdom.fractalforest.gui.pop.PopInputListener;
-import com.eclipsekingdom.fractalforest.gui.pop.session.LivePopSessions;
+import com.eclipsekingdom.fractalforest.gui.InputListener;
+import com.eclipsekingdom.fractalforest.gui.LiveSessions;
 import com.eclipsekingdom.fractalforest.populator.CommandTPop;
 import com.eclipsekingdom.fractalforest.populator.PopCache;
 import com.eclipsekingdom.fractalforest.protection.RegionValidation;
-import com.eclipsekingdom.fractalforest.util.AutoCompleteListener;
 import com.eclipsekingdom.fractalforest.sapling.CommandSapling;
 import com.eclipsekingdom.fractalforest.sapling.SaplingListener;
+import com.eclipsekingdom.fractalforest.util.AutoCompleteListener;
 import com.eclipsekingdom.fractalforest.util.PluginBase;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,13 +31,13 @@ public final class FractalForest extends JavaPlugin {
 
         new AutoCompleteListener();
         new SaplingListener();
-        new PopInputListener();
+        new InputListener();
     }
 
     @Override
     public void onDisable() {
         SaplingListener.shutdown();
-        LivePopSessions.disable();
+        LiveSessions.disable();
         PopCache.save();
         RegionValidation.shutdown();
     }

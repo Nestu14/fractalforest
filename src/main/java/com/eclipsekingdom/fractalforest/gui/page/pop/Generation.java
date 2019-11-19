@@ -1,9 +1,10 @@
-package com.eclipsekingdom.fractalforest.gui.pop.page;
+package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.Icons;
-import com.eclipsekingdom.fractalforest.gui.MenuUtil;
-import com.eclipsekingdom.fractalforest.gui.pop.PopPage;
-import com.eclipsekingdom.fractalforest.gui.pop.session.PopSessionData;
+import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.page.Icons;
+import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
+import com.eclipsekingdom.fractalforest.gui.page.PageContents;
+import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
 import org.bukkit.ChatColor;
@@ -19,11 +20,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Generation extends PopPageContents {
+public class Generation implements PageContents {
 
     @Override
-    public Inventory populate(Inventory menu, PopSessionData popSessionData) {
-        TreePopulator pop = popSessionData.getPopulator();
+    public Inventory populate(Inventory menu, SessionData sessionData) {
+        PopData popData = sessionData.getPopData();
+        TreePopulator pop = popData.getPopulator();
 
         LinkedHashMap<Biome, List<TreeSpawner>> biomeToTreeSpawners = pop.getBiomeToTreeSpawner();
         List<Biome> biomes = new ArrayList<>();
@@ -32,13 +34,13 @@ public class Generation extends PopPageContents {
         }
         menu.setItem(4, Icons.createIcon(Material.WHEAT_SEEDS, ChatColor.GREEN + "Generator"));
 
-        int offset = popSessionData.getPageOffsetX();
+        int offset = sessionData.getPageOffsetX();
         int biomesSize = biomeToTreeSpawners.size();
 
         for (int i = 0; i < 7; i++) {
             int index = i + 10;
             if (biomesSize > i + offset) {
-                createColumn(menu, index, biomes.get(i + offset), biomeToTreeSpawners, popSessionData.getPageOffsetY());
+                createColumn(menu, index, biomes.get(i + offset), biomeToTreeSpawners, sessionData.getPageOffsetY());
             } else {
                 if (biomesSize > i - 1 + offset) {
                     menu.setItem(index, Icons.createIcon(Material.WRITABLE_BOOK, ChatColor.GRAY + "Edit"));
@@ -52,11 +54,11 @@ public class Generation extends PopPageContents {
         }
 
         menu.setItem(26, Icons.createIcon(Material.TRIPWIRE_HOOK, "Scroll Up"));
-        menu.setItem(35, Icons.createIcon(Material.STONE_BUTTON, "+" + popSessionData.getPageOffsetY()));
+        menu.setItem(35, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetY()));
         menu.setItem(44, Icons.createIcon(Material.HOPPER, "Scroll Down"));
 
         menu.setItem(48, Icons.createIcon(Material.ARROW, "Scroll Left"));
-        menu.setItem(49, Icons.createIcon(Material.STONE_BUTTON, "+" + popSessionData.getPageOffsetX()));
+        menu.setItem(49, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetX()));
         menu.setItem(50, Icons.createIcon(Material.ARROW, "Scroll Right"));
 
 
@@ -84,72 +86,59 @@ public class Generation extends PopPageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, PopSessionData popSessionData, int slot) {
-        if(slot == 26){
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+        PopData popData = sessionData.getPopData();
+        if (slot == 26) {
             MenuUtil.playClickSound(player);
-            popSessionData.scrollUp();
-            populate(menu, popSessionData);
-        }else if(slot == 44){
+            sessionData.scrollUp();
+            populate(menu, sessionData);
+        } else if (slot == 44) {
             MenuUtil.playClickSound(player);
-            popSessionData.scrollDown();
-            populate(menu, popSessionData);
-        }else if(slot == 48){
+            sessionData.scrollDown();
+            populate(menu, sessionData);
+        } else if (slot == 48) {
             MenuUtil.playClickSound(player);
-            popSessionData.scrollLeft();
-            populate(menu, popSessionData);
-        }else if(slot == 50){
+            sessionData.scrollLeft();
+            populate(menu, sessionData);
+        } else if (slot == 50) {
             MenuUtil.playClickSound(player);
-            popSessionData.scrollRight();
-            populate(menu, popSessionData);
-        }else{
+            sessionData.scrollRight();
+            populate(menu, sessionData);
+        } else {
             ItemStack itemStack = menu.getItem(slot);
-            if(itemStack != null && itemStack.getType() != Icons.BACKGROUND_ITEM.getType()){
+            if (itemStack != null && itemStack.getType() != Icons.BACKGROUND_ITEM.getType()) {
                 if (itemStack.getType() == Material.WRITABLE_BOOK) {
-                    MenuUtil.playClickSound(player);
-                    if(slot/9 == 1){
-                        PopPage biomes = PopPageType.BIOME_OVERVIEW.getPage();
-                        popSessionData.setCurrent(biomes);
-                        popSessionData.setTransitioning(true);
-                        player.openInventory(biomes.getInventory(popSessionData));
-                        popSessionData.setTransitioning(false);
-                    }else{
-                        int top = slot%9 + 9;
+                    if (slot / 9 == 1) {
+                        sessionData.transition(player, PageType.BIOME_OVERVIEW);
+                    } else {
+                        int top = slot % 9 + 9;
                         ItemStack biomeItem = menu.getItem(top);
                         Biome biome = Biome.valueOf(biomeItem.getItemMeta().getDisplayName());
-                        popSessionData.setCurrentBiome(biome);
-                        PopPage trees = PopPageType.TREE_OVERVIEW.getPage();
-                        popSessionData.setCurrent(trees);
-                        popSessionData.setTransitioning(true);
-                        player.openInventory(trees.getInventory(popSessionData));
-                        popSessionData.setTransitioning(false);
+                        popData.setCurrentBiome(biome);
+                        sessionData.transition(player, PageType.TREE_OVERVIEW);
                     }
-                }else if(!isCorner(slot)){
-                    int top = slot%9 + 9;
+                } else if (!isCorner(slot)) {
+                    int top = slot % 9 + 9;
                     ItemStack biomeItem = menu.getItem(top);
-                    if(biomeItem != null){
-                        TreePopulator pop = popSessionData.getPopulator();
-                        try{
+                    if (biomeItem != null) {
+                        TreePopulator pop = popData.getPopulator();
+                        try {
                             Biome biome = Biome.valueOf(biomeItem.getItemMeta().getDisplayName());
                             List<TreeSpawner> treeSpawners = pop.getBiomeToTreeSpawner().get(biome);
                             ItemStack spawnStack = menu.getItem(slot);
-                            if(spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType() && spawnStack.getType() != Material.WRITABLE_BOOK){
+                            if (spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType() && spawnStack.getType() != Material.WRITABLE_BOOK) {
                                 ItemMeta meta = spawnStack.getItemMeta();
                                 String name = meta.getDisplayName();
-                                for(TreeSpawner treeSpawner: treeSpawners){
-                                    if(treeSpawner.getSpecies().toString().equals(name)){
-                                        MenuUtil.playClickSound(player);
-                                        popSessionData.setCurrentSpawner(treeSpawner);
-                                        popSessionData.setCurrentBiome(biome);
-                                        PopPage spawner = PopPageType.SPAWNER.getPage();
-                                        popSessionData.setCurrent(spawner);
-                                        popSessionData.setTransitioning(true);
-                                        player.openInventory(spawner.getInventory(popSessionData));
-                                        popSessionData.setTransitioning(false);
+                                for (TreeSpawner treeSpawner : treeSpawners) {
+                                    if (treeSpawner.getSpecies().toString().equals(name)) {
+                                        popData.setCurrentSpawner(treeSpawner);
+                                        popData.setCurrentBiome(biome);
+                                        sessionData.transition(player, PageType.SPAWNER);
                                         break;
                                     }
                                 }
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                         }
                     }
                 }

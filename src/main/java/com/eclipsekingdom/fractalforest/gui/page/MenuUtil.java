@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.gui;
+package com.eclipsekingdom.fractalforest.gui.page;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,18 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class MenuUtil {
 
-    public static Inventory createGenericPop(Page page) {
-
-        Inventory menu = createGeneric(page, MenuType.TREE_POPULATOR);
-
-        if (page.hasPrevious()) {
-            menu.setItem(0, Icons.BACK_BUTTON);
-        }
-
-        return menu;
-    }
-
-    private static Inventory createGeneric(Page page, MenuType type) {
+    public static Inventory createGeneric(Page page, MenuType type) {
 
         int rows = page.getRows();
         Inventory menu;
@@ -44,6 +33,10 @@ public class MenuUtil {
             ItemStack borderItem = i % 2 == 0 ? themeItem : Icons.BORDER_ITEM;
             menu.setItem(9 * i, borderItem);
             menu.setItem(9 * i + 8, borderItem);
+        }
+
+        if (page.hasPrevious()) {
+            menu.setItem(0, Icons.BACK_BUTTON);
         }
 
         return menu;

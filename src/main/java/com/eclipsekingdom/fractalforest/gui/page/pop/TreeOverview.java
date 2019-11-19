@@ -1,9 +1,10 @@
-package com.eclipsekingdom.fractalforest.gui.pop.page;
+package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.Icons;
-import com.eclipsekingdom.fractalforest.gui.MenuUtil;
-import com.eclipsekingdom.fractalforest.gui.pop.PopPage;
-import com.eclipsekingdom.fractalforest.gui.pop.session.PopSessionData;
+import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.page.Icons;
+import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
+import com.eclipsekingdom.fractalforest.gui.page.PageContents;
+import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
@@ -17,18 +18,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class TreeOverview extends PopPageContents {
+public class TreeOverview implements PageContents {
 
     @Override
-    public Inventory populate(Inventory menu, PopSessionData popSessionData) {
-        TreePopulator pop = popSessionData.getPopulator();
-        Biome biome = popSessionData.getCurrentBiome();
+    public Inventory populate(Inventory menu, SessionData sessionData) {
+        PopData popData = sessionData.getPopData();
+        TreePopulator pop = popData.getPopulator();
+        Biome biome = popData.getCurrentBiome();
         List<TreeSpawner> spawners = pop.getBiomeToTreeSpawner().get(biome);
 
         menu.setItem(4, Icons.createIcon(Material.WRITABLE_BOOK, ChatColor.DARK_GRAY + "Edit Tree Spawners"));
         menu.setItem(8, Icons.createBiome(biome));
 
-        int offset = popSessionData.getPageOffsetX();
+        int offset = sessionData.getPageOffsetX();
         int treeSpawnerSize = spawners.size();
 
         for (int i = 0; i < 7; i++) {
@@ -52,52 +54,48 @@ public class TreeOverview extends PopPageContents {
         }
 
         menu.setItem(30, Icons.createIcon(Material.ARROW, "Scroll Left"));
-        menu.setItem(31, Icons.createIcon(Material.STONE_BUTTON, "+" + popSessionData.getPageOffsetX()));
+        menu.setItem(31, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetX()));
         menu.setItem(32, Icons.createIcon(Material.ARROW, "Scroll Right"));
 
         return menu;
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, PopSessionData popSessionData, int slot) {
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+        PopData popData = sessionData.getPopData();
         if (slot == 30) {
             MenuUtil.playClickSound(player);
-            popSessionData.scrollLeft();
-            populate(menu, popSessionData);
+            sessionData.scrollLeft();
+            populate(menu, sessionData);
         } else if (slot == 32) {
             MenuUtil.playClickSound(player);
-            popSessionData.scrollRight();
-            populate(menu, popSessionData);
+            sessionData.scrollRight();
+            populate(menu, sessionData);
         } else {
             ItemStack itemStack = menu.getItem(slot);
-            TreePopulator pop = popSessionData.getPopulator();
+            TreePopulator pop = popData.getPopulator();
             if (itemStack != null) {
                 Material material = itemStack.getType();
                 if (material == Material.LIME_STAINED_GLASS_PANE) {
-                    MenuUtil.playClickSound(player);
-                    PopPage select = PopPageType.TREE_SELECT.getPage();
-                    popSessionData.setTransitioning(true);
-                    player.openInventory(select.getInventory(popSessionData));
-                    popSessionData.setTransitioning(false);
-                    popSessionData.setCurrent(select);
+                    sessionData.transition(player, PageType.TREE_SELECT);
                 } else if (material == Material.RED_STAINED_GLASS_PANE) {
                     ItemStack treeStack = menu.getItem(slot - 9);
                     if (treeStack != null && treeStack.getType() != Material.AIR) {
                         ItemMeta meta = treeStack.getItemMeta();
                         String name = meta.hasDisplayName() ? meta.getDisplayName() : "";
                         Species species = Species.from(name);
-                        if(species != null){
-                            Biome biome = popSessionData.getCurrentBiome();
+                        if (species != null) {
+                            Biome biome = popData.getCurrentBiome();
                             List<TreeSpawner> spawners = pop.getBiomeToTreeSpawner().get(biome);
-                            for(TreeSpawner spawner : spawners){
-                                if(spawner.getSpecies() == species){
+                            for (TreeSpawner spawner : spawners) {
+                                if (spawner.getSpecies() == species) {
                                     spawners.remove(spawner);
                                     break;
                                 }
                             }
                         }
                         MenuUtil.playClickSound(player);
-                        populate(menu, popSessionData);
+                        populate(menu, sessionData);
                     }
                 }
             }

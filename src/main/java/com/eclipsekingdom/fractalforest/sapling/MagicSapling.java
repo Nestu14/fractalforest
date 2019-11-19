@@ -5,6 +5,7 @@ import com.eclipsekingdom.fractalforest.PluginConfig;
 import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.trees.ITree;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -29,11 +30,12 @@ public class MagicSapling extends BukkitRunnable {
     public void run() {
         if (Tag.SAPLINGS.isTagged(saplingBlock.getType())) {
             if (countdown <= 0) {
+                saplingBlock.setType(Material.AIR);
                 SaplingListener.locationToSapling.remove(saplingBlock.getLocation());
                 tree.growPhased(PluginConfig.getPhasePeriod());
                 cancel();
             } else {
-                seed.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, seed, 9, 0.5,0.7,0.5);
+                seed.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, seed, 9, 0.5, 0.7, 0.5);
                 countdown--;
             }
         } else {

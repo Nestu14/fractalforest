@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.gui;
+package com.eclipsekingdom.fractalforest.gui.page;
 
 import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.populator.TreeSpawner;

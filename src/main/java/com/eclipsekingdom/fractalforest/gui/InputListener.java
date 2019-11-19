@@ -1,8 +1,7 @@
-package com.eclipsekingdom.fractalforest.gui.pop;
+package com.eclipsekingdom.fractalforest.gui;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
-import com.eclipsekingdom.fractalforest.gui.pop.session.LivePopSessions;
-import com.eclipsekingdom.fractalforest.gui.pop.session.PopSessionData;
+import com.eclipsekingdom.fractalforest.gui.page.Page;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,9 +14,9 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 
-public class PopInputListener implements Listener {
+public class InputListener implements Listener {
 
-    public PopInputListener() {
+    public InputListener() {
         FractalForest plugin = FractalForest.plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
@@ -25,15 +24,13 @@ public class PopInputListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onClick(InventoryClickEvent e) {
         Inventory inventory = e.getClickedInventory();
-        if (e.getWhoClicked() instanceof Player && inventory != null) {
-            Player player = (Player) e.getWhoClicked();
-            if (LivePopSessions.hasSession(player)) {
-                PopSessionData stormSessionData = LivePopSessions.getData(player);
-                PopPage page = stormSessionData.getCurrent();
+        Player player = (Player) e.getWhoClicked();
+        if (e.getWhoClicked() instanceof Player && inventory != null && isMenuClick(inventory, player)) {
+            if (LiveSessions.hasSession(player)) {
                 e.setCancelled(true);
-                if (isMenuClick(inventory, player)) {
-                    page.processClick(player, inventory, stormSessionData, e.getSlot());
-                }
+                SessionData sessionData = LiveSessions.getData(player);
+                Page page = sessionData.getCurrent();
+                page.processClick(player, inventory, sessionData, e.getSlot());
             }
         }
     }
@@ -46,7 +43,7 @@ public class PopInputListener implements Listener {
     public void onDrag(InventoryDragEvent e) {
         if (e.getWhoClicked() instanceof Player) {
             Player player = (Player) e.getWhoClicked();
-            if (LivePopSessions.hasSession(player)) {
+            if (LiveSessions.hasSession(player)) {
                 e.setCancelled(true);
             }
         }
@@ -56,10 +53,10 @@ public class PopInputListener implements Listener {
     public void onClose(InventoryCloseEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player player = (Player) e.getPlayer();
-            if (LivePopSessions.hasSession(player)) {
-                PopSessionData stormSessionData = LivePopSessions.getData(player);
-                if (!stormSessionData.isTransitioning()) {
-                    LivePopSessions.end(player);
+            if (LiveSessions.hasSession(player)) {
+                SessionData sessionData = LiveSessions.getData(player);
+                if (!sessionData.isTransitioning()) {
+                    LiveSessions.end(player);
                 }
             }
         }
@@ -68,16 +65,16 @@ public class PopInputListener implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        if (LivePopSessions.hasSession(player)) {
-            LivePopSessions.end(player);
+        if (LiveSessions.hasSession(player)) {
+            LiveSessions.end(player);
         }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-        if (LivePopSessions.hasSession(player)) {
-            LivePopSessions.end(player);
+        if (LiveSessions.hasSession(player)) {
+            LiveSessions.end(player);
         }
     }
 

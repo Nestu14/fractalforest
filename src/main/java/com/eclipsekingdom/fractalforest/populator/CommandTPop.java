@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.populator;
 
 import com.eclipsekingdom.fractalforest.Permissions;
-import com.eclipsekingdom.fractalforest.gui.pop.session.LivePopSessions;
+import com.eclipsekingdom.fractalforest.gui.LiveSessions;
 import com.eclipsekingdom.fractalforest.populator.validation.NameStatus;
 import com.eclipsekingdom.fractalforest.populator.validation.NameValidation;
 import com.eclipsekingdom.fractalforest.util.PluginHelp;
@@ -54,11 +54,11 @@ public class CommandTPop implements CommandExecutor {
 
         String name = args.length > 1 ? args[1] : getDefaultString();
         NameStatus status = NameValidation.clean(name);
-        if (!LivePopSessions.isBusy(name)) {
+        if (!LiveSessions.isBusyPopBusy(name)) {
             if (!PopCache.hasPopulator(name)) {
                 if (status == NameStatus.VALID) {
                     TreePopulator pop = TreePopulator.defaultPopulator(name, player.getWorld());
-                    LivePopSessions.launch(player, pop, true);
+                    LiveSessions.launchPop(player, pop, true);
                 } else {
                     player.sendMessage(ChatColor.RED + status.message);
                 }
@@ -66,7 +66,7 @@ public class CommandTPop implements CommandExecutor {
                 player.sendMessage(WARN_TPOP_EXISTS.getColoredFromPop(name, ChatColor.RED));
             }
         } else {
-            player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LivePopSessions.getEditor(name)));
+            player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LiveSessions.getPopEditor(name)));
         }
     }
 
@@ -74,11 +74,11 @@ public class CommandTPop implements CommandExecutor {
         if (args.length > 1) {
             String name = args[1];
             if (PopCache.hasPopulator(name)) {
-                if (!LivePopSessions.isBusy(name)) {
+                if (!LiveSessions.isBusyPopBusy(name)) {
                     TreePopulator pop = PopCache.getPopulator(name);
-                    LivePopSessions.launch(player, pop, false);
+                    LiveSessions.launchPop(player, pop, false);
                 } else {
-                    player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LivePopSessions.getEditor(name)));
+                    player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LiveSessions.getPopEditor(name)));
                 }
             } else {
                 player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(name, ChatColor.RED));
