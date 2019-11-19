@@ -2,12 +2,13 @@ package com.eclipsekingdom.fractalforest.gui.page;
 
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
 public interface PageContents {
 
     Inventory populate(Inventory menu, SessionData sessionData);
 
-    void processClick(Player player, Inventory menu, SessionData sessionData, int slot);
+    void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType);
 
 }

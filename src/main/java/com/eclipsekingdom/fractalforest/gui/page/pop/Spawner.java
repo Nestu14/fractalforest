@@ -8,6 +8,7 @@ import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -61,7 +62,7 @@ public class Spawner implements PageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
         if (slot == 11) {
             sessionData.transition(player, PageType.CHANCE);
         } else if (slot == 13) {

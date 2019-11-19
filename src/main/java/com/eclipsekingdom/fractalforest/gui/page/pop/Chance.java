@@ -8,6 +8,7 @@ import com.eclipsekingdom.fractalforest.populator.TreeSpawner;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
 import java.text.DecimalFormat;
@@ -48,7 +49,7 @@ public class Chance implements PageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
         PopData popData = sessionData.getPopData();
         TreeSpawner spawner = popData.getCurrentSpawner();
         int change = 0;

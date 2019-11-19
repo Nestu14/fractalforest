@@ -2,6 +2,7 @@ package com.eclipsekingdom.fractalforest.gui;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
 import com.eclipsekingdom.fractalforest.gui.page.Page;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,7 +31,7 @@ public class InputListener implements Listener {
                 e.setCancelled(true);
                 SessionData sessionData = LiveSessions.getData(player);
                 Page page = sessionData.getCurrent();
-                page.processClick(player, inventory, sessionData, e.getSlot());
+                page.processClick(player, inventory, sessionData, e.getSlot(), e.getClick());
             }
         }
     }

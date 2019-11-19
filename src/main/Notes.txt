@@ -47,3 +47,5 @@ Tree specific spawn conditions
 
 * delete sapling after placement
 * fixed biomes scroll bug
+* added species selection menu
+* changed item name formats

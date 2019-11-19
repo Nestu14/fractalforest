@@ -100,7 +100,7 @@ public enum Species {
             for (int i = 1; i < parts.length; i++) {
                 String subString = parts[i];
                 if (subString.length() > 1) {
-                    formatted += " " + subString.toLowerCase().charAt(0) + subString.substring(1).toLowerCase();
+                    formatted += " " + subString.toUpperCase().charAt(0) + subString.substring(1).toLowerCase();
                 } else {
                     formatted += " " + subString;
                 }

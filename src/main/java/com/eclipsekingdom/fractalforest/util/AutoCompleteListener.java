@@ -24,10 +24,7 @@ public class AutoCompleteListener implements Listener {
     @EventHandler
     public void onComplete(TabCompleteEvent e){
         if(e.getSender() instanceof Player){
-            Player player = (Player) e.getSender();
-            if(e.getBuffer().contains("/sapling ") && Permissions.canSummonSapling(player)){
-                e.setCompletions(getRefinedCompletions("/sapling", e.getBuffer(), saplingList));
-            } else if (e.getBuffer().contains("/tpop delete ")) {
+            if (e.getBuffer().contains("/tpop delete ")) {
                 e.setCompletions(getRefinedCompletions("/tpop delete", e.getBuffer(), getPopNames()));
             } else if (e.getBuffer().contains("/tpop edit ")) {
                 e.setCompletions(getRefinedCompletions("/tpop edit", e.getBuffer(), getPopNames()));
@@ -55,17 +52,6 @@ public class AutoCompleteListener implements Listener {
             return refinedCompletions;
         }
     }
-
-    private static List<String> saplingList = buildSaplingList();
-    private static List<String> buildSaplingList(){
-        List<String> completions = new ArrayList<>();
-        completions.add("list");
-        for(Species species: Species.values()){
-            completions.add(species.toString());
-        }
-        return completions;
-    }
-
 
     private static List<String> popCompletions = new ImmutableList.Builder<String>()
             .add("create")

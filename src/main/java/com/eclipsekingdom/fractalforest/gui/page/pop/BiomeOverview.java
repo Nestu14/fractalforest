@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -60,7 +61,7 @@ public class BiomeOverview implements PageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
         PopData popData = sessionData.getPopData();
         if (slot == 30) {
             sessionData.scrollLeft(player, this, menu);

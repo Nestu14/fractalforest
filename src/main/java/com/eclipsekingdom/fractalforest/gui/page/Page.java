@@ -2,6 +2,7 @@ package com.eclipsekingdom.fractalforest.gui.page;
 
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
 public class Page {
@@ -32,11 +33,11 @@ public class Page {
         return contents.populate(baseInventory, sessionData);
     }
 
-    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
         if (previousPage != null && slot == 0) {
             sessionData.transition(player, previousPage);
         } else {
-            contents.processClick(player, menu, sessionData, slot);
+            contents.processClick(player, menu, sessionData, slot, clickType);
         }
     }
 

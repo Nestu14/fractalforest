@@ -10,6 +10,7 @@ import com.eclipsekingdom.fractalforest.populator.TreePopulator;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
 import static com.eclipsekingdom.fractalforest.util.language.Message.STATUS_TPOP_DISABLED;
@@ -38,7 +39,7 @@ public class Home implements PageContents {
     }
 
     @Override
-    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot) {
+    public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
         PopData popData = sessionData.getPopData();
         if (slot == 22) {
             LiveSessions.end(player);
