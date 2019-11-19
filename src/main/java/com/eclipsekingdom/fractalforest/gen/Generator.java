@@ -1,5 +1,6 @@
 package com.eclipsekingdom.fractalforest.gen;
 
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 import java.util.HashMap;
@@ -11,8 +12,13 @@ public class Generator {
     private static GeneratorFlatFile generatorFlatFile = new GeneratorFlatFile();
 
     public Generator() {
+        for(World world: Bukkit.getWorlds()){
+            WorldUtil.reset(world);
+        }
         load();
     }
+
+
 
     private void load() {
         worldToData.putAll(generatorFlatFile.fetch());

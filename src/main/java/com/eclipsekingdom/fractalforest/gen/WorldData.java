@@ -2,9 +2,6 @@ package com.eclipsekingdom.fractalforest.gen;
 
 import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
 import org.bukkit.World;
-import org.bukkit.generator.BlockPopulator;
-
-import java.util.List;
 
 public class WorldData {
 
@@ -22,7 +19,7 @@ public class WorldData {
 
     public void toggleEnabled(World world) {
         enabled = !enabled;
-        resetWorld(world);
+        WorldUtil.reset(world);
         if (enabled) world.getPopulators().add(treePopulator);
     }
 
@@ -35,19 +32,10 @@ public class WorldData {
     }
 
     public void setTreePopulator(World world, TreePopulator treePopulator) {
-        resetWorld(world);
+        WorldUtil.reset(world);
         this.treePopulator = treePopulator;
         if (enabled && treePopulator != null) world.getPopulators().add(treePopulator);
     }
 
-    public static void resetWorld(World world) {
-        List<BlockPopulator> populators = world.getPopulators();
-        for (int i = populators.size() - 1; i >= 0; i--) {
-            BlockPopulator populator = populators.get(i);
-            if (populator == null || populator.toString().contains("TreePopulator")) {
-                populators.remove(i);
-            }
-        }
-    }
 
 }

@@ -1,8 +1,7 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
 import com.eclipsekingdom.fractalforest.gui.page.gen.GeneratorHome;
-import com.eclipsekingdom.fractalforest.gui.page.gen.WorldOverview;
-import com.eclipsekingdom.fractalforest.gui.page.gen.WorldSelect;
+import com.eclipsekingdom.fractalforest.gui.page.gen.PopSelection;
 import com.eclipsekingdom.fractalforest.gui.page.pop.*;
 import com.eclipsekingdom.fractalforest.gui.page.sapling.SaplingOverview;
 
@@ -23,9 +22,7 @@ public enum PageType {
     SAPLING_OVERVIEW(new Page(SAPLING, 6, "Selection", new SaplingOverview(), null)),
 
     GEN_HOME(new Page(GEN, 6, "Overview", new GeneratorHome(), null)),
-    WORLD_OVERVIEW(new Page(GEN, 4, "Worlds", new WorldOverview(), GEN_HOME)),
-    WORLD_SELECT(new Page(GEN, 6, "World Selection", new WorldSelect(), WORLD_OVERVIEW)),
-    POP_SELECT(new Page(GEN, 6, "Populator Selection", new WorldSelect(), GEN_HOME)),
+    POP_SELECT(new Page(GEN, 6, "Populator Selection", new PopSelection(), GEN_HOME)),
 
     ;
 

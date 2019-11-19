@@ -1,8 +1,9 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
-import com.eclipsekingdom.fractalforest.phylo.Species;
+import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.gen.pop.TreeSpawner;
 import com.eclipsekingdom.fractalforest.gen.pop.util.TreeBiome;
+import com.eclipsekingdom.fractalforest.phylo.Species;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -12,6 +13,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Icons {
 
@@ -88,6 +90,25 @@ public class Icons {
         ItemStack itemStack = new ItemStack(treeBiome.getMaterial());
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(treeBiome.toString());
+        itemStack.setItemMeta(meta);
+        return itemStack;
+    }
+
+    public static ItemStack createPopItem(TreePopulator populator) {
+        ItemStack itemStack = new ItemStack(Material.WHEAT_SEEDS);
+        ItemMeta meta = itemStack.getItemMeta();
+        meta.setDisplayName(populator.getName());
+        List<String> lore = new ArrayList<>();
+
+        for (Map.Entry<TreeBiome, List<TreeSpawner>> entry : populator.getBiomeToTreeSpawner().entrySet()) {
+            lore.add(ChatColor.GREEN + entry.getKey().toString());
+            for(TreeSpawner treeSpawner: entry.getValue()){
+                lore.add(ChatColor.GRAY + "> " + treeSpawner.getSpecies().toString() + " - " +
+                        treeSpawner.getChance()*100 + "% " + "[" + treeSpawner.getMin() + "-" + treeSpawner.getMax() + "]");
+            }
+        }
+
+        meta.setLore(lore);
         itemStack.setItemMeta(meta);
         return itemStack;
     }
