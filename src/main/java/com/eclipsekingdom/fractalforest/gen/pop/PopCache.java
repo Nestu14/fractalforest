@@ -7,6 +7,7 @@ public class PopCache {
 
     private static PopFlatFile popFlatFile = new PopFlatFile();
     private static List<TreePopulator> tPops = new ArrayList<>();
+    private static List<TreePopulator> presets = Presets.makePresets();
 
     public PopCache() {
         tPops.addAll(popFlatFile.fetch());
@@ -29,6 +30,11 @@ public class PopCache {
     }
 
     public static TreePopulator getPopulator(String name) {
+        for (TreePopulator pop : presets) {
+            if (pop.getName().equalsIgnoreCase(name)) {
+                return pop;
+            }
+        }
         for (TreePopulator pop : tPops) {
             if (pop.getName().equalsIgnoreCase(name)) {
                 return pop;
@@ -38,12 +44,30 @@ public class PopCache {
     }
 
     public static List<TreePopulator> getPopulators() {
-        return tPops;
+        List<TreePopulator> types = new ArrayList<>();
+        types.addAll(tPops);
+        types.addAll(presets);
+        return types;
     }
 
     public static boolean hasPopulator(String name) {
+        for (TreePopulator pop : presets) {
+            if (pop.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
         for (TreePopulator pop : tPops) {
             if (pop.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public static boolean isPreset(String name) {
+        for (TreePopulator type : presets) {
+            if (type.getName().equalsIgnoreCase(name)) {
                 return true;
             }
         }

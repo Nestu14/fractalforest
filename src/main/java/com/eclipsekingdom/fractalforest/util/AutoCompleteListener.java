@@ -26,11 +26,13 @@ public class AutoCompleteListener implements Listener {
             if (e.getBuffer().contains("/sapling ")) {
                 e.setCompletions(getRefinedCompletions("/sapling", e.getBuffer(), getSpeciesNames()));
             } else if (e.getBuffer().contains("/tpop delete ")) {
-                e.setCompletions(getRefinedCompletions("/tpop delete", e.getBuffer(), getPopNames()));
+                e.setCompletions(getRefinedCompletions("/tpop delete", e.getBuffer(), getCustomPopNames()));
+            } else if (e.getBuffer().contains("/tpop createfrom ")) {
+                e.setCompletions(getRefinedCompletions("/tpop createfrom", e.getBuffer(), getAllPopNames()));
             } else if (e.getBuffer().contains("/tpop edit ")) {
-                e.setCompletions(getRefinedCompletions("/tpop edit", e.getBuffer(), getPopNames()));
+                e.setCompletions(getRefinedCompletions("/tpop edit", e.getBuffer(), getCustomPopNames()));
             } else if (e.getBuffer().contains("/tpop rename ")) {
-                e.setCompletions(getRefinedCompletions("/tpop rename", e.getBuffer(), getPopNames()));
+                e.setCompletions(getRefinedCompletions("/tpop rename", e.getBuffer(), getCustomPopNames()));
             } else if (e.getBuffer().contains("/tpop ")) {
                 e.setCompletions(getRefinedCompletions("/tpop", e.getBuffer(), popCompletions));
             }
@@ -56,6 +58,7 @@ public class AutoCompleteListener implements Listener {
 
     private static List<String> popCompletions = new ImmutableList.Builder<String>()
             .add("create")
+            .add("createfrom")
             .add("edit")
             .add("list")
             .add("delete")
@@ -63,7 +66,18 @@ public class AutoCompleteListener implements Listener {
             .add("help")
             .build();
 
-    private List<String> getPopNames() {
+    private List<String> getCustomPopNames() {
+        List<String> popNames = new ArrayList<>();
+        for (TreePopulator pop : PopCache.getPopulators()) {
+            if (!PopCache.isPreset(pop.getName())) {
+                popNames.add(pop.getName());
+            }
+        }
+        return popNames;
+    }
+
+
+    private List<String> getAllPopNames() {
         List<String> popNames = new ArrayList<>();
         for (TreePopulator pop : PopCache.getPopulators()) {
             popNames.add(pop.getName());

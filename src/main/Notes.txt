@@ -36,7 +36,7 @@ Tree types
 - end
 - underwater tree
 
-Tree specific spawn conditions
+Tree specific spawn conditions - VALID SOIL PER SPECIES
 * change sapling list to paged system
 
 -- update --
@@ -46,3 +46,6 @@ Tree specific spawn conditions
 * added back option to get sapling by command
 * combined planes biomes
 * fixed bug causing generated trees to not grow with trunk
+* fixed bug causing fall trees to potentially generate on top of eachother
+* added presets and createFrom tpop command
+* updated birch leaf generation

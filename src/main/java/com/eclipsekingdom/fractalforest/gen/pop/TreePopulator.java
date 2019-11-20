@@ -2,13 +2,13 @@ package com.eclipsekingdom.fractalforest.gen.pop;
 
 import com.eclipsekingdom.fractalforest.gen.pop.util.TreeBiome;
 import com.eclipsekingdom.fractalforest.trees.ITree;
+import com.eclipsekingdom.fractalforest.trees.TreeUtil;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
@@ -31,6 +31,22 @@ public class TreePopulator extends BlockPopulator {
         PopCache.registerPopulator(this);
         player.sendMessage(ChatColor.GREEN + "Tree pop " + ChatColor.GRAY + name + ChatColor.GREEN + " created");
     }
+
+    public TreePopulator clone() {
+        return new TreePopulator(getCloneString(), TreeUtil.clone(biomeToTreeSpawner));
+    }
+
+    private String getCloneString() {
+        String meteorBase = name + "_COPY_";
+        int num = 1;
+        String attempt = meteorBase + num;
+        while (PopCache.hasPopulator(attempt)) {
+            num++;
+            attempt = meteorBase + num;
+        }
+        return attempt;
+    }
+
 
     @Override
     public void populate(World world, Random random, Chunk source) {
@@ -64,13 +80,13 @@ public class TreePopulator extends BlockPopulator {
         Location location = block.getLocation();
         Material material = block.getType();
         int count = 0;
-        while (!isValid(material) && count < 55) {
+        while (!isValid(material, location) && count < 55) {
             location.add(0, -1, 0);
             block = location.getBlock();
             material = block.getType();
             count++;
         }
-        if (isValid(material)) {
+        if (isValid(material, location)) {
             return location;
         } else {
             return null;
@@ -78,34 +94,22 @@ public class TreePopulator extends BlockPopulator {
     }
 
 
-    private boolean isValid(Material material) {
-        return material.isSolid() && !leaves.contains(material) && !logs.contains(material);
+    //TODO change to per species
+    private boolean isValid(Material material, Location location) {
+        Block above = location.clone().add(0, 1, 0).getBlock();
+        return soil.contains(material) && above.isPassable() && above.getType() != Material.WATER;
     }
 
-    private ImmutableSet<Material> leaves = new ImmutableSet.Builder<Material>()
-            .add(Material.OAK_LEAVES)
-            .add(Material.BIRCH_LEAVES)
-            .add(Material.ACACIA_LEAVES)
-            .add(Material.DARK_OAK_LEAVES)
-            .add(Material.JUNGLE_LEAVES)
-            .add(Material.SPRUCE_LEAVES)
+    private ImmutableSet<Material> soil = new ImmutableSet.Builder<Material>()
+            .add(Material.DIRT)
+            .add(Material.COARSE_DIRT)
+            .add(Material.GRASS_BLOCK)
+            .add(Material.SAND)
+            .add(Material.GRAVEL)
+            .add(Material.MYCELIUM)
+            .add(Material.PODZOL)
             .build();
 
-
-    private ImmutableSet<Material> logs = new ImmutableSet.Builder<Material>()
-            .add(Material.OAK_LOG)
-            .add(Material.BIRCH_LOG)
-            .add(Material.ACACIA_LOG)
-            .add(Material.DARK_OAK_LOG)
-            .add(Material.JUNGLE_LOG)
-            .add(Material.SPRUCE_LOG)
-            .add(Material.OAK_WOOD)
-            .add(Material.BIRCH_WOOD)
-            .add(Material.ACACIA_WOOD)
-            .add(Material.DARK_OAK_WOOD)
-            .add(Material.JUNGLE_WOOD)
-            .add(Material.SPRUCE_WOOD)
-            .build();
 
     public String getName() {
         return name;

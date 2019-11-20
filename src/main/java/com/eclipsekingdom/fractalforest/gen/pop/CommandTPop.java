@@ -31,6 +31,8 @@ public class CommandTPop implements CommandExecutor {
                         PluginHelp.showPop(player);
                     } else if (subCommand.equalsIgnoreCase("create")) {
                         processCreate(player, args);
+                    } else if (subCommand.equalsIgnoreCase("createfrom")) {
+                        processCreateFrom(player, args);
                     } else if (subCommand.equalsIgnoreCase("edit")) {
                         processEdit(player, args);
                     } else if (subCommand.equalsIgnoreCase("rename")) {
@@ -55,58 +57,83 @@ public class CommandTPop implements CommandExecutor {
 
     private void processCreate(Player player, String[] args) {
 
-
         String name = args.length > 1 ? args[1] : getDefaultString();
         NameValidation.Status status = NameValidation.clean(name);
-        if (!LiveSessions.isBusyPopBusy(name)) {
-            if (!PopCache.hasPopulator(name)) {
-                if (status == NameValidation.Status.VALID) {
-                    TreePopulator pop = TreePopulator.defaultPopulator(name);
-                    LiveSessions.launchPop(player, pop, true);
+        if (!PopCache.isPreset(name)) {
+            if (!LiveSessions.isBusyPopBusy(name)) {
+                if (!PopCache.hasPopulator(name)) {
+                    if (status == NameValidation.Status.VALID) {
+                        TreePopulator pop = TreePopulator.defaultPopulator(name);
+                        LiveSessions.launchPop(player, pop, true);
+                    } else {
+                        player.sendMessage(ChatColor.RED + status.message);
+                    }
                 } else {
-                    player.sendMessage(ChatColor.RED + status.message);
+                    player.sendMessage(WARN_TPOP_EXISTS.getColoredFromPop(name, ChatColor.RED));
                 }
             } else {
-                player.sendMessage(WARN_TPOP_EXISTS.getColoredFromPop(name, ChatColor.RED));
+                player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LiveSessions.getPopEditor(name)));
             }
         } else {
-            player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LiveSessions.getPopEditor(name)));
+            player.sendMessage(ChatColor.RED + name + " is a preset tree populator.");
         }
     }
 
     private void processEdit(Player player, String[] args) {
         if (args.length > 1) {
             String name = args[1];
-            if (PopCache.hasPopulator(name)) {
-                if (!LiveSessions.isBusyPopBusy(name)) {
-                    TreePopulator pop = PopCache.getPopulator(name);
-                    LiveSessions.launchPop(player, pop, false);
+            if (!PopCache.isPreset(name)) {
+                if (PopCache.hasPopulator(name)) {
+                    if (!LiveSessions.isBusyPopBusy(name)) {
+                        TreePopulator pop = PopCache.getPopulator(name);
+                        LiveSessions.launchPop(player, pop, false);
+                    } else {
+                        player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LiveSessions.getPopEditor(name)));
+                    }
                 } else {
-                    player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LiveSessions.getPopEditor(name)));
+                    player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(name, ChatColor.RED));
                 }
             } else {
-                player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(name, ChatColor.RED));
+                player.sendMessage(ChatColor.RED + name + " is a preset tree populator.");
             }
         } else {
             player.sendMessage(ChatColor.RED + FORMAT_EDIT_TPOP.toString());
         }
     }
 
+    private void processCreateFrom(Player player, String[] args) {
+        if (args.length > 1) {
+            String name = args[1];
+            if (PopCache.hasPopulator(name)) {
+                TreePopulator pop = PopCache.getPopulator(name);
+                LiveSessions.launchPop(player, pop.clone(), true);
+            } else {
+                player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(name, ChatColor.RED));
+            }
+        } else {
+            player.sendMessage(ChatColor.RED + "Format is /ptree createfrom [populator]");
+        }
+    }
+
     private void processRename(Player player, String[] args) {
         if (args.length > 2) {
             String from = args[1];
-            TreePopulator pop = PopCache.getPopulator(from);
-            if (pop != null) {
-                String to = args[2];
-                NameValidation.Status status = NameValidation.clean(to);
-                if (status == NameValidation.Status.VALID) {
-                    pop.setName(to);
-                    player.sendMessage(SUCCESS_TPOP_RENAME.getColoredFromPop(to, ChatColor.GREEN));
+            if (!PopCache.isPreset(from)) {
+                TreePopulator pop = PopCache.getPopulator(from);
+                if (pop != null) {
+                    String to = args[2];
+                    NameValidation.Status status = NameValidation.clean(to);
+                    if (status == NameValidation.Status.VALID) {
+                        pop.setName(to);
+                        player.sendMessage(SUCCESS_TPOP_RENAME.getColoredFromPop(to, ChatColor.GREEN));
+                    } else {
+                        player.sendMessage(ChatColor.RED + status.message);
+                    }
                 } else {
-                    player.sendMessage(ChatColor.RED + status.message);
+                    player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));
                 }
             } else {
-                player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));
+                player.sendMessage(ChatColor.RED + from + " is a preset tree populator.");
             }
         } else {
             player.sendMessage(ChatColor.RED + SUGGEST_TPOP_HELP.toString());
@@ -115,19 +142,25 @@ public class CommandTPop implements CommandExecutor {
 
     private void processRemove(Player player, String[] args) {
         if (args.length > 1) {
-            TreePopulator pop = PopCache.getPopulator(args[1]);
-            if (pop != null) {
-                PopCache.removePopulator(pop);
-                for (Map.Entry<World, WorldData> entry : Generator.getWorldToData().entrySet()) {
-                    WorldData worldData = entry.getValue();
-                    if (pop == worldData.getTreePopulator()) {
-                        worldData.setTreePopulator(entry.getKey(), null);
+            String name = args[1];
+            if (!PopCache.isPreset(name)) {
+                TreePopulator pop = PopCache.getPopulator(name);
+                if (pop != null) {
+                    PopCache.removePopulator(pop);
+                    for (Map.Entry<World, WorldData> entry : Generator.getWorldToData().entrySet()) {
+                        WorldData worldData = entry.getValue();
+                        if (pop == worldData.getTreePopulator()) {
+                            worldData.setTreePopulator(entry.getKey(), null);
+                        }
                     }
+                    player.sendMessage(SUCCESS_TPOP_REMOVE.getColoredFromPop(pop.getName(), ChatColor.GREEN));
+                } else {
+                    player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));
                 }
-                player.sendMessage(SUCCESS_TPOP_REMOVE.getColoredFromPop(pop.getName(), ChatColor.GREEN));
             } else {
-                player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));
+                player.sendMessage(ChatColor.RED + name + " is a preset tree populator.");
             }
+
         } else {
             player.sendMessage(ChatColor.RED + SUGGEST_TPOP_HELP.toString());
         }

@@ -10,7 +10,7 @@ public class PluginHelp {
         showSapling(sender);
         showGen(sender);
         showPop(sender);
-        showEncylopedia(sender);
+        showEncyclopedia(sender);
     }
 
 
@@ -29,15 +29,16 @@ public class PluginHelp {
     public static void showPop(CommandSender sender) {
         sender.sendMessage(ChatColor.YELLOW + "-------" + ChatColor.GOLD + " Populator Commands " + ChatColor.YELLOW + "-------");
         sender.sendMessage(ChatColor.GOLD + "/tpop list: " + ChatColor.RESET + "list all populators");
-        sender.sendMessage(ChatColor.GOLD + "/tpop help: " + ChatColor.RESET + "display pop commands");
-        sender.sendMessage(ChatColor.GOLD + "/tpop create: " + ChatColor.RESET + "create a tree pop");
-        sender.sendMessage(ChatColor.GOLD + "/tpop create " + ChatColor.RED + "[tpop]" + ChatColor.GOLD + ": " + ChatColor.RESET + "create tree pop");
-        sender.sendMessage(ChatColor.GOLD + "/tpop edit " + ChatColor.RED + "[tpop]" + ChatColor.GOLD + ": " + ChatColor.RESET + "edit tree pop");
-        sender.sendMessage(ChatColor.GOLD + "/tpop delete " + ChatColor.RED + "[tpop]" + ChatColor.GOLD + ": " + ChatColor.RESET + "delete tree pop");
-        sender.sendMessage(ChatColor.GOLD + "/tpop rename " + ChatColor.RED + "[old] [new]" + ChatColor.GOLD + ": " + ChatColor.RESET + "rename tree pop");
+        sender.sendMessage(ChatColor.GOLD + "/tpop help: " + ChatColor.RESET + "display populator commands");
+        sender.sendMessage(ChatColor.GOLD + "/tpop create: " + ChatColor.RESET + "create a populator");
+        sender.sendMessage(ChatColor.GOLD + "/tpop create " + ChatColor.RED + "[populator]" + ChatColor.GOLD + ": " + ChatColor.RESET + "create populator");
+        sender.sendMessage(ChatColor.GOLD + "/tpop createfrom " + ChatColor.RED + "[populator]" + ChatColor.GOLD + ": " + ChatColor.RESET + "create populator from template");
+        sender.sendMessage(ChatColor.GOLD + "/tpop edit " + ChatColor.RED + "[populator]" + ChatColor.GOLD + ": " + ChatColor.RESET + "edit populator");
+        sender.sendMessage(ChatColor.GOLD + "/tpop delete " + ChatColor.RED + "[populator]" + ChatColor.GOLD + ": " + ChatColor.RESET + "delete populator");
+        sender.sendMessage(ChatColor.GOLD + "/tpop rename " + ChatColor.RED + "[old] [new]" + ChatColor.GOLD + ": " + ChatColor.RESET + "rename populator");
     }
 
-    public static void showEncylopedia(CommandSender sender) {
+    public static void showEncyclopedia(CommandSender sender) {
         sender.sendMessage(ChatColor.YELLOW + "-------" + ChatColor.GOLD + " Encyclopedia Commands " + ChatColor.YELLOW + "-------");
         sender.sendMessage(ChatColor.GOLD + "/tencyclopedia: " + ChatColor.RESET + "request an encyclopedia");
         sender.sendMessage(ChatColor.GOLD + "/updatetrecords: " + ChatColor.RESET + "update the records in inventory");

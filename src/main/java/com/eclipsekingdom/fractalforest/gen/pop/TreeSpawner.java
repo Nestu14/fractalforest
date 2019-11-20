@@ -31,6 +31,10 @@ public class TreeSpawner {
         this.max = max;
     }
 
+    public TreeSpawner clone() {
+        return new TreeSpawner(species, chance, min, max);
+    }
+
     public int nextAmount() {
         return random.nextInt(max + 1 - min) + min;
     }
