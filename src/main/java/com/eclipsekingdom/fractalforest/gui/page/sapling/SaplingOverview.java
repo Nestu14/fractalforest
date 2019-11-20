@@ -9,7 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Set;
 
@@ -24,7 +26,11 @@ public class SaplingOverview implements PageContents {
         for (int i = 0; i < 28; i++) {
             int speciesIndex = i + (7 * offsetY);
             if (speciesIndex < species.length) {
-                menu.setItem(index, species[speciesIndex].getSapling());
+                ItemStack itemStack = species[speciesIndex].getSapling();
+                ItemMeta meta = itemStack.getItemMeta();
+                meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+                itemStack.setItemMeta(meta);
+                menu.setItem(index, itemStack);
             } else {
                 menu.setItem(index, Icons.BACKGROUND_ITEM);
             }
@@ -45,7 +51,10 @@ public class SaplingOverview implements PageContents {
         } else if (slot == 35) {
             sessionData.scrollDown(player, this, menu);
         } else {
-            ItemStack itemStack = menu.getItem(slot);
+            ItemStack itemStack = menu.getItem(slot).clone();
+            ItemMeta meta = itemStack.getItemMeta();
+            meta.removeItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            itemStack.setItemMeta(meta);
             if (itemStack != null && saplingMaterials.contains(itemStack.getType())) {
                 ItemStack cursor = player.getItemOnCursor();
                 if (cursor == null || cursor.getType() == Material.AIR) {
@@ -59,6 +68,7 @@ public class SaplingOverview implements PageContents {
                 } else {
                     if (cursor.hasItemMeta() && cursor.getItemMeta().equals(itemStack.getItemMeta())) {
                         int amount = clickType.isShiftClick() ? 64 : cursor.getAmount() + 1;
+                        if (amount > 64) amount = 64;
                         cursor.setAmount(amount);
                         player.setItemOnCursor(cursor);
                     } else {

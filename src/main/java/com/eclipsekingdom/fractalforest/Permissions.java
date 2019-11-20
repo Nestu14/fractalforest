@@ -7,7 +7,7 @@ public class Permissions {
     private static final String SAPLING_PERM = "forest.sapling";
     private static final String POP_PERM = "forest.pop";
     private static final String GEN_PERM = "forest.gen";
-
+    private static final String ENCYCLOPEDIA_PERM = "forest.encyclopedia";
 
     public static boolean canSummonSapling(Player player) {
         return hasPermission(player, SAPLING_PERM);
@@ -19,6 +19,10 @@ public class Permissions {
 
     public static boolean canEditGen(Player player) {
         return hasPermission(player, GEN_PERM);
+    }
+
+    public static boolean canWriteEncyclopedia(Player player) {
+        return hasPermission(player, ENCYCLOPEDIA_PERM);
     }
 
     private static boolean hasPermission(Player player, String permString) {

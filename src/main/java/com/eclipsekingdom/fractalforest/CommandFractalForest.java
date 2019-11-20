@@ -11,7 +11,7 @@ public class CommandFractalForest implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        PluginHelp.showTo(sender);
+        PluginHelp.showHelp(sender);
         return false;
     }
 }

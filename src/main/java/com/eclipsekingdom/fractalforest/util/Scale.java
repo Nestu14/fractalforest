@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.util;
 
 public enum  Scale {
-    SHRUB, SMALL, MEDIUM, BIG, MASSIVE
+    UNCLASSIFIED, SHRUB, SMALL, MEDIUM, BIG, MASSIVE
     ;
 
     public String getFormatted(){

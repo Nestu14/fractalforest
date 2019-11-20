@@ -45,7 +45,3 @@ Tree specific spawn conditions
 
 -- update --
 
-* simplified biome selection
-* seperated generator and populator
-* added forest.gen permission and /tgenerator command
-* fixed bug causing generator not to update with world removal/addition until restart

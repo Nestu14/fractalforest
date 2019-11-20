@@ -1,5 +1,6 @@
 package com.eclipsekingdom.fractalforest.trees;
 
+import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -12,6 +13,7 @@ public abstract class Tree implements ITree {
 
     private static Random rand = new Random();
 
+    protected String species;
     protected Location seed;
     protected Vector origin;
     protected ITheme theme;
@@ -19,7 +21,8 @@ public abstract class Tree implements ITree {
     protected Random random = Tree.rand;
     protected Player planter;
 
-    public Tree(Player planter, Location seed, ITheme theme) {
+    public Tree(Species species, Player planter, Location seed, ITheme theme) {
+        this.species = species.toString();
         this.planter = planter;
         this.origin = seed.toVector();
         this.seed = seed;
@@ -33,6 +36,11 @@ public abstract class Tree implements ITree {
 
     public Player getPlanter() {
         return planter;
+    }
+
+    @Override
+    public String getSpecies() {
+        return species;
     }
 
 }

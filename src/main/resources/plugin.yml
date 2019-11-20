@@ -1,5 +1,5 @@
 name: FractalForest
-version: 1.5.0
+version: 1.6.0
 main: com.eclipsekingdom.fractalforest.FractalForest
 api-version: 1.13
 authors: [sword]
@@ -20,6 +20,13 @@ commands:
   tgenerator:
     description: edit the tree generator
     permission: forest.gen
+  tencyclopedia:
+    description: request an encyclopedia
+    permission: forest.encyclopedia
+  updatetrecords:
+    description: update the records in inventory
+    permission: forest.encyclopedia
+
 
 permissions:
   forest.*:
@@ -33,4 +40,7 @@ permissions:
     default: op
   forest.gen:
     description: grants access to /tgeneration
+    default: op
+  forest.encyclopedia:
+    description: grants access to encyclopedia commands
     default: op

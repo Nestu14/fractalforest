@@ -39,6 +39,7 @@ public class LiveSessions {
         UUID playerID = player.getUniqueId();
         Page home = PageType.SAPLING_OVERVIEW.getPage();
         SessionData sessionData = new SessionData(SessionData.Type.SAP, home);
+        sessionData.setItemPicker(true);
         playerToData.put(playerID, sessionData);
         player.openInventory(home.getInventory(sessionData));
     }

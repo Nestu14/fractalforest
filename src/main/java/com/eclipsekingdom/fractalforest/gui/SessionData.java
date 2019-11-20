@@ -12,6 +12,7 @@ public class SessionData {
     private PopData popData;
     private GenData genData;
     private Type type;
+    private boolean itemPicker = false;
 
     private Page current;
     private boolean transitioning = false;
@@ -23,6 +24,14 @@ public class SessionData {
         this.pageOffsetY = 0;
         this.current = start;
         this.type = type;
+    }
+
+    public void setItemPicker(boolean itemPicker) {
+        this.itemPicker = itemPicker;
+    }
+
+    public boolean isItemPicker() {
+        return itemPicker;
     }
 
     public Type getType() {
