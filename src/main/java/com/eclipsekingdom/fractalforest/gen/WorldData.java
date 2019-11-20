@@ -34,7 +34,11 @@ public class WorldData {
     public void setTreePopulator(World world, TreePopulator treePopulator) {
         WorldUtil.reset(world);
         this.treePopulator = treePopulator;
-        if (enabled && treePopulator != null) world.getPopulators().add(treePopulator);
+        if (enabled && treePopulator != null) {
+            world.getPopulators().add(treePopulator);
+        } else {
+            enabled = false;
+        }
     }
 
 

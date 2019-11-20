@@ -3,6 +3,7 @@ package com.eclipsekingdom.fractalforest.util;
 import com.eclipsekingdom.fractalforest.FractalForest;
 import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
+import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,15 +15,17 @@ import java.util.List;
 
 public class AutoCompleteListener implements Listener {
 
-    public AutoCompleteListener(){
+    public AutoCompleteListener() {
         FractalForest plugin = FractalForest.plugin;
-        plugin.getServer().getPluginManager().registerEvents(this,plugin);
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
-    public void onComplete(TabCompleteEvent e){
-        if(e.getSender() instanceof Player){
-            if (e.getBuffer().contains("/tpop delete ")) {
+    public void onComplete(TabCompleteEvent e) {
+        if (e.getSender() instanceof Player) {
+            if (e.getBuffer().contains("/sapling ")) {
+                e.setCompletions(getRefinedCompletions("/sapling", e.getBuffer(), getSpeciesNames()));
+            } else if (e.getBuffer().contains("/tpop delete ")) {
                 e.setCompletions(getRefinedCompletions("/tpop delete", e.getBuffer(), getPopNames()));
             } else if (e.getBuffer().contains("/tpop edit ")) {
                 e.setCompletions(getRefinedCompletions("/tpop edit", e.getBuffer(), getPopNames()));
@@ -34,15 +37,15 @@ public class AutoCompleteListener implements Listener {
         }
     }
 
-    private List<String> getRefinedCompletions(String root, String buffer, List<String> completions){
-        if(buffer.equalsIgnoreCase(root + " ")){
+    private List<String> getRefinedCompletions(String root, String buffer, List<String> completions) {
+        if (buffer.equalsIgnoreCase(root + " ")) {
             return completions;
-        }else{
+        } else {
             List<String> refinedCompletions = new ArrayList<>();
             String bufferFromRoot = buffer.split(root + " ")[1];
-            for(String completion : completions){
-                if(bufferFromRoot.length() < completion.length()){
-                    if(completion.substring(0,bufferFromRoot.length()).equalsIgnoreCase(bufferFromRoot)){
+            for (String completion : completions) {
+                if (bufferFromRoot.length() < completion.length()) {
+                    if (completion.substring(0, bufferFromRoot.length()).equalsIgnoreCase(bufferFromRoot)) {
                         refinedCompletions.add(completion);
                     }
                 }
@@ -66,6 +69,15 @@ public class AutoCompleteListener implements Listener {
             popNames.add(pop.getName());
         }
         return popNames;
+    }
+
+    private List<String> getSpeciesNames() {
+        List<String> speciesNames = new ArrayList<>();
+        for (Species species : Species.values()) {
+            speciesNames.add(species.toString());
+        }
+        speciesNames.add("list");
+        return speciesNames;
     }
 
 }

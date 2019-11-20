@@ -6,6 +6,7 @@ import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
+import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.Material;
@@ -69,6 +70,7 @@ public class PopSelection implements PageContents {
         } else {
             ItemStack itemStack = menu.getItem(slot);
             if (itemStack != null && popMaterial.contains(itemStack.getType())) {
+                MenuUtil.playClickSound(player);
                 TreePopulator treePopulator = PopCache.getPopulator(itemStack.getItemMeta().getDisplayName());
                 World world = sessionData.getGenData().getCurrentWorld();
                 WorldData worldData = Generator.getWorldData(world);

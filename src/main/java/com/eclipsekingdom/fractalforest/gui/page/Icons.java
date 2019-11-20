@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
 
@@ -102,9 +103,10 @@ public class Icons {
 
         for (Map.Entry<TreeBiome, List<TreeSpawner>> entry : populator.getBiomeToTreeSpawner().entrySet()) {
             lore.add(ChatColor.GREEN + entry.getKey().toString());
+            NumberFormat formatter = new DecimalFormat("#0.00");
             for(TreeSpawner treeSpawner: entry.getValue()){
                 lore.add(ChatColor.GRAY + "> " + treeSpawner.getSpecies().toString() + " - " +
-                        treeSpawner.getChance()*100 + "% " + "[" + treeSpawner.getMin() + "-" + treeSpawner.getMax() + "]");
+                        formatter.format(treeSpawner.getChance()*100) + "% " + "[" + treeSpawner.getMin() + "-" + treeSpawner.getMax() + "]");
             }
         }
 

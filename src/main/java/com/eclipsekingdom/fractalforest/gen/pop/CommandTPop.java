@@ -1,14 +1,19 @@
 package com.eclipsekingdom.fractalforest.gen.pop;
 
 import com.eclipsekingdom.fractalforest.Permissions;
+import com.eclipsekingdom.fractalforest.gen.Generator;
+import com.eclipsekingdom.fractalforest.gen.WorldData;
 import com.eclipsekingdom.fractalforest.gen.pop.util.NameValidation;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
 import com.eclipsekingdom.fractalforest.util.PluginHelp;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Map;
 
 import static com.eclipsekingdom.fractalforest.util.language.Message.*;
 
@@ -113,6 +118,12 @@ public class CommandTPop implements CommandExecutor {
             TreePopulator pop = PopCache.getPopulator(args[1]);
             if (pop != null) {
                 PopCache.removePopulator(pop);
+                for (Map.Entry<World, WorldData> entry : Generator.getWorldToData().entrySet()) {
+                    WorldData worldData = entry.getValue();
+                    if (pop == worldData.getTreePopulator()) {
+                        worldData.setTreePopulator(entry.getKey(), null);
+                    }
+                }
                 player.sendMessage(SUCCESS_TPOP_REMOVE.getColoredFromPop(pop.getName(), ChatColor.GREEN));
             } else {
                 player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));

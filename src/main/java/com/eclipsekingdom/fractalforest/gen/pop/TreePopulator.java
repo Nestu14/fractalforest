@@ -19,9 +19,7 @@ public class TreePopulator extends BlockPopulator {
     private LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner;
 
     public static TreePopulator defaultPopulator(String name) {
-        LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner = new LinkedHashMap<>();
-        biomeToTreeSpawner.put(TreeBiome.FOREST, TreeSpawner.defaultTreeSpawners());
-        return new TreePopulator(name, biomeToTreeSpawner);
+        return new TreePopulator(name, new LinkedHashMap<>());
     }
 
     public TreePopulator(String name, LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner) {

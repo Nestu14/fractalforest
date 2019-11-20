@@ -15,6 +15,8 @@ import static com.eclipsekingdom.fractalforest.gui.page.Icons.BACKGROUND_ITEM;
 
 public class AmountMax implements PageContents {
 
+    private static final int MAX = 5;
+
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
@@ -34,7 +36,7 @@ public class AmountMax implements PageContents {
 
         menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Max tree number", max + " trees"));
 
-        if (max < 7) {
+        if (max < MAX) {
             menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", max + " trees"));
         } else {
             menu.setItem(14, BACKGROUND_ITEM);
@@ -65,7 +67,7 @@ public class AmountMax implements PageContents {
             change = 0;
         }
 
-        if (change > 0 && spawner.getMax() == 7) {
+        if (change > 0 && spawner.getMax() == MAX) {
             change = 0;
         }
 
@@ -75,8 +77,8 @@ public class AmountMax implements PageContents {
             if (spawner.getMax() < spawner.getMin()) {
                 spawner.setMax(spawner.getMin());
             }
-            if (spawner.getMax() > 7) {
-                spawner.setMax(7);
+            if (spawner.getMax() > MAX) {
+                spawner.setMax(MAX);
             }
             populate(menu, sessionData);
         }

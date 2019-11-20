@@ -16,13 +16,12 @@ public class TreeSpawner {
     private int max;
 
 
-    public static List<TreeSpawner> defaultTreeSpawners(){
-        List<TreeSpawner> treeSpawners = new ArrayList<>();
-        treeSpawners.add(new TreeSpawner(Species.MAGNOLIA, 0.2, 1, 2));
-        return treeSpawners;
+    public static List<TreeSpawner> defaultTreeSpawners() {
+        return new ArrayList<>();
     }
-    public static TreeSpawner defaultTreeSpawner(Species species){
-        return new TreeSpawner(species, 0.2, 1, 2);
+
+    public static TreeSpawner defaultTreeSpawner(Species species) {
+        return new TreeSpawner(species, 0, 0, 0);
     }
 
     public TreeSpawner(Species species, double chance, int min, int max) {
@@ -32,8 +31,8 @@ public class TreeSpawner {
         this.max = max;
     }
 
-    public int nextAmount(){
-        return random.nextInt(max+1-min) + min;
+    public int nextAmount() {
+        return random.nextInt(max + 1 - min) + min;
     }
 
     public Species getSpecies() {

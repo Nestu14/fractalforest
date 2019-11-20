@@ -8,8 +8,7 @@ import java.util.Set;
 
 public enum TreeBiome {
 
-    PLAINS(Material.GRASS_BLOCK, new Biome[]{Biome.PLAINS}),
-    SUNFLOWER_PLAINS(Material.SUNFLOWER, new Biome[]{Biome.SUNFLOWER_PLAINS}),
+    PLAINS(Material.GRASS_BLOCK, new Biome[]{Biome.PLAINS, Biome.SUNFLOWER_PLAINS}),
     DESERT(Material.SAND, new Biome[]{Biome.DESERT, Biome.DESERT_HILLS}),
     MOUNTAINS(Material.STONE, new Biome[]{Biome.MOUNTAINS, Biome.MOUNTAIN_EDGE, Biome.MODIFIED_GRAVELLY_MOUNTAINS, Biome.GRAVELLY_MOUNTAINS}),
     WOODED_MOUNTAINS(Material.OAK_WOOD, new Biome[]{Biome.WOODED_MOUNTAINS}),

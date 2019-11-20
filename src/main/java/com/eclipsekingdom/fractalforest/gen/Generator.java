@@ -12,13 +12,11 @@ public class Generator {
     private static GeneratorFlatFile generatorFlatFile = new GeneratorFlatFile();
 
     public Generator() {
-        for(World world: Bukkit.getWorlds()){
+        for (World world : Bukkit.getWorlds()) {
             WorldUtil.reset(world);
         }
         load();
     }
-
-
 
     private void load() {
         worldToData.putAll(generatorFlatFile.fetch());
@@ -32,10 +30,14 @@ public class Generator {
         if (worldToData.containsKey(world)) {
             return worldToData.get(world);
         } else {
-            WorldData worldData = new WorldData(world,null, false);
+            WorldData worldData = new WorldData(world, null, false);
             worldToData.put(world, worldData);
             return worldData;
         }
+    }
+
+    public static Map<World, WorldData> getWorldToData() {
+        return worldToData;
     }
 
 }

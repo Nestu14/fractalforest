@@ -66,6 +66,8 @@ public class FractalTreeBuilder extends Tree {
                 finished = false;
                 if (isAnimated) {
                     locationsCache.get(PID).addAll(buildBranch(trunk));
+                } else {
+                    buildBranch(trunk);
                 }
             }
             if (phase == 1) {

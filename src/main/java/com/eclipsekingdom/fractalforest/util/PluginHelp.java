@@ -17,6 +17,8 @@ public class PluginHelp {
     public static void showSapling(CommandSender sender) {
         sender.sendMessage(ChatColor.YELLOW + "-------" + ChatColor.GOLD + " Sapling Commands " + ChatColor.YELLOW + "-------");
         sender.sendMessage(ChatColor.GOLD + "/sapling:" + ChatColor.RESET + " select saplings");
+        sender.sendMessage(ChatColor.GOLD + "/sapling "+ChatColor.RED+ "[species]" + ChatColor.GOLD + ":" + ChatColor.RESET + " get a sapling");
+        sender.sendMessage(ChatColor.GOLD + "/sapling "+ChatColor.RED+ "[species] [amount]" + ChatColor.GOLD + ":" + ChatColor.RESET + " get sapling(s)");
     }
 
     public static void showGen(CommandSender sender) {

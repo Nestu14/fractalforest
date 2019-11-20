@@ -37,11 +37,12 @@ Tree types
 - underwater tree
 
 Tree specific spawn conditions
-
-* better populator default (min and max 0 and 1)
-* better restrictions on % and amounts;
-
-* display enabled/disabled populators differently in /list -- >> <<
+* change sapling list to paged system
 
 -- update --
-
+* reduced max, changed defaults to 0 % and 0-0 and empty lists
+* generator reset if populator deleted
+* more exact chance (0.1)
+* added back option to get sapling by command
+* combined planes biomes
+* fixed bug causing generated trees to not grow with trunk

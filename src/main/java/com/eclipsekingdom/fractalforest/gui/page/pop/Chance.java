@@ -32,8 +32,9 @@ public class Chance implements PageContents {
         NumberFormat formatter = new DecimalFormat("#0.00");
 
         if (chance > 0) {
-            menu.setItem(11, Icons.VALUE_MANIPULATOR("-10", formatter.format(chance) + "%"));
-            menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", formatter.format(chance) + "%"));
+            menu.setItem(10, Icons.VALUE_MANIPULATOR("-10", formatter.format(chance) + "%"));
+            menu.setItem(11, Icons.VALUE_MANIPULATOR("-1", formatter.format(chance) + "%"));
+            menu.setItem(12, Icons.VALUE_MANIPULATOR("-0.1", formatter.format(chance) + "%"));
         } else {
             menu.setItem(11, BACKGROUND_ITEM);
             menu.setItem(12, BACKGROUND_ITEM);
@@ -41,9 +42,9 @@ public class Chance implements PageContents {
 
         menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Chance per Chunk", formatter.format(chance) + "%"));
 
-        menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", formatter.format(chance) + "%"));
-        menu.setItem(15, Icons.VALUE_MANIPULATOR("+10", formatter.format(chance) + "%"));
-        menu.setItem(16, BACKGROUND_ITEM);
+        menu.setItem(14, Icons.VALUE_MANIPULATOR("+0.1", formatter.format(chance) + "%"));
+        menu.setItem(15, Icons.VALUE_MANIPULATOR("+1", formatter.format(chance) + "%"));
+        menu.setItem(16, Icons.VALUE_MANIPULATOR("+10", formatter.format(chance) + "%"));
 
         return menu;
     }
@@ -52,18 +53,24 @@ public class Chance implements PageContents {
     public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
         PopData popData = sessionData.getPopData();
         TreeSpawner spawner = popData.getCurrentSpawner();
-        int change = 0;
+        double change = 0;
         switch (slot) {
-            case 11:
+            case 10:
                 change = -10;
                 break;
-            case 12:
+            case 11:
                 change = -1;
                 break;
+            case 12:
+                change = -0.1;
+                break;
             case 14:
-                change = 1;
+                change = 0.1;
                 break;
             case 15:
+                change = 1;
+                break;
+            case 16:
                 change = 10;
                 break;
             default:
