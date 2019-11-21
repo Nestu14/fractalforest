@@ -155,10 +155,9 @@ public class FractalTreeBuilder extends Tree {
         if (hasPlanter()) {
             Player planter = getPlanter();
             if (RegionValidation.isValidLocation(planter, location)) {
+                if (PluginBase.isUsingCoreProtect()) PluginBase.getCoreProtect().registerPlacement(planter, block);
                 placeBranch(materialFactory, block);
-                if (PluginBase.isUsingCoreProtect()) {
-                    PluginBase.getCoreProtect().registerPlacement(planter, block);
-                }
+                if (PluginBase.isUsingCoreProtect()) PluginBase.getCoreProtect().registerRemoval(planter, block);
             }
         } else {
             placeBranch(materialFactory, block);
@@ -185,10 +184,9 @@ public class FractalTreeBuilder extends Tree {
         if (hasPlanter()) {
             Player planter = getPlanter();
             if (RegionValidation.isValidLocation(planter, location)) {
+                if (PluginBase.isUsingCoreProtect()) PluginBase.getCoreProtect().registerRemoval(planter, block);
                 placeRoot(block);
-                if (PluginBase.isUsingCoreProtect()) {
-                    PluginBase.getCoreProtect().registerPlacement(planter, block);
-                }
+                if (PluginBase.isUsingCoreProtect()) PluginBase.getCoreProtect().registerPlacement(planter, block);
             }
         } else {
             placeRoot(block);
@@ -224,10 +222,9 @@ public class FractalTreeBuilder extends Tree {
             if (hasPlanter()) {
                 Player planter = getPlanter();
                 if (RegionValidation.isValidLocation(planter, location)) {
+                    if (PluginBase.isUsingCoreProtect()) PluginBase.getCoreProtect().registerRemoval(planter, target);
                     placeLeaf(target);
-                    if (PluginBase.isUsingCoreProtect()) {
-                        PluginBase.getCoreProtect().registerPlacement(planter, target);
-                    }
+                    if (PluginBase.isUsingCoreProtect()) PluginBase.getCoreProtect().registerPlacement(planter, target);
                 }
             } else {
                 placeLeaf(target);

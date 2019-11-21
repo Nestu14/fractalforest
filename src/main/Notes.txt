@@ -40,12 +40,4 @@ Tree specific spawn conditions - VALID SOIL PER SPECIES
 * change sapling list to paged system
 
 -- update --
-* reduced max, changed defaults to 0 % and 0-0 and empty lists
-* generator reset if populator deleted
-* more exact chance (0.1)
-* added back option to get sapling by command
-* combined planes biomes
-* fixed bug causing generated trees to not grow with trunk
-* fixed bug causing fall trees to potentially generate on top of eachother
-* added presets and createFrom tpop command
-* updated birch leaf generation
+* fixed core protect rollbacks

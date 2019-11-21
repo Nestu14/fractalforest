@@ -21,6 +21,7 @@ public class PluginBase {
     public static String residenceNameSpace = "Residence";
     public static String griefPreventionNameSpace = "GriefPrevention";
     public static String landsNameSpace = "Lands";
+    public static String civsNameSpace = "Civs";
 
     private static ImmutableList<String> possibleRegionDependencies = new ImmutableList.Builder<String>()
             .add(playerPlotNameSpace)
@@ -30,6 +31,7 @@ public class PluginBase {
             .add(griefPreventionNameSpace)
             .add(residenceNameSpace)
             .add(landsNameSpace)
+            .add(civsNameSpace)
             .build();
 
     private static Map<String, Plugin> regionPlugins = new HashMap<>();

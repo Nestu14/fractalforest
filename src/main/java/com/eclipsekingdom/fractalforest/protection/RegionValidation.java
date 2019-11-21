@@ -48,6 +48,8 @@ public class RegionValidation {
                 this.landsKey = landsAddon.initialize();
                 regionProtectors.add(new LandsProtection(landsAddon));
                 usingLands = true;
+            } else if (name.equals(PluginBase.civsNameSpace)) {
+                regionProtectors.add(new CivsProtection());
             }
         }
     }

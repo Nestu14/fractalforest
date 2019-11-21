@@ -29,4 +29,11 @@ public class CoreProtect {
         coreProtectAPI.logPlacement(planter.getName(), block.getLocation(), block.getType(), block.getBlockData());
     }
 
+
+    public void registerRemoval(Player planter, Block block) {
+        coreProtectAPI.logRemoval("MeteorStorms", block.getLocation(), block.getType(), block.getBlockData());
+        coreProtectAPI.logRemoval(planter.getName(), block.getLocation(), block.getType(), block.getBlockData());
+    }
+
+
 }
