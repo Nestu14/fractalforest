@@ -38,6 +38,7 @@ Tree types
 
 Tree specific spawn conditions - VALID SOIL PER SPECIES
 * change sapling list to paged system
+* web based tpop creator (grids with textures to show biomes and sized dots to show about how many trees and space will be taken up)
 
 -- update --
-* fixed core protect rollbacks
+* civis

@@ -85,7 +85,7 @@ public class CommandTEncyclopedia implements CommandExecutor {
                 ChatColor.BLACK + "○ Size: " + Species.getScale(record).getFormatted() + "\n" +
                 ChatColor.BLACK + "○ Volume: " + (int) record.getAverageVolume() + "m²\n" +
                 ChatColor.BLACK + "○ Height: " + (int) record.getAverageHeight() + "m\n" +
-                ChatColor.BLACK + "○ Spread: " + (int) record.getAverageSpread() + "m\n\n\n";
+                ChatColor.BLACK + "○ Spread: " + (int) record.getAverageSpread() + "m\n\n";
     }
 
     private static List<String> korokNames = new ImmutableList.Builder<String>()

@@ -37,7 +37,7 @@ public class EncyclopediaFlatFile {
                     try {
                         String key = header + "." + species;
                         int observed = config.getInt(key + ".observed");
-                        double h = config.getDouble(key + ".observed");
+                        double h = config.getDouble(key + ".avgHeight");
                         double s = config.getDouble(key + ".avgSpread");
                         double v = config.getDouble(key + ".avgVolume");
 

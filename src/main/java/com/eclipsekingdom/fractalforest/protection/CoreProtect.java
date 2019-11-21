@@ -31,7 +31,7 @@ public class CoreProtect {
 
 
     public void registerRemoval(Player planter, Block block) {
-        coreProtectAPI.logRemoval("MeteorStorms", block.getLocation(), block.getType(), block.getBlockData());
+        coreProtectAPI.logRemoval("FractalForest", block.getLocation(), block.getType(), block.getBlockData());
         coreProtectAPI.logRemoval(planter.getName(), block.getLocation(), block.getType(), block.getBlockData());
     }
 
