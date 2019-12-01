@@ -1,16 +1,16 @@
 package com.eclipsekingdom.fractalforest.protection;
 
-import me.angeschossen.lands.api.enums.LandsAction;
-import me.angeschossen.lands.api.landsaddons.LandsAddon;
-import me.angeschossen.lands.api.objects.LandChunk;
+import me.angeschossen.lands.api.integration.LandsIntegration;
+import me.angeschossen.lands.api.land.LandChunk;
+import me.angeschossen.lands.api.role.enums.RoleSetting;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class LandsProtection implements IRegionProtector {
 
-    private LandsAddon landsAddon;
+    private LandsIntegration landsAddon;
 
-    public LandsProtection(LandsAddon landsAddon) {
+    public LandsProtection(LandsIntegration landsAddon) {
         this.landsAddon = landsAddon;
     }
 
@@ -18,7 +18,7 @@ public class LandsProtection implements IRegionProtector {
     public boolean isAllowed(Player player, Location location) {
         LandChunk landChunk = landsAddon.getLandChunk(location);
         if (landChunk != null) {
-            return landChunk.canAction(player.getUniqueId(), LandsAction.BLOCK_PLACE);
+            return landChunk.canAction(player.getUniqueId(), RoleSetting.BLOCK_PLACE);
         } else {
             return true;
         }

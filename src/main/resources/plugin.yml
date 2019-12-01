@@ -1,5 +1,5 @@
 name: FractalForest
-version: 1.8.3
+version: 1.8.4
 main: com.eclipsekingdom.fractalforest.FractalForest
 api-version: 1.13
 authors: [sword]
@@ -30,13 +30,13 @@ commands:
 
 permissions:
   forest.*:
-    description: grants all permissions
+    description: grants all user
     default: op
   forest.sapling:
-    description: grants access to sapling command
+    description: grants access to sapling commands
     default: op
   forest.pop:
-    description: grants access to tpop command
+    description: grants access to tpop commands
     default: op
   forest.gen:
     description: grants access to /tgeneration

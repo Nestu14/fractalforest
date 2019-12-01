@@ -2,7 +2,7 @@ package com.eclipsekingdom.fractalforest.protection;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
 import com.eclipsekingdom.fractalforest.util.PluginBase;
-import me.angeschossen.lands.api.landsaddons.LandsAddon;
+import me.angeschossen.lands.api.integration.LandsIntegration;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -20,7 +20,7 @@ public class RegionValidation {
     }
 
     private static boolean usingLands = false;
-    private static LandsAddon landsAddon;
+    private static LandsIntegration landsAddon;
     private static String landsKey;
 
     public static boolean isUsingLands() {
@@ -44,7 +44,7 @@ public class RegionValidation {
             } else if (name.equals(PluginBase.residenceNameSpace)) {
                 regionProtectors.add(new ResidenceProtection(plugin));
             } else if (name.equals(PluginBase.landsNameSpace)) {
-                this.landsAddon = new LandsAddon(FractalForest.plugin, false);
+                this.landsAddon = new LandsIntegration(FractalForest.plugin, false);
                 this.landsKey = landsAddon.initialize();
                 regionProtectors.add(new LandsProtection(landsAddon));
                 usingLands = true;
