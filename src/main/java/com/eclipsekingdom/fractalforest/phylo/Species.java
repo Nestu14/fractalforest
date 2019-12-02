@@ -6,6 +6,7 @@ import com.eclipsekingdom.fractalforest.trees.fractal.FractalTreeBuilder;
 import com.eclipsekingdom.fractalforest.trees.fractal.genome.GenomeType;
 import com.eclipsekingdom.fractalforest.util.Scale;
 import com.eclipsekingdom.fractalforest.util.theme.ThemeType;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,6 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.permissions.Permission;
+import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
 
@@ -108,6 +111,11 @@ public enum Species {
         }
     }
 
+
+    public static String format(Species species) {
+        return format(species.toString());
+    }
+
     public static String format(String saplingName) {
         String[] parts = saplingName.split("_");
         String formatted = "";
@@ -132,6 +140,10 @@ public enum Species {
         }
     }
 
+    public String getPlanterPerm() {
+        return "forest.plant." + toString().replace("_", "").toLowerCase();
+    }
+
     public static Species from(String string) {
         for (Species species : values()) {
             if (species.toString().equalsIgnoreCase(string)) {
@@ -139,6 +151,13 @@ public enum Species {
             }
         }
         return null;
+    }
+
+    public static void registerPermissions() {
+        PluginManager pm = Bukkit.getServer().getPluginManager();
+        for (Species species : values()) {
+            pm.addPermission(new Permission(species.getPlanterPerm(), "allows player to plant " + format(species) + " sapling."));
+        }
     }
 
 }

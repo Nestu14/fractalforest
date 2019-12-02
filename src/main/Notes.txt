@@ -36,9 +36,13 @@ Tree types
 - end
 - underwater tree
 
-Tree specific spawn conditions - VALID SOIL PER SPECIES
+* Tree specific spawn conditions - VALID SOIL PER SPECIES
 * change sapling list to paged system
 * web based tpop creator (grids with textures to show biomes and sized dots to show about how many trees and space will be taken up)
 
+* new language file system
+* version compatibility
+
 -- update --
-* civis
+* gift sapling
+* planting perms

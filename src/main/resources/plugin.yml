@@ -1,5 +1,5 @@
 name: FractalForest
-version: 1.8.4
+version: 1.8.5
 main: com.eclipsekingdom.fractalforest.FractalForest
 api-version: 1.13
 authors: [sword]
@@ -26,6 +26,9 @@ commands:
   updatetrecords:
     description: update the records in inventory
     permission: forest.encyclopedia
+  giftsapling:
+    description: gift a sapling to a player
+    permission: forest.sapling
 
 
 permissions:

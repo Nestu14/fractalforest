@@ -16,9 +16,11 @@ public class PluginHelp {
 
     public static void showSapling(CommandSender sender) {
         sender.sendMessage(ChatColor.YELLOW + "-------" + ChatColor.GOLD + " Sapling Commands " + ChatColor.YELLOW + "-------");
-        sender.sendMessage(ChatColor.GOLD + "/sapling:" + ChatColor.RESET + " select saplings");
-        sender.sendMessage(ChatColor.GOLD + "/sapling "+ChatColor.RED+ "[species]" + ChatColor.GOLD + ":" + ChatColor.RESET + " get a sapling");
-        sender.sendMessage(ChatColor.GOLD + "/sapling "+ChatColor.RED+ "[species] [amount]" + ChatColor.GOLD + ":" + ChatColor.RESET + " get sapling(s)");
+        sendMessage(sender, "&6/sapling: &rselect saplings");
+        sendMessage(sender, "&6/sapling &c[species]&6: &rget a sapling");
+        sendMessage(sender, "&6/sapling &c[species] [amount]&6: &rget saplings");
+        sendMessage(sender, "&6/giftsapling &c[player] [species]&6: &rgive sapling to player");
+        sendMessage(sender, "&6/giftsapling &c[player] [species] [amount]&6: &rgive saplings to player");
     }
 
     public static void showGen(CommandSender sender) {
@@ -44,5 +46,8 @@ public class PluginHelp {
         sender.sendMessage(ChatColor.GOLD + "/updatetrecords: " + ChatColor.RESET + "update the records in inventory");
     }
 
+    private static void sendMessage(CommandSender sender, String message) {
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+    }
 
 }

@@ -3,6 +3,7 @@ package com.eclipsekingdom.fractalforest.sapling;
 import com.eclipsekingdom.fractalforest.Permissions;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
 import com.eclipsekingdom.fractalforest.phylo.Species;
+import com.eclipsekingdom.fractalforest.util.Amount;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,13 +27,7 @@ public class CommandSapling implements CommandExecutor {
                         Species species = Species.from(args[0]);
                         if (species != null) {
                             int amount = 1;
-                            if (args.length > 1) {
-                                try {
-                                    amount = Integer.parseInt(args[1]);
-                                } catch (Exception e) {
-                                    amount = 1;
-                                }
-                            }
+                            if (args.length > 1) amount = Amount.parse(args[1]);
                             ItemStack sapling = species.getSapling();
                             sapling.setAmount(amount);
                             player.getInventory().addItem(sapling);
@@ -50,7 +45,6 @@ public class CommandSapling implements CommandExecutor {
         }
         return false;
     }
-
 
     private void sendSaplingList(Player player) {
         player.sendMessage(ChatColor.DARK_GREEN + "Saplings:");

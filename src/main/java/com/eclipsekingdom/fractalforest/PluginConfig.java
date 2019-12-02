@@ -14,6 +14,9 @@ public class PluginConfig {
     private static String phasePeriodString = "Phase Period (seconds)";
     private static int phasePeriod = 1;
 
+    private static String requireSaplingPermString = "Require Sapling Permissions";
+    private static boolean requireSaplingPerm = false;
+
     private static String proceduralTreeLeafDecayString = "Procedural Tree Leaf Decay";
     private static boolean proceduralTreeLeafDecay = false;
 
@@ -26,24 +29,19 @@ public class PluginConfig {
         if (file.exists()) {
             try {
                 phasePeriod = config.getInt(phasePeriodString, phasePeriod);
+                requireSaplingPerm = config.getBoolean(requireSaplingPermString, requireSaplingPerm);
                 //proceduralTreeLeafDecay = config.getBoolean(proceduralTreeLeafDecayString, proceduralTreeLeafDecay);
             } catch (Exception e) {
+                e.printStackTrace();
             }
         } else {
             createDefault();
         }
     }
 
-    public static int getPhasePeriod() {
-        return phasePeriod*20;
-    }
-
-    public static boolean isProceduralTreeLeafDecay(){
-        return proceduralTreeLeafDecay;
-    }
-
     private void createDefault() {
         config.set(phasePeriodString, phasePeriod);
+        config.set(requireSaplingPermString, requireSaplingPerm);
         //config.set(proceduralTreeLeafDecayString, proceduralTreeLeafDecay);
         saveConfig();
     }
@@ -55,5 +53,18 @@ public class PluginConfig {
             ConsoleSender.sendMessage("Error saving " + file.getName());
         }
     }
+
+    public static int getPhasePeriod() {
+        return phasePeriod * 20;
+    }
+
+    public static boolean isRequreSaplingPerm() {
+        return requireSaplingPerm;
+    }
+
+    public static boolean isProceduralTreeLeafDecay() {
+        return proceduralTreeLeafDecay;
+    }
+
 
 }
