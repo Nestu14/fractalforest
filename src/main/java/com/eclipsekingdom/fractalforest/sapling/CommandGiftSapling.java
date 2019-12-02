@@ -38,7 +38,7 @@ public class CommandGiftSapling implements CommandExecutor {
                         for (ItemStack itemStack : overflow.values()) {
                             world.dropItemNaturally(location, itemStack);
                         }
-                        sender.sendMessage(ChatColor.GREEN.toString() + amount + " " + Species.format(species) + " saplings gifted to " + player.getName());
+                        sender.sendMessage(ChatColor.GREEN.toString() + amount + " " + species.format() + " saplings gifted to " + player.getName());
                     } else {
                         player.sendMessage(ChatColor.RED + "Unrecognized species");
                     }

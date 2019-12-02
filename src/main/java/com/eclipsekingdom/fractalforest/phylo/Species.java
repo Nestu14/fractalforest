@@ -112,8 +112,8 @@ public enum Species {
     }
 
 
-    public static String format(Species species) {
-        return format(species.toString());
+    public String format() {
+        return format(toString());
     }
 
     public static String format(String saplingName) {
@@ -156,7 +156,7 @@ public enum Species {
     public static void registerPermissions() {
         PluginManager pm = Bukkit.getServer().getPluginManager();
         for (Species species : values()) {
-            pm.addPermission(new Permission(species.getPlanterPerm(), "allows player to plant " + format(species) + " sapling."));
+            pm.addPermission(new Permission(species.getPlanterPerm(), "allows player to plant " + species.format() + " sapling."));
         }
     }
 

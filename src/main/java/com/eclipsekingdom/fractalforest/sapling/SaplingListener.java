@@ -1,9 +1,12 @@
 package com.eclipsekingdom.fractalforest.sapling;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
+import com.eclipsekingdom.fractalforest.Permissions;
+import com.eclipsekingdom.fractalforest.PluginConfig;
 import com.eclipsekingdom.fractalforest.phylo.Species;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -12,7 +15,6 @@ import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -46,13 +48,26 @@ public class SaplingListener implements Listener {
                 ItemStack singleSapling = itemStack.clone();
                 singleSapling.setAmount(1);
                 Species species = getSpecies(itemStack);
-                if(species != null){
-                    if (e.getPlayer().getGameMode() != GameMode.CREATIVE) itemStack.setAmount(itemStack.getAmount() - 1);
-                    Location location = e.getBlock().getLocation();
-                    locationToSapling.put(location, singleSapling);
-                    new MagicSapling(e.getPlayer(), species, location.clone().add(0.5, 0, 0.5));
+                if (species != null) {
+                    Player player = e.getPlayer();
+                    if (canPlant(player, species)) {
+                        if (player.getGameMode() != GameMode.CREATIVE) itemStack.setAmount(itemStack.getAmount() - 1);
+                        Location location = e.getBlock().getLocation();
+                        locationToSapling.put(location, singleSapling);
+                        new MagicSapling(e.getPlayer(), species, location.clone().add(0.5, 0, 0.5));
+                    } else {
+                        player.sendMessage(ChatColor.RED + "You do not have permission to plant a " + species.format() + " sapling");
+                    }
                 }
             }
+        }
+    }
+
+    private boolean canPlant(Player player, Species species) {
+        if (PluginConfig.isRequreSaplingPerm()) {
+            return Permissions.canPlant(player, species);
+        } else {
+            return true;
         }
     }
 
@@ -82,7 +97,7 @@ public class SaplingListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPiston(BlockPistonExtendEvent e) {
-        for(Block block: e.getBlocks()){
+        for (Block block : e.getBlocks()) {
             Location location = block.getLocation();
             if (locationToSapling.containsKey(location)) {
                 ItemStack itemStack = locationToSapling.get(location);
@@ -97,9 +112,9 @@ public class SaplingListener implements Listener {
     private Set<Location> blockedDropLocations = new HashSet<>();
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onDrop(ItemSpawnEvent e){
+    public void onDrop(ItemSpawnEvent e) {
         Location location = e.getLocation().getBlock().getLocation();
-        if(blockedDropLocations.contains(location)){
+        if (blockedDropLocations.contains(location)) {
             e.setCancelled(true);
             blockedDropLocations.remove(location);
         }
