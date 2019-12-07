@@ -8,10 +8,17 @@ import java.util.Set;
 
 public class Theme implements ITheme {
 
-    protected IMaterialFactory leaf;
-    protected IMaterialFactory thickBranch;
-    protected IMaterialFactory thinBranch;
-    protected IMaterialFactory root;
+    private final IMaterialFactory leaf;
+    private final IMaterialFactory thickBranch;
+    private final IMaterialFactory thinBranch;
+    private final IMaterialFactory root;
+
+    public Theme(ITheme theme) {
+        this.leaf = theme.getLeaf();
+        this.thickBranch = theme.getThickBranch();
+        this.thinBranch = theme.getThinBranch();
+        this.root = theme.getRoot();
+    }
 
     @Override
     public IMaterialFactory getLeaf() {

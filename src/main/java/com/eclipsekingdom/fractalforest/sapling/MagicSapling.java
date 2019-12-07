@@ -1,8 +1,8 @@
 package com.eclipsekingdom.fractalforest.sapling;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
-import com.eclipsekingdom.fractalforest.PluginConfig;
-import com.eclipsekingdom.fractalforest.phylo.Species;
+import com.eclipsekingdom.fractalforest.util.config.PluginConfig;
+import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.trees.ITree;
 import org.bukkit.*;
 import org.bukkit.block.Block;

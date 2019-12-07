@@ -8,8 +8,11 @@ import java.util.Set;
 public interface ITheme {
 
     IMaterialFactory getLeaf();
+
     IMaterialFactory getThickBranch();
+
     IMaterialFactory getThinBranch();
+
     IMaterialFactory getRoot();
 
     Set<Material> getSelfMaterials();

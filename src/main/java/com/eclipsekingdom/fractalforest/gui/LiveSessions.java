@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.gui;
 
-import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
-import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
+import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
+import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.gui.page.Page;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import org.bukkit.Bukkit;

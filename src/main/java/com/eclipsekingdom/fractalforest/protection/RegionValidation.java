@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.protection;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
-import com.eclipsekingdom.fractalforest.util.PluginBase;
+import com.eclipsekingdom.fractalforest.util.system.PluginBase;
 import me.angeschossen.lands.api.integration.LandsIntegration;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

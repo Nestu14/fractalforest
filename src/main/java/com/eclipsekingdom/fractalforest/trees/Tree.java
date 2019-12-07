@@ -1,6 +1,5 @@
 package com.eclipsekingdom.fractalforest.trees;
 
-import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
 import org.bukkit.Location;
 import org.bukkit.World;

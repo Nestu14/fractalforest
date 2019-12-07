@@ -19,7 +19,7 @@ commands:
     permission: forest.pop
   tgenerator:
     description: edit the tree generator
-    permission: forest.gen
+    permission: forest.worldgen
   tencyclopedia:
     description: request an encyclopedia
     permission: forest.encyclopedia

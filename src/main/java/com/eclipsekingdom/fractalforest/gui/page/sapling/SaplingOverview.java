@@ -3,7 +3,7 @@ package com.eclipsekingdom.fractalforest.gui.page.sapling;
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
-import com.eclipsekingdom.fractalforest.phylo.Species;
+import com.eclipsekingdom.fractalforest.trees.Species;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.gui.page.gen;
 
-import com.eclipsekingdom.fractalforest.gen.Generator;
-import com.eclipsekingdom.fractalforest.gen.WorldData;
+import com.eclipsekingdom.fractalforest.worldgen.Generator;
+import com.eclipsekingdom.fractalforest.worldgen.WorldData;
 import com.eclipsekingdom.fractalforest.gui.GenData;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
 import com.eclipsekingdom.fractalforest.gui.SessionData;

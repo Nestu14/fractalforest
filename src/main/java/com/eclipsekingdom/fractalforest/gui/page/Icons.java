@@ -1,9 +1,9 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
-import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
-import com.eclipsekingdom.fractalforest.gen.pop.TreeSpawner;
-import com.eclipsekingdom.fractalforest.gen.pop.util.TreeBiome;
-import com.eclipsekingdom.fractalforest.phylo.Species;
+import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
+import com.eclipsekingdom.fractalforest.worldgen.pop.TreeSpawner;
+import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
+import com.eclipsekingdom.fractalforest.trees.Species;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -12,7 +12,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
 

@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.util.theme.material;
 
-import com.eclipsekingdom.fractalforest.util.random.WeightedChoice;
-import com.eclipsekingdom.fractalforest.util.random.WeightedRandomizer;
+import com.eclipsekingdom.fractalforest.util.math.random.WeightedChoice;
+import com.eclipsekingdom.fractalforest.util.math.random.WeightedRandomizer;
 import org.bukkit.Material;
 
 import java.util.HashSet;

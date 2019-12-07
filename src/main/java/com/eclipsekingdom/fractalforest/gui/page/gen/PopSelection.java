@@ -1,9 +1,9 @@
 package com.eclipsekingdom.fractalforest.gui.page.gen;
 
-import com.eclipsekingdom.fractalforest.gen.Generator;
-import com.eclipsekingdom.fractalforest.gen.WorldData;
-import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
-import com.eclipsekingdom.fractalforest.gen.pop.TreePopulator;
+import com.eclipsekingdom.fractalforest.worldgen.Generator;
+import com.eclipsekingdom.fractalforest.worldgen.WorldData;
+import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
+import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;

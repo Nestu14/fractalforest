@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.sapling;
 
 import com.eclipsekingdom.fractalforest.Permissions;
-import com.eclipsekingdom.fractalforest.phylo.Species;
+import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.util.Amount;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

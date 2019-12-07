@@ -1,21 +1,22 @@
 package com.eclipsekingdom.fractalforest;
 
-import com.eclipsekingdom.fractalforest.gen.CommandTGenerator;
-import com.eclipsekingdom.fractalforest.gen.Generator;
-import com.eclipsekingdom.fractalforest.gen.pop.CommandTPop;
-import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
+import com.eclipsekingdom.fractalforest.worldgen.CommandTGenerator;
+import com.eclipsekingdom.fractalforest.worldgen.Generator;
+import com.eclipsekingdom.fractalforest.worldgen.pop.CommandTPop;
+import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.gui.InputListener;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
-import com.eclipsekingdom.fractalforest.phylo.encyclopedia.CommandTEncyclopedia;
-import com.eclipsekingdom.fractalforest.phylo.encyclopedia.CommandUpdateTRecords;
-import com.eclipsekingdom.fractalforest.phylo.encyclopedia.EncyclopediaCache;
-import com.eclipsekingdom.fractalforest.phylo.Species;
+import com.eclipsekingdom.fractalforest.encyclopedia.CommandTEncyclopedia;
+import com.eclipsekingdom.fractalforest.encyclopedia.CommandUpdateTRecords;
+import com.eclipsekingdom.fractalforest.encyclopedia.EncyclopediaCache;
+import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.protection.RegionValidation;
 import com.eclipsekingdom.fractalforest.sapling.CommandGiftSapling;
 import com.eclipsekingdom.fractalforest.sapling.CommandSapling;
 import com.eclipsekingdom.fractalforest.sapling.SaplingListener;
 import com.eclipsekingdom.fractalforest.util.AutoCompleteListener;
-import com.eclipsekingdom.fractalforest.util.PluginBase;
+import com.eclipsekingdom.fractalforest.util.config.PluginConfig;
+import com.eclipsekingdom.fractalforest.util.system.PluginBase;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FractalForest extends JavaPlugin {

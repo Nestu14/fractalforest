@@ -20,7 +20,7 @@ public enum Message {
     WARN_TPOP_NOT_FOUND("Warn - pop not found", "Populator %pop% not found"),
     WARN_TPOP_EXISTS("Console - pop exists", "A pop named %pop% already exists"),
     WARN_BUSY_TPOP("Warn - busy pop", "Player %player% is busy editing the requested populator"),
-    WARN_BUSY_TGEN("Warn - busy gen", "Player %player% is busy editing the requested generator"),
+    WARN_BUSY_TGEN("Warn - busy worldgen", "Player %player% is busy editing the requested generator"),
 
     SUCCESS_TPOP_CREATE("Success - pop create", "Populator %pop% was created"),
     SUCCESS_TPOP_RENAME("Success - pop rename", "Populator renamed to %pop%"),

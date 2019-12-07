@@ -1,6 +1,6 @@
 package com.eclipsekingdom.fractalforest.util.language;
 
-import com.eclipsekingdom.fractalforest.util.ConsoleSender;
+import com.eclipsekingdom.fractalforest.util.system.ConsoleSender;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
