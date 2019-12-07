@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
@@ -21,6 +22,7 @@ public class TreePopulator extends BlockPopulator {
 
     private String name;
     private LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawner;
+    private static Random rand = new Random();
 
     public static TreePopulator defaultPopulator(String name) {
         return new TreePopulator(name, new LinkedHashMap<>());
@@ -56,7 +58,6 @@ public class TreePopulator extends BlockPopulator {
     public void populate(World world, Random random, Chunk source) {
         int chunkX = source.getX() * 16;
         int chunkZ = source.getZ() * 16;
-
         TreeBiome treeBiome = TreeBiome.from(world.getBiome(chunkX, chunkZ));
         if (biomeToTreeSpawner.containsKey(treeBiome)) {
             List<TreeSpawner> spawners = biomeToTreeSpawner.get(treeBiome);
@@ -66,8 +67,8 @@ public class TreePopulator extends BlockPopulator {
                     IHabitat habitat = species.getHabitat();
                     int amount = spawner.nextAmount();
                     for (int i = 0; i < amount; i++) {
-                        int x = chunkX + random.nextInt(15);
-                        int z = chunkZ + random.nextInt(15);
+                        int x = chunkX + random.nextInt(15 * 1); //TODO
+                        int z = chunkZ + random.nextInt(15 * 1); //TODO
                         Location location = getHighestValid(habitat, world, x, z);
                         if (location != null) {
                             ITree tree = species.getIndividual(null, location);
@@ -82,8 +83,7 @@ public class TreePopulator extends BlockPopulator {
     }
 
     private Location getHighestValid(IHabitat habitat, World world, int x, int z) {
-        Block block = world.getHighestBlockAt(x, z);
-        Location location = block.getLocation();
+        Location location = (world.getEnvironment() == Environment.NETHER && rand.nextDouble() < 0.5) ? getHighestLowerNetherAt(world, x, z).getLocation() : world.getHighestBlockAt(x, z).getLocation();
         int count = 0;
         while (!habitat.canPlantAt(location) && count < 55) {
             location.add(0, -1, 0);
@@ -94,6 +94,16 @@ public class TreePopulator extends BlockPopulator {
         } else {
             return null;
         }
+    }
+
+    private Block getHighestLowerNetherAt(World world, int x, int z) {
+        Location location = new Location(world, x, 64, z);
+        Block block = location.getBlock();
+        while (block.isEmpty() && location.getY() > 0) {
+            location.add(0, -1, 0);
+            block = location.getBlock();
+        }
+        return block.isEmpty() ? null : block;
     }
 
     public String getName() {

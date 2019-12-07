@@ -12,7 +12,9 @@ public enum ThemeType {
     FALL_MAPLE(new FallMapleTheme()),
     FLOWERING_HAWTHORN(new FloweringHawthornTheme()),
     WEIRWOOD(new WeirwoodTheme()),
-    FLAME_TREE(new FlameTheme());
+    FLAME_TREE(new FlameTheme()),
+    BLOOD_BUSH(new BloodBush()),
+    ;
 
     private Theme theme;
 
@@ -25,4 +27,4 @@ public enum ThemeType {
     }
 
 
-}
+    }

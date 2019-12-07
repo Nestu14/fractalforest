@@ -40,7 +40,7 @@ public enum Species {
     WEIRWOOD(GenomeType.WEIRWOOD.value(), Material.BIRCH_SAPLING, ThemeType.WEIRWOOD.getTheme()),
     WHITE_ASH(GenomeType.WHITE_ASH.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
 
-
+    BLOOD_BUSH(GenomeType.BLOOD_BUSH.value(), Material.NETHER_WART, ThemeType.BLOOD_BUSH.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
     FLAME_TREE(GenomeType.FLAME_TREE.value(), Material.NETHER_WART, ThemeType.FLAME_TREE.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
 
     ;

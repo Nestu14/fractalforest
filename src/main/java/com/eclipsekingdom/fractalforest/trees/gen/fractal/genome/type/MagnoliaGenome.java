@@ -1,5 +1,6 @@
-package com.eclipsekingdom.fractalforest.trees.gen.fractal.genome;
+package com.eclipsekingdom.fractalforest.trees.gen.fractal.genome.type;
 
+import com.eclipsekingdom.fractalforest.trees.gen.fractal.genome.Genome;
 import com.eclipsekingdom.fractalforest.trees.gen.fractal.genome.gene.*;
 import com.eclipsekingdom.fractalforest.util.math.functions.Exponential;
 import com.eclipsekingdom.fractalforest.util.math.range.Bounds;
