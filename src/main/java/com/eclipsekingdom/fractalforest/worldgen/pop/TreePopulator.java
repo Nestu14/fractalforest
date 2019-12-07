@@ -1,10 +1,14 @@
 package com.eclipsekingdom.fractalforest.worldgen.pop;
 
-import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
 import com.eclipsekingdom.fractalforest.trees.ITree;
+import com.eclipsekingdom.fractalforest.trees.Species;
+import com.eclipsekingdom.fractalforest.trees.habitat.IHabitat;
 import com.eclipsekingdom.fractalforest.util.TreeUtil;
-import com.google.common.collect.ImmutableSet;
-import org.bukkit.*;
+import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
@@ -58,13 +62,15 @@ public class TreePopulator extends BlockPopulator {
             List<TreeSpawner> spawners = biomeToTreeSpawner.get(treeBiome);
             for (TreeSpawner spawner : spawners) {
                 if (random.nextDouble() < spawner.getChance()) {
+                    Species species = spawner.getSpecies();
+                    IHabitat habitat = species.getHabitat();
                     int amount = spawner.nextAmount();
                     for (int i = 0; i < amount; i++) {
                         int x = chunkX + random.nextInt(15);
                         int z = chunkZ + random.nextInt(15);
-                        Location location = getHighestValid(world, x, z);
+                        Location location = getHighestValid(habitat, world, x, z);
                         if (location != null) {
-                            ITree tree = spawner.getSpecies().getIndividual(null, location);
+                            ITree tree = species.getIndividual(null, location);
                             tree.growInstant();
                         }
                     }
@@ -75,41 +81,20 @@ public class TreePopulator extends BlockPopulator {
 
     }
 
-    private Location getHighestValid(World world, int x, int z) {
+    private Location getHighestValid(IHabitat habitat, World world, int x, int z) {
         Block block = world.getHighestBlockAt(x, z);
         Location location = block.getLocation();
-        Material material = block.getType();
         int count = 0;
-        while (!isValid(material, location) && count < 55) {
+        while (!habitat.canPlantAt(location) && count < 55) {
             location.add(0, -1, 0);
-            block = location.getBlock();
-            material = block.getType();
             count++;
         }
-        if (isValid(material, location)) {
+        if (habitat.canPlantAt(location)) {
             return location;
         } else {
             return null;
         }
     }
-
-
-    //TODO change to per species
-    private boolean isValid(Material material, Location location) {
-        Block above = location.clone().add(0, 1, 0).getBlock();
-        return soil.contains(material) && above.isPassable() && above.getType() != Material.WATER;
-    }
-
-    private ImmutableSet<Material> soil = new ImmutableSet.Builder<Material>()
-            .add(Material.DIRT)
-            .add(Material.COARSE_DIRT)
-            .add(Material.GRASS_BLOCK)
-            .add(Material.SAND)
-            .add(Material.GRAVEL)
-            .add(Material.MYCELIUM)
-            .add(Material.PODZOL)
-            .build();
-
 
     public String getName() {
         return name;

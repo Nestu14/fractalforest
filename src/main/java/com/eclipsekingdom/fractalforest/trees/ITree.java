@@ -6,6 +6,6 @@ public interface ITree {
 
     void growInstant();
 
-    String getSpecies();
+    Species getSpecies();
 
 }

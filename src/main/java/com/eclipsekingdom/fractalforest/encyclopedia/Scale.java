@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.util;
+package com.eclipsekingdom.fractalforest.encyclopedia;
 
 public enum  Scale {
     UNCLASSIFIED, SHRUB, SMALL, MEDIUM, BIG, MASSIVE

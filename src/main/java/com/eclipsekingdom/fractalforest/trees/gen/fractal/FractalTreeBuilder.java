@@ -5,7 +5,8 @@ import com.eclipsekingdom.fractalforest.encyclopedia.RecordSpecimenEvent;
 import com.eclipsekingdom.fractalforest.encyclopedia.Specimen;
 import com.eclipsekingdom.fractalforest.protection.RegionValidation;
 import com.eclipsekingdom.fractalforest.protection.WhiteListedBlocks;
-import com.eclipsekingdom.fractalforest.trees.*;
+import com.eclipsekingdom.fractalforest.trees.Species;
+import com.eclipsekingdom.fractalforest.trees.Tree;
 import com.eclipsekingdom.fractalforest.trees.gen.Branch;
 import com.eclipsekingdom.fractalforest.trees.gen.LeafCluster;
 import com.eclipsekingdom.fractalforest.trees.gen.Root;
@@ -14,7 +15,6 @@ import com.eclipsekingdom.fractalforest.util.config.PluginConfig;
 import com.eclipsekingdom.fractalforest.util.math.FunctionIterator;
 import com.eclipsekingdom.fractalforest.util.math.SegmentIterator;
 import com.eclipsekingdom.fractalforest.util.system.PluginBase;
-import com.eclipsekingdom.fractalforest.util.theme.ITheme;
 import com.eclipsekingdom.fractalforest.util.theme.material.IMaterialFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -37,17 +37,17 @@ public class FractalTreeBuilder extends Tree {
     private IMaterialFactory rootFactory;
     private IMaterialFactory leafFactory;
 
-    public FractalTreeBuilder(Species species, Player planter, Location seed, ITheme theme, FractalGrowthPattern fractalGrowthPattern) {
-        super(species, planter, seed, theme);
+    public FractalTreeBuilder(Species species, Player planter, Location seed, FractalBlueprint blueprint) {
+        super(species, planter, seed);
 
         this.selfMaterial = theme.getSelfMaterials();
         this.rootFactory = theme.getRoot();
         this.leafFactory = theme.getLeaf();
 
-        this.trunk = fractalGrowthPattern.getTrunk();
-        this.roots = fractalGrowthPattern.getRoots();
-        this.branches = fractalGrowthPattern.getBranches();
-        this.leafClusters = fractalGrowthPattern.getLeafClusters();
+        this.trunk = blueprint.getTrunk();
+        this.roots = blueprint.getRoots();
+        this.branches = blueprint.getBranches();
+        this.leafClusters = blueprint.getLeafClusters();
     }
 
     private static Map<UUID, Set<Location>> locationsCache = new HashMap<>();
@@ -128,7 +128,7 @@ public class FractalTreeBuilder extends Tree {
 
         if (isAnimated) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.plugin, () -> {
-                TreeUtil.callEvent(new RecordSpecimenEvent(species, new Specimen(locationsCache.get(PID))));
+                TreeUtil.callEvent(new RecordSpecimenEvent(species.toString(), new Specimen(locationsCache.get(PID))));
                 locationsCache.remove(PID);
             }, phase * phaseTicks);
         }

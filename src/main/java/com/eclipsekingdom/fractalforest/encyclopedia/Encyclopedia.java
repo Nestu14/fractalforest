@@ -1,9 +1,12 @@
 package com.eclipsekingdom.fractalforest.encyclopedia;
 
 import com.eclipsekingdom.fractalforest.trees.Species;
+import com.eclipsekingdom.fractalforest.util.ChatUtil;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -96,9 +99,9 @@ public class Encyclopedia {
     }
 
     private static String getLog(String species, Entry record) {
-        return ChatColor.BLACK + ChatColor.BOLD.toString() + Species.format(species) + "\n" +
+        return ChatColor.BLACK + ChatColor.BOLD.toString() + ChatUtil.format(species) + "\n" +
                 ChatColor.BLACK + "> " + record.getSpecimensObserved() + " planted\n" +
-                ChatColor.BLACK + "○ Size: " + Species.getScale(record).getFormatted() + "\n" +
+                ChatColor.BLACK + "○ Size: " + getScale(record).getFormatted() + "\n" +
                 ChatColor.BLACK + "○ Volume: " + (int) record.getAverageVolume() + "m²\n" +
                 ChatColor.BLACK + "○ Height: " + (int) record.getAverageHeight() + "m\n" +
                 ChatColor.BLACK + "○ Spread: " + (int) record.getAverageSpread() + "m\n\n";
@@ -116,6 +119,39 @@ public class Encyclopedia {
             }
         }
         return false;
+    }
+
+    public static List<String> getSaplingDetails(Species species) {
+        ArrayList<String> details = new ArrayList();
+        Entry entry = EncyclopediaCache.getEntry(species.toString());
+        Scale scale = getScale(entry);
+        details.add(ChatColor.DARK_GREEN + "Size: " + ChatColor.GRAY + scale.getFormatted());
+        if (entry != null) {
+            details.add(ChatColor.DARK_PURPLE + "○ Volume: " + ChatColor.WHITE + (int) entry.getAverageVolume() + "m²");
+            details.add(ChatColor.DARK_PURPLE + "○ Height: " + ChatColor.WHITE + (int) entry.getAverageHeight() + "m");
+            details.add(ChatColor.DARK_PURPLE + "○ Spread: " + ChatColor.WHITE + (int) entry.getAverageSpread() + "m");
+        }
+        return details;
+    }
+
+
+    private static Scale getScale(Entry entry) {
+        if (entry != null) {
+            double vol = entry.getAverageVolume();
+            if (vol < 15) {
+                return Scale.SHRUB;
+            } else if (vol < 50) {
+                return Scale.SMALL;
+            } else if (vol < 1000) {
+                return Scale.MEDIUM;
+            } else if (vol < 2000) {
+                return Scale.BIG;
+            } else {
+                return Scale.MASSIVE;
+            }
+        } else {
+            return Scale.UNCLASSIFIED;
+        }
     }
 
 

@@ -1,13 +1,15 @@
 package com.eclipsekingdom.fractalforest.trees;
 
-import com.eclipsekingdom.fractalforest.encyclopedia.EncyclopediaCache;
-import com.eclipsekingdom.fractalforest.encyclopedia.Entry;
+import com.eclipsekingdom.fractalforest.encyclopedia.Encyclopedia;
+import com.eclipsekingdom.fractalforest.trees.effect.EffectType;
 import com.eclipsekingdom.fractalforest.trees.effect.IEffects;
 import com.eclipsekingdom.fractalforest.trees.gen.fractal.FractalGrowthPattern;
 import com.eclipsekingdom.fractalforest.trees.gen.fractal.FractalTreeBuilder;
 import com.eclipsekingdom.fractalforest.trees.gen.fractal.genome.GenomeType;
+import com.eclipsekingdom.fractalforest.trees.gen.fractal.genome.IGenome;
+import com.eclipsekingdom.fractalforest.trees.habitat.HabitatType;
 import com.eclipsekingdom.fractalforest.trees.habitat.IHabitat;
-import com.eclipsekingdom.fractalforest.util.Scale;
+import com.eclipsekingdom.fractalforest.util.ChatUtil;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
 import com.eclipsekingdom.fractalforest.util.theme.ThemeType;
 import org.bukkit.Bukkit;
@@ -25,139 +27,83 @@ import org.bukkit.plugin.PluginManager;
 import java.util.ArrayList;
 
 public enum Species {
-    MAGNOLIA(Material.OAK_SAPLING),
-    BUCK_EYE(Material.OAK_SAPLING),
-    FLOWERING_HAWTHORN(Material.OAK_SAPLING),
-    OAK(Material.OAK_SAPLING),
-    ELM(Material.OAK_SAPLING),
-    BIRCH(Material.BIRCH_SAPLING),
-    FALL_BIRCH(Material.BIRCH_SAPLING),
-    FALL_OAK(Material.OAK_SAPLING),
-    FALL_ELM(Material.OAK_SAPLING),
-    FALL_MAPLE(Material.OAK_SAPLING),
-    WEIRWOOD(Material.BIRCH_SAPLING),
-    FLAME_TREE(Material.NETHER_WART),
-    WHITE_ASH(Material.OAK_SAPLING),
+    MAGNOLIA(GenomeType.MAGNOLIA.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    BUCK_EYE(GenomeType.BUCK_EYE.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    FLOWERING_HAWTHORN(GenomeType.BUCK_EYE.value(), Material.OAK_SAPLING, ThemeType.FLOWERING_HAWTHORN.getTheme()),
+    OAK(GenomeType.OAK.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    ELM(GenomeType.ELM.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    BIRCH(GenomeType.BIRCH.value(), Material.BIRCH_SAPLING, ThemeType.BIRCH.getTheme()),
+    FALL_BIRCH(GenomeType.BIRCH.value(), Material.BIRCH_SAPLING, ThemeType.FALL_BIRCH.getTheme()),
+    FALL_OAK(GenomeType.OAK.value(), Material.OAK_SAPLING, ThemeType.FALL_OAK.getTheme()),
+    FALL_ELM(GenomeType.ELM.value(), Material.OAK_SAPLING, ThemeType.FALL_ELM.getTheme()),
+    FALL_MAPLE(GenomeType.OAK.value(), Material.OAK_SAPLING, ThemeType.FALL_MAPLE.getTheme()),
+    WEIRWOOD(GenomeType.WEIRWOOD.value(), Material.BIRCH_SAPLING, ThemeType.WEIRWOOD.getTheme()),
+    WHITE_ASH(GenomeType.WHITE_ASH.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
+
+
+    FLAME_TREE(GenomeType.FLAME_TREE.value(), Material.NETHER_WART, ThemeType.FLAME_TREE.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
 
     ;
 
+    private FractalGrowthPattern growthPattern;
     private Material saplingMaterial;
     private IHabitat habitat;
     private IEffects effects;
     private ITheme theme;
     private String plantingPermString;
+    private String formattedName;
 
-    Species(Material saplingMaterial, IHabitat habitat, IEffects effects, ITheme theme) {
+    Species(IGenome genome, Material saplingMaterial, ITheme theme, IHabitat habitat, IEffects effects) {
+        init(genome, saplingMaterial, theme, habitat, effects);
+    }
+
+    Species(IGenome genome, Material saplingMaterial, ITheme theme) {
+        init(genome, saplingMaterial, theme, HabitatType.FOREST.getHabitat(), EffectType.FOREST.getEffects());
+    }
+
+    private void init(IGenome genome, Material saplingMaterial, ITheme theme, IHabitat habitat, IEffects effects) {
+        this.growthPattern = new FractalGrowthPattern(genome);
         this.saplingMaterial = saplingMaterial;
         this.habitat = habitat;
         this.effects = effects;
         this.theme = theme;
         this.plantingPermString = "forest.plant." + toString().replace("_", "").toLowerCase();
+        this.formattedName = ChatUtil.format(toString());
     }
 
     public ITree getIndividual(Player planter, Location seed) {
-        switch (this) {
-            case MAGNOLIA:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.OAK.getTheme(), new FractalGrowthPattern(GenomeType.MAGNOLIA.value()));
-            case BUCK_EYE:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.OAK.getTheme(), new FractalGrowthPattern(GenomeType.BUCK_EYE.value()));
-            case OAK:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.OAK.getTheme(), new FractalGrowthPattern(GenomeType.OAK.value()));
-            case FALL_OAK:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.FALL_OAK.getTheme(), new FractalGrowthPattern(GenomeType.OAK.value()));
-            case ELM:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.OAK.getTheme(), new FractalGrowthPattern(GenomeType.ELM.value()));
-            case FALL_ELM:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.FALL_ELM.getTheme(), new FractalGrowthPattern(GenomeType.ELM.value()));
-            case BIRCH:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.BIRCH.getTheme(), new FractalGrowthPattern(GenomeType.BIRCH.value()));
-            case FALL_BIRCH:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.FALL_BIRCH.getTheme(), new FractalGrowthPattern(GenomeType.BIRCH.value()));
-            case FALL_MAPLE:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.FALL_MAPLE.getTheme(), new FractalGrowthPattern(GenomeType.OAK.value()));
-            case WEIRWOOD:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.WEIRWOOD.getTheme(), new FractalGrowthPattern(GenomeType.WEIRWOOD.value()));
-            case FLOWERING_HAWTHORN:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.FLOWERING_HAWTHORN.getTheme(), new FractalGrowthPattern(GenomeType.BUCK_EYE.value()));
-            case WHITE_ASH:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.OAK.getTheme(), new FractalGrowthPattern(GenomeType.WHITE_ASH.value()));
-            case FLAME_TREE:
-                return new FractalTreeBuilder(this, planter, seed, ThemeType.FLAME_TREE.getTheme(), new FractalGrowthPattern(GenomeType.FLAME_TREE.value()));
-            default:
-                return null;
-        }
+        return new FractalTreeBuilder(this, planter, seed, growthPattern.generateBlueprint());
     }
 
     public ItemStack getSapling() {
         String species = toString();
-        Entry entry = EncyclopediaCache.getEntry(species);
-        Scale scale = getScale(entry);
-        ItemStack itemStack = new ItemStack(material);
+        ItemStack itemStack = new ItemStack(saplingMaterial);
         ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(ChatColor.GREEN + format(species) + " Sapling");
+        meta.setDisplayName(ChatColor.GREEN + formattedName + " Sapling");
         meta.addEnchant(Enchantment.DURABILITY, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         ArrayList<String> lore = new ArrayList();
-        //TODO ask encyclopedia cache for text
         lore.add(ChatColor.DARK_GREEN + "Species: " + ChatColor.GRAY + species);
-        lore.add(ChatColor.DARK_GREEN + "Size: " + ChatColor.GRAY + scale.getFormatted());
-        if (entry != null) {
-            lore.add(ChatColor.DARK_PURPLE + "○ Volume: " + ChatColor.WHITE + (int) entry.getAverageVolume() + "m²");
-            lore.add(ChatColor.DARK_PURPLE + "○ Height: " + ChatColor.WHITE + (int) entry.getAverageHeight() + "m");
-            lore.add(ChatColor.DARK_PURPLE + "○ Spread: " + ChatColor.WHITE + (int) entry.getAverageSpread() + "m");
-        }
+        lore.addAll(Encyclopedia.getSaplingDetails(this));
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
         return itemStack;
     }
 
-
-    public static Scale getScale(Entry entry) {
-        if (entry != null) {
-            double vol = entry.getAverageVolume();
-            if (vol < 15) {
-                return Scale.SHRUB;
-            } else if (vol < 50) {
-                return Scale.SMALL;
-            } else if (vol < 1000) {
-                return Scale.MEDIUM;
-            } else if (vol < 2000) {
-                return Scale.BIG;
-            } else {
-                return Scale.MASSIVE;
-            }
-        } else {
-            return Scale.UNCLASSIFIED;
-        }
+    public IHabitat getHabitat() {
+        return habitat;
     }
 
+    public IEffects getEffects() {
+        return effects;
+    }
+
+    public ITheme getTheme() {
+        return theme;
+    }
 
     public String format() {
-        return format(toString());
-    }
-
-    public static String format(String saplingName) {
-        String[] parts = saplingName.split("_");
-        String formatted = "";
-        if (parts.length > 0) {
-            String first = parts[0];
-            if (first.length() > 1) {
-                formatted += first.toUpperCase().charAt(0) + first.substring(1).toLowerCase();
-            } else {
-                formatted += first;
-            }
-            for (int i = 1; i < parts.length; i++) {
-                String subString = parts[i];
-                if (subString.length() > 1) {
-                    formatted += " " + subString.toUpperCase().charAt(0) + subString.substring(1).toLowerCase();
-                } else {
-                    formatted += " " + subString;
-                }
-            }
-            return formatted;
-        } else {
-            return saplingName;
-        }
+        return formattedName;
     }
 
     public String getPlanterPerm() {
