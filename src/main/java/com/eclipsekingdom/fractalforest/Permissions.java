@@ -10,6 +10,7 @@ public class Permissions {
     private static final String POP_PERM = "forest.pop";
     private static final String GEN_PERM = "forest.gen";
     private static final String ENCYCLOPEDIA_PERM = "forest.encyclopedia";
+    private static String RECORDS_PERM = "forest.trecords";
 
     public static boolean canSummonSapling(CommandSender sender) {
         return hasPermission(sender, SAPLING_PERM);
@@ -21,6 +22,10 @@ public class Permissions {
 
     public static boolean canEditGen(CommandSender sender) {
         return hasPermission(sender, GEN_PERM);
+    }
+
+    public static boolean canUpdateRecords(CommandSender sender) {
+        return hasPermission(sender, ENCYCLOPEDIA_PERM) || hasPermission(sender, RECORDS_PERM);
     }
 
     public static boolean canPlant(CommandSender sender, Species species) {

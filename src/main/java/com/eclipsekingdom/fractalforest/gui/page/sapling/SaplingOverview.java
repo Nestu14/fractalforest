@@ -88,6 +88,7 @@ public class SaplingOverview implements PageContents {
             .add(Material.BIRCH_SAPLING)
             .add(Material.DARK_OAK_SAPLING)
             .add(Material.JUNGLE_SAPLING)
+            .add(Material.NETHER_WART)
             .build();
 
     private ItemStack AIR = new ItemStack(Material.AIR);

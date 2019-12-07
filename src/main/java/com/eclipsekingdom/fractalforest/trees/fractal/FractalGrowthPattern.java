@@ -37,31 +37,6 @@ public class FractalGrowthPattern {
         generateBlueprint();
     }
 
-    public List<Branch> iterate(List<Branch> branchLayer){
-        List<Branch> outerLayer = new ArrayList<>();
-        for(Branch branch: branchLayer){
-            outerLayer.addAll(splitBranch(branch, splitGene.next()));
-        }
-        iterations++;
-        return outerLayer;
-    }
-
-    private List<Branch> splitBranch(Branch branch, int numBranches){
-        List<Branch> childBranches = new ArrayList<>();
-        Vector randomPerp = TreeMath.getRandomPerpVector(branch.getDirection());
-        double totalRadians = Math.PI * 2 * (1 - clumpGene.next());
-        for(int i = 0; i< numBranches; i++){
-            double angle = angleGene.next();
-            Vector starting = randomPerp.clone().rotateAroundAxis(branch.getDirection(), i * totalRadians / (double) numBranches);
-            Vector axis = starting.clone().rotateAroundAxis(branch.getDirection(), totalRadians / (double) numBranches);
-            double decay = decayGene.next(angle, angleGene.getBounds());
-            Branch child = branch.split(axis, angle, decay);
-            if(child != null){
-                childBranches.add(child);
-            }
-        }
-        return childBranches;
-    }
 
     private void generateBlueprint() {
         trunk = trunkGene.next();
@@ -88,6 +63,32 @@ public class FractalGrowthPattern {
         for(int i=0; i<rootGene.nextAmount();i++){
             roots.add(rootGene.next(trunk));
         }
+    }
+
+    public List<Branch> iterate(List<Branch> branchLayer){
+        List<Branch> outerLayer = new ArrayList<>();
+        for(Branch branch: branchLayer){
+            outerLayer.addAll(splitBranch(branch, splitGene.next()));
+        }
+        iterations++;
+        return outerLayer;
+    }
+
+    private List<Branch> splitBranch(Branch branch, int numBranches){
+        List<Branch> childBranches = new ArrayList<>();
+        Vector randomPerp = TreeMath.getRandomPerpVector(branch.getDirection());
+        double totalRadians = Math.PI * 2 * (1 - clumpGene.next());
+        for(int i = 0; i< numBranches; i++){
+            double angle = angleGene.next();
+            Vector starting = randomPerp.clone().rotateAroundAxis(branch.getDirection(), i * totalRadians / (double) numBranches);
+            Vector axis = starting.clone().rotateAroundAxis(branch.getDirection(), totalRadians / (double) numBranches);
+            double decay = decayGene.next(angle, angleGene.getBounds());
+            Branch child = branch.split(axis, angle, decay);
+            if(child != null){
+                childBranches.add(child);
+            }
+        }
+        return childBranches;
     }
 
     private LeafCluster getCluster(Branch branch){

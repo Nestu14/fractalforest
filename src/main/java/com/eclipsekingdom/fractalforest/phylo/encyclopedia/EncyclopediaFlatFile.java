@@ -1,5 +1,6 @@
-package com.eclipsekingdom.fractalforest.phylo;
+package com.eclipsekingdom.fractalforest.phylo.encyclopedia;
 
+import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.util.ConsoleSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,7 +15,7 @@ public class EncyclopediaFlatFile {
 
     private static final File file = new File("plugins/FractalForest/Data", "encyclopedia.yml");
     private static final FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-    private static final String header = "Encyclopedia";
+    private static final String header = "EncyclopediaCache";
 
     public void store(Map<String, Entry> worldToData) {
         config.set(header, null);

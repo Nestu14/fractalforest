@@ -1,5 +1,7 @@
 package com.eclipsekingdom.fractalforest.phylo;
 
+import com.eclipsekingdom.fractalforest.phylo.encyclopedia.EncyclopediaCache;
+import com.eclipsekingdom.fractalforest.phylo.encyclopedia.Entry;
 import com.eclipsekingdom.fractalforest.trees.ITree;
 import com.eclipsekingdom.fractalforest.trees.fractal.FractalGrowthPattern;
 import com.eclipsekingdom.fractalforest.trees.fractal.FractalTreeBuilder;
@@ -21,17 +23,20 @@ import org.bukkit.plugin.PluginManager;
 import java.util.ArrayList;
 
 public enum Species {
-    MAGNOLIA(Material.OAK_SAPLING),  //small
-    BUCK_EYE(Material.OAK_SAPLING), //medium
-    FLOWERING_HAWTHORN(Material.OAK_SAPLING), //medium
-    OAK(Material.OAK_SAPLING), //big
-    ELM(Material.OAK_SAPLING), //massive
-    BIRCH(Material.BIRCH_SAPLING), //big
+    MAGNOLIA(Material.OAK_SAPLING),
+    BUCK_EYE(Material.OAK_SAPLING),
+    FLOWERING_HAWTHORN(Material.OAK_SAPLING),
+    OAK(Material.OAK_SAPLING),
+    ELM(Material.OAK_SAPLING),
+    BIRCH(Material.BIRCH_SAPLING),
     FALL_BIRCH(Material.BIRCH_SAPLING),
-    FALL_OAK(Material.OAK_SAPLING),//big
-    FALL_ELM(Material.OAK_SAPLING), //massive
-    FALL_MAPLE(Material.OAK_SAPLING),//big
-    WEIRWOOD(Material.BIRCH_SAPLING),//big
+    FALL_OAK(Material.OAK_SAPLING),
+    FALL_ELM(Material.OAK_SAPLING),
+    FALL_MAPLE(Material.OAK_SAPLING),
+    WEIRWOOD(Material.BIRCH_SAPLING),
+    FLAME_TREE(Material.NETHER_WART),
+    WHITE_ASH(Material.OAK_SAPLING),
+
     ;
 
     private Material material;
@@ -64,6 +69,10 @@ public enum Species {
                 return new FractalTreeBuilder(this, planter, seed, ThemeType.WEIRWOOD.value(), new FractalGrowthPattern(GenomeType.WEIRWOOD.value()));
             case FLOWERING_HAWTHORN:
                 return new FractalTreeBuilder(this, planter, seed, ThemeType.FLOWERING_HAWTHORN.value(), new FractalGrowthPattern(GenomeType.BUCK_EYE.value()));
+            case WHITE_ASH:
+                return new FractalTreeBuilder(this, planter, seed, ThemeType.OAK.value(), new FractalGrowthPattern(GenomeType.WHITE_ASH.value()));
+            case FLAME_TREE:
+                return new FractalTreeBuilder(this, planter, seed, ThemeType.FLAME_TREE.value(), new FractalGrowthPattern(GenomeType.FLAME_TREE.value()));
             default:
                 return null;
         }
@@ -71,7 +80,7 @@ public enum Species {
 
     public ItemStack getSapling() {
         String species = toString();
-        Entry entry = Encyclopedia.getEntry(species);
+        Entry entry = EncyclopediaCache.getEntry(species);
         Scale scale = getScale(entry);
         ItemStack itemStack = new ItemStack(material);
         ItemMeta meta = itemStack.getItemMeta();

@@ -6,9 +6,9 @@ import com.eclipsekingdom.fractalforest.gen.pop.CommandTPop;
 import com.eclipsekingdom.fractalforest.gen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.gui.InputListener;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
-import com.eclipsekingdom.fractalforest.phylo.CommandTEncyclopedia;
-import com.eclipsekingdom.fractalforest.phylo.CommandUpdateTRecords;
-import com.eclipsekingdom.fractalforest.phylo.Encyclopedia;
+import com.eclipsekingdom.fractalforest.phylo.encyclopedia.CommandTEncyclopedia;
+import com.eclipsekingdom.fractalforest.phylo.encyclopedia.CommandUpdateTRecords;
+import com.eclipsekingdom.fractalforest.phylo.encyclopedia.EncyclopediaCache;
 import com.eclipsekingdom.fractalforest.phylo.Species;
 import com.eclipsekingdom.fractalforest.protection.RegionValidation;
 import com.eclipsekingdom.fractalforest.sapling.CommandGiftSapling;
@@ -29,7 +29,7 @@ public final class FractalForest extends JavaPlugin {
         new PluginConfig();
         PluginBase pluginBase = new PluginBase();
         new RegionValidation(pluginBase);
-        new Encyclopedia();
+        new EncyclopediaCache();
 
         new PopCache();
         new Generator();
@@ -57,6 +57,6 @@ public final class FractalForest extends JavaPlugin {
         Generator.save();
         PopCache.save();
         RegionValidation.shutdown();
-        Encyclopedia.save();
+        EncyclopediaCache.save();
     }
 }

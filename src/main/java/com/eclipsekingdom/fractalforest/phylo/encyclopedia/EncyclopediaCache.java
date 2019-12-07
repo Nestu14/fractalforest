@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.phylo;
+package com.eclipsekingdom.fractalforest.phylo.encyclopedia;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
 import org.bukkit.event.EventHandler;
@@ -7,12 +7,12 @@ import org.bukkit.event.Listener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Encyclopedia implements Listener {
+public class EncyclopediaCache implements Listener {
 
     private static Map<String, Entry> speciesToEntry = new HashMap<>();
     private static EncyclopediaFlatFile encyclopediaFlatFile = new EncyclopediaFlatFile();
 
-    public Encyclopedia() {
+    public EncyclopediaCache() {
         FractalForest plugin = FractalForest.plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         load();

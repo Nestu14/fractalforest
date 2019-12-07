@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.phylo;
+package com.eclipsekingdom.fractalforest.phylo.encyclopedia;
 
 public class Entry {
 

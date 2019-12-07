@@ -3,8 +3,7 @@ package com.eclipsekingdom.fractalforest.util.theme;
 import java.util.Random;
 
 public enum ThemeType {
-    OAK, GOLDEN, BIRCH, FALL_BIRCH, FALL_OAK, FALL_ELM, FALL_MAPLE, FLOWERING_HAWTHORN, WEIRWOOD
-    ;
+    OAK, GOLDEN, BIRCH, FALL_BIRCH, FALL_OAK, FALL_ELM, FALL_MAPLE, FLOWERING_HAWTHORN, WEIRWOOD, FLAME_TREE;;
 
     public ITheme value() {
 
@@ -25,7 +24,10 @@ public enum ThemeType {
                 return new FallMapleTheme();
             case FLOWERING_HAWTHORN:
                 return new FloweringHawthornTheme();
-            case WEIRWOOD: return new WeirwoodTheme();
+            case WEIRWOOD:
+                return new WeirwoodTheme();
+            case FLAME_TREE:
+                return new FlameTheme();
             default:
                 return new OakTheme();
         }

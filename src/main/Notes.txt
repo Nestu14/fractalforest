@@ -15,8 +15,7 @@ for(LeafCluster leaves: spaceColinizationGrowth.getLeaves()){
 */
 
 
-*curve functions instead of just straight lines
-*calculate distance on plane perpendicular to vector to center point of each block and check if less than radius of segment
+*curve functions instead of just straight lines=
 
 Resources:
 * https://github.com/supereggbert/proctree.js/ - proctree
@@ -24,11 +23,10 @@ Resources:
 * https://github.com/jarikomppa/proctree
 
 * fib
-* saplings
 * genome editor
-* world populator
-* pine trees
 * web app
+
+* Cavery Calling and Team Tree integration
 
 Tree types
 - nether
@@ -44,5 +42,21 @@ Tree types
 * version compatibility
 
 -- update --
-* gift sapling
-* planting perms
+
+* update t records permission
+
+
+
+
+
+
+
+--- Milestones ---
+* nether: 1
+* end: 1
+* Genome: 1
+* Leaves/Hanging/Vines : 1
+* Palm/Swamp/Cactus/ever : 2
+* algorithms and genes
+
+-- Goal 12$

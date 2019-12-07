@@ -56,6 +56,7 @@ public class SaplingListener implements Listener {
                         locationToSapling.put(location, singleSapling);
                         new MagicSapling(e.getPlayer(), species, location.clone().add(0.5, 0, 0.5));
                     } else {
+                        e.setCancelled(true);
                         player.sendMessage(ChatColor.RED + "You do not have permission to plant a " + species.format() + " sapling");
                     }
                 }
@@ -121,7 +122,7 @@ public class SaplingListener implements Listener {
     }
 
     private boolean isSapling(ItemStack itemStack) {
-        return (Tag.SAPLINGS.isTagged(itemStack.getType()) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() && itemStack.getItemMeta().getLore().size() > 0);
+        return ((Tag.SAPLINGS.isTagged(itemStack.getType()) || itemStack.getType() == Material.NETHER_WART) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() && itemStack.getItemMeta().getLore().size() > 0);
     }
 
     private Species getSpecies(ItemStack sapling) {

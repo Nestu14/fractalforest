@@ -2,9 +2,9 @@ package com.eclipsekingdom.fractalforest.trees.fractal;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
 import com.eclipsekingdom.fractalforest.PluginConfig;
-import com.eclipsekingdom.fractalforest.phylo.RecordSpecimenEvent;
+import com.eclipsekingdom.fractalforest.phylo.encyclopedia.RecordSpecimenEvent;
 import com.eclipsekingdom.fractalforest.phylo.Species;
-import com.eclipsekingdom.fractalforest.phylo.Specimen;
+import com.eclipsekingdom.fractalforest.phylo.encyclopedia.Specimen;
 import com.eclipsekingdom.fractalforest.protection.RegionValidation;
 import com.eclipsekingdom.fractalforest.protection.WhiteListedBlocks;
 import com.eclipsekingdom.fractalforest.trees.*;
