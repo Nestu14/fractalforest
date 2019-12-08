@@ -1,10 +1,11 @@
 package com.eclipsekingdom.fractalforest.gui;
 
-import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
-import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.gui.page.Page;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
+import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
+import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -60,9 +61,19 @@ public class LiveSessions {
             SessionData sessionData = playerToData.get(playerID);
             PopData popData = sessionData.getPopData();
             if (popData != null) {
-                if (popData.isInitialCreate()) popData.getPopulator().initialize(player);
+                TreePopulator pop = popData.getPopulator();
+                if (popData.isInitialCreate()) {
+                    pop.initialize();
+                    player.sendMessage(ChatColor.GREEN + "Tree pop " + ChatColor.GRAY + pop.getName() + ChatColor.GREEN + " created");
+                } else {
+                    if(sessionData.isEdited()) player.sendMessage(ChatColor.GREEN + "Tree pop " + ChatColor.GRAY + pop.getName() + ChatColor.GREEN + " updated");
+                }
                 PopCache.save();
             }
+
+            GenData genData = sessionData.getGenData();
+            if(genData!=null && sessionData.isEdited()) player.sendMessage(ChatColor.GREEN + "Tree generator updated");
+
             playerToData.remove(playerID);
         }
     }

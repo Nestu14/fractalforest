@@ -71,6 +71,7 @@ public class BiomeSelect implements PageContents {
                     TreeBiome biome = TreeBiome.valueOf(name);
                     TreePopulator pop = popData.getPopulator();
                     pop.getBiomeToTreeSpawner().put(biome, TreeSpawner.defaultTreeSpawners());
+                    sessionData.registerEdit();
                     sessionData.transition(player, PageType.BIOME_OVERVIEW);
                 } catch (Exception e) {
                 }

@@ -33,9 +33,9 @@ Tree types
 
 
 * overflow - warn new flat file format
-* menu fixes
+* menu fixes and changes
 * max tree count per chunk increased to 9
-
+* indicator when pop or gen edited after closing  menu
 
 
 

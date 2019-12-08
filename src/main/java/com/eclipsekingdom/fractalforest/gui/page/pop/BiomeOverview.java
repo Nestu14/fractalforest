@@ -80,6 +80,7 @@ public class BiomeOverview implements PageContents {
                         TreeBiome biome = TreeBiome.valueOf(name);
                         MenuUtil.playClickSound(player);
                         pop.getBiomeToTreeSpawner().remove(biome);
+                        sessionData.registerEdit();
                         populate(menu, sessionData);
                     }
                 }

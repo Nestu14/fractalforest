@@ -38,7 +38,7 @@ public class TreeOverview implements PageContents {
             int index = i + 10;
             if (treeSpawnerSize > i + offset) {
                 TreeSpawner treeSpawner = spawners.get(i + offset);
-                menu.setItem(index, Icons.createTreeSpawnerType(treeSpawner));
+                menu.setItem(index, Icons.createTreeSpawner(treeSpawner));
                 menu.setItem(index + 9, Icons.createIcon(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "X"));
             } else {
                 if (treeSpawnerSize > i - 1 + offset) {
@@ -74,18 +74,15 @@ public class TreeOverview implements PageContents {
                 } else if (material == Material.RED_STAINED_GLASS_PANE) {
                     ItemStack treeStack = menu.getItem(slot - 9);
                     if (treeStack != null && treeStack.getType() != Material.AIR) {
+                        int index = (slot - 19) + sessionData.getPageOffsetX();
                         ItemMeta meta = treeStack.getItemMeta();
                         String name = meta.hasDisplayName() ? meta.getDisplayName() : "";
                         Species species = Species.from(name);
                         if (species != null) {
                             TreeBiome biome = popData.getCurrentBiome();
                             List<TreeSpawner> spawners = pop.getBiomeToTreeSpawner().get(biome);
-                            for (TreeSpawner spawner : spawners) {
-                                if (spawner.getSpecies() == species) {
-                                    spawners.remove(spawner);
-                                    break;
-                                }
-                            }
+                            spawners.remove(index);
+                            sessionData.registerEdit();
                         }
                         MenuUtil.playClickSound(player);
                         populate(menu, sessionData);

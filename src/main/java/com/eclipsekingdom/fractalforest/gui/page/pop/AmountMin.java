@@ -74,12 +74,9 @@ public class AmountMin implements PageContents {
         if (change != 0) {
             MenuUtil.playClickSound(player);
             spawner.setMin(spawner.getMin() + change);
-            if (spawner.getMin() < 0) {
-                spawner.setMin(0);
-            }
-            if (spawner.getMin() > spawner.getMax()) {
-                spawner.setMin(spawner.getMax());
-            }
+            if (spawner.getMin() < 0) spawner.setMin(0);
+            if (spawner.getMin() > spawner.getMax()) spawner.setMin(spawner.getMax());
+            sessionData.registerEdit();
             populate(menu, sessionData);
         }
     }

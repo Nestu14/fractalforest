@@ -5,13 +5,11 @@ import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.trees.habitat.IHabitat;
 import com.eclipsekingdom.fractalforest.util.TreeUtil;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
-import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
 
 import java.util.LinkedHashMap;
@@ -33,9 +31,8 @@ public class TreePopulator extends BlockPopulator {
         this.biomeToTreeSpawner = biomeToTreeSpawner;
     }
 
-    public void initialize(Player player) {
+    public void initialize() {
         PopCache.registerPopulator(this);
-        player.sendMessage(ChatColor.GREEN + "Tree pop " + ChatColor.GRAY + name + ChatColor.GREEN + " created");
     }
 
     public TreePopulator clone() {

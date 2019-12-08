@@ -105,6 +105,7 @@ public class GeneratorHome implements PageContents {
                 } else if (itemStack != null && enabledMaterial.contains(itemStack.getType())) {
                     WorldData worldData = Generator.getWorldData(world);
                     worldData.toggleEnabled(world);
+                    sessionData.registerEdit();
                     populate(menu, sessionData);
                 }
             }

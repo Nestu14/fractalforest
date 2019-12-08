@@ -75,6 +75,7 @@ public class PopSelection implements PageContents {
                 World world = sessionData.getGenData().getCurrentWorld();
                 WorldData worldData = Generator.getWorldData(world);
                 worldData.setTreePopulator(world, treePopulator);
+                sessionData.registerEdit();
                 populate(menu, sessionData);
             }
         }

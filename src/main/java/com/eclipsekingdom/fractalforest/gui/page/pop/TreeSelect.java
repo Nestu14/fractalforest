@@ -27,19 +27,15 @@ public class TreeSelect implements PageContents {
         TreeBiome biome = popData.getCurrentBiome();
         menu.setItem(8, Icons.createBiome(biome));
 
-        List<TreeSpawner> currentSpawners = pop.getBiomeToTreeSpawner().get(biome);
-
         int index = 10;
         for (Species species : Species.values()) {
-            if (!containsSpecies(currentSpawners, species)) {
-                if (index < 44) {
-                    menu.setItem(index, Icons.createTreeSpawnerType(TreeSpawner.defaultTreeSpawner(species)));
-                }
-                if ((index + 2) % 9 == 0) {
-                    index += 3;
-                } else {
-                    index++;
-                }
+            if (index < 44) {
+                menu.setItem(index, Icons.createTreeSpawnerType(TreeSpawner.defaultTreeSpawner(species)));
+            }
+            if ((index + 2) % 9 == 0) {
+                index += 3;
+            } else {
+                index++;
             }
         }
         while (index < 44) {
@@ -52,15 +48,6 @@ public class TreeSelect implements PageContents {
         }
 
         return menu;
-    }
-
-    private boolean containsSpecies(List<TreeSpawner> spawners, Species species) {
-        for (TreeSpawner spawner : spawners) {
-            if (spawner.getSpecies() == species) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -77,6 +64,7 @@ public class TreeSelect implements PageContents {
                     TreeBiome biome = popData.getCurrentBiome();
                     popData.getPopulator().getBiomeToTreeSpawner().get(biome).add(treeSpawner);
                     sessionData.transition(player, PageType.TREE_OVERVIEW);
+                    sessionData.registerEdit();
                 }
             } catch (Exception e) {
             }

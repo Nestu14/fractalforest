@@ -74,12 +74,9 @@ public class AmountMax implements PageContents {
         if (change != 0) {
             MenuUtil.playClickSound(player);
             spawner.setMax(spawner.getMax() + change);
-            if (spawner.getMax() < spawner.getMin()) {
-                spawner.setMax(spawner.getMin());
-            }
-            if (spawner.getMax() > MAX) {
-                spawner.setMax(MAX);
-            }
+            if (spawner.getMax() < spawner.getMin()) spawner.setMax(spawner.getMin());
+            if (spawner.getMax() > MAX) spawner.setMax(MAX);
+            sessionData.registerEdit();
             populate(menu, sessionData);
         }
     }

@@ -93,6 +93,7 @@ public class Chance implements PageContents {
             spawner.setChance(spawner.getChance() + change / 100d);
             if (spawner.getChance() < 0) spawner.setChance(0);
             if (spawner.getChance() > 1) spawner.setChance(1);
+            sessionData.registerEdit();
             populate(menu, sessionData);
         }
     }

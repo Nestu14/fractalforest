@@ -38,7 +38,7 @@ public class Overflow implements PageContents {
 
         menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Overflow Radius", overflow + " blocks"));
 
-        if (overflow < 32) {
+        if (overflow < 64) {
             menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", overflow + " block"));
             menu.setItem(15, Icons.VALUE_MANIPULATOR("+10", overflow + " blocks"));
         } else {
@@ -75,13 +75,14 @@ public class Overflow implements PageContents {
 
         if (change < 0 && spawner.getOverflow() == 0) change = 0;
 
-        if (change > 0 && spawner.getOverflow() == 32) change = 0;
+        if (change > 0 && spawner.getOverflow() == 64) change = 0;
 
         if (change != 0) {
             MenuUtil.playClickSound(player);
             spawner.setOverflow(spawner.getOverflow() + change);
             if (spawner.getOverflow() < 0) spawner.setOverflow(0);
-            if (spawner.getOverflow() > 32) spawner.setOverflow(32);
+            if (spawner.getOverflow() > 64) spawner.setOverflow(64);
+            sessionData.registerEdit();
             populate(menu, sessionData);
         }
     }

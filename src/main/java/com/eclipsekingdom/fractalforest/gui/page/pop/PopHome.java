@@ -121,16 +121,11 @@ public class PopHome implements PageContents {
                             List<TreeSpawner> treeSpawners = pop.getBiomeToTreeSpawner().get(biome);
                             ItemStack spawnStack = menu.getItem(slot);
                             if (spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType() && spawnStack.getType() != Material.WRITABLE_BOOK) {
-                                ItemMeta meta = spawnStack.getItemMeta();
-                                String name = meta.getDisplayName();
-                                for (TreeSpawner treeSpawner : treeSpawners) {
-                                    if (treeSpawner.getSpecies().toString().equals(name)) {
-                                        popData.setCurrentSpawner(treeSpawner);
-                                        popData.setCurrentBiome(biome);
-                                        sessionData.transition(player, PageType.SPAWNER);
-                                        break;
-                                    }
-                                }
+                                int index = (slot/9) -2 + sessionData.getPageOffsetY();
+                                TreeSpawner spawner = treeSpawners.get(index);
+                                popData.setCurrentSpawner(spawner);
+                                popData.setCurrentBiome(biome);
+                                sessionData.transition(player, PageType.SPAWNER);
                             }
                         } catch (Exception e) {
                         }

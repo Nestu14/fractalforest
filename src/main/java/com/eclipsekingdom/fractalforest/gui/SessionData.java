@@ -19,6 +19,8 @@ public class SessionData {
     private int pageOffsetX;
     private int pageOffsetY;
 
+    private boolean edited = false;
+
     public SessionData(Type type, Page start) {
         this.pageOffsetX = 0;
         this.pageOffsetY = 0;
@@ -114,6 +116,14 @@ public class SessionData {
 
     public enum Type {
         POP, GEN, SAP;
+    }
+
+    public void registerEdit() {
+        edited = true;
+    }
+
+    public boolean isEdited() {
+        return edited;
     }
 
 }
