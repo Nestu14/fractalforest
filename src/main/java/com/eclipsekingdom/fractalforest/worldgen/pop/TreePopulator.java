@@ -67,8 +67,9 @@ public class TreePopulator extends BlockPopulator {
                     IHabitat habitat = species.getHabitat();
                     int amount = spawner.nextAmount();
                     for (int i = 0; i < amount; i++) {
-                        int x = chunkX + random.nextInt(15 * 1); //TODO
-                        int z = chunkZ + random.nextInt(15 * 1); //TODO
+                        int overflow = spawner.getOverflow();
+                        int x = chunkX + random.nextInt(15 + overflow * 2) - overflow;
+                        int z = chunkZ + random.nextInt(15 + overflow * 2) - overflow;
                         Location location = getHighestValid(habitat, world, x, z);
                         if (location != null) {
                             ITree tree = species.getIndividual(null, location);

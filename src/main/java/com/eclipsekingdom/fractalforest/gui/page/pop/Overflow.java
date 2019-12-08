@@ -12,46 +12,41 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 import static com.eclipsekingdom.fractalforest.gui.page.Icons.BACKGROUND_ITEM;
 
-public class Chance implements PageContents {
+public class Overflow implements PageContents {
 
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
 
         PopData popData = sessionData.getPopData();
 
-        double chance = popData.getCurrentSpawner().getChance() * 100;
+        int overflow = popData.getCurrentSpawner().getOverflow();
 
-        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Chance per Chunk"));
+        menu.setItem(4, Icons.createIcon(Material.ENDER_PEARL, ChatColor.DARK_GRAY + "Overflow Radius"));
         menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
-        NumberFormat formatter = new DecimalFormat("#0.00");
+        menu.setItem(10, BACKGROUND_ITEM);
 
-        if (chance > 0) {
-            menu.setItem(10, Icons.VALUE_MANIPULATOR("-10", formatter.format(chance) + "%"));
-            menu.setItem(11, Icons.VALUE_MANIPULATOR("-1", formatter.format(chance) + "%"));
-            menu.setItem(12, Icons.VALUE_MANIPULATOR("-0.1", formatter.format(chance) + "%"));
+        if (overflow > 0) {
+            menu.setItem(11, Icons.VALUE_MANIPULATOR("-10", overflow + " blocks"));
+            menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", overflow + " block"));
         } else {
-            menu.setItem(10, BACKGROUND_ITEM);
             menu.setItem(11, BACKGROUND_ITEM);
             menu.setItem(12, BACKGROUND_ITEM);
         }
 
-        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Chance per Chunk", formatter.format(chance) + "%"));
+        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Overflow Radius", overflow + " blocks"));
 
-        if (chance < 100) {
-            menu.setItem(14, Icons.VALUE_MANIPULATOR("+0.1", formatter.format(chance) + "%"));
-            menu.setItem(15, Icons.VALUE_MANIPULATOR("+1", formatter.format(chance) + "%"));
-            menu.setItem(16, Icons.VALUE_MANIPULATOR("+10", formatter.format(chance) + "%"));
+        if (overflow < 32) {
+            menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", overflow + " block"));
+            menu.setItem(15, Icons.VALUE_MANIPULATOR("+10", overflow + " blocks"));
         } else {
             menu.setItem(14, BACKGROUND_ITEM);
             menu.setItem(15, BACKGROUND_ITEM);
-            menu.setItem(16, BACKGROUND_ITEM);
         }
+
+        menu.setItem(16, BACKGROUND_ITEM);
 
         return menu;
     }
@@ -60,39 +55,33 @@ public class Chance implements PageContents {
     public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
         PopData popData = sessionData.getPopData();
         TreeSpawner spawner = popData.getCurrentSpawner();
-        double change = 0;
+        int change = 0;
         switch (slot) {
-            case 10:
+            case 11:
                 change = -10;
                 break;
-            case 11:
+            case 12:
                 change = -1;
                 break;
-            case 12:
-                change = -0.1;
-                break;
             case 14:
-                change = 0.1;
-                break;
-            case 15:
                 change = 1;
                 break;
-            case 16:
+            case 15:
                 change = 10;
                 break;
             default:
                 break;
         }
 
-        if (change < 0 && spawner.getChance() == 0) change = 0;
+        if (change < 0 && spawner.getOverflow() == 0) change = 0;
 
-        if (change > 0 && spawner.getChance() == 1) change = 0;
+        if (change > 0 && spawner.getOverflow() == 32) change = 0;
 
         if (change != 0) {
             MenuUtil.playClickSound(player);
-            spawner.setChance(spawner.getChance() + change / 100d);
-            if (spawner.getChance() < 0) spawner.setChance(0);
-            if (spawner.getChance() > 1) spawner.setChance(1);
+            spawner.setOverflow(spawner.getOverflow() + change);
+            if (spawner.getOverflow() < 0) spawner.setOverflow(0);
+            if (spawner.getOverflow() > 32) spawner.setOverflow(32);
             populate(menu, sessionData);
         }
     }

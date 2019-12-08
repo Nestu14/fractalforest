@@ -1,63 +1,45 @@
-/*
-SpaceColinizationGrowth spaceColinizationGrowth = new SpaceColinizationGrowth(77, 1, 7, 9, 9, 1, 7);
-spaceColinizationGrowth.generateTree();
-Vector seed = target.getLocation().toVector();
-World world = target.getLocation().getWorld();
-for(Segment b: spaceColinizationGrowth.getBranches()){
-    double radius = (b.getPosition().getY() < 9)? 1: 0.5;
-    for(Block block: new SegmentIterator(world,b.getPosition().add(seed),b.getEnd(1).add(seed), radius)){
-        block.setType(Material.OAK_LOG);
-    }
-}
-for(LeafCluster leaves: spaceColinizationGrowth.getLeaves()){
-    buildLeaves(world, seed, leaves);
-}
-*/
 
 
-*curve functions instead of just straight lines=
+*curve functions instead of just straight lines
+* fib
 
 Resources:
 * https://github.com/supereggbert/proctree.js/ - proctree
 * https://www.instructables.com/id/Procedurally-Generated-Trees/
 * https://github.com/jarikomppa/proctree
 
-* fib
-* genome editor
-* web app
 
 * Cavery Calling and Team Tree integration
 
 Tree types
-- nether
 - pine
+- cactus
+- palm
+- mongrove
+- jungle
 - end
 - underwater tree
 
-* Tree specific spawn conditions - VALID SOIL PER SPECIES
-* change sapling list to paged system
 * web based tpop creator (grids with textures to show biomes and sized dots to show about how many trees and space will be taken up)
 
 * new language file system
 * version compatibility
 
+* multiple tree spawner of same species (store as 1 2 3 instead of species)
+* message on close after editing ("updated") and "generator updated";
+
+
 -- update --
 
-* update t records permission
-* improved code structure and performance
-* nether biome to pop
-* flame tree
-* blood bush
-* white ash
 
-
-
+* overflow - warn new flat file format
+* menu fixes
+* max tree count per chunk increased to 9
 
 
 
 
 --- Milestones ---
-* nether: 1
 * end: 1
 * Genome: 1
 * Leaves/Hanging/Vines : 1

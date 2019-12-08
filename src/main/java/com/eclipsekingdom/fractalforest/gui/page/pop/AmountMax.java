@@ -15,14 +15,14 @@ import static com.eclipsekingdom.fractalforest.gui.page.Icons.BACKGROUND_ITEM;
 
 public class AmountMax implements PageContents {
 
-    private static final int MAX = 5;
+    private static final int MAX = 9;
 
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
         int max = popData.getCurrentSpawner().getMax();
 
-        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Max tree number"));
+        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Max Tree Number"));
         menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
@@ -34,7 +34,7 @@ public class AmountMax implements PageContents {
             menu.setItem(12, BACKGROUND_ITEM);
         }
 
-        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Max tree number", max + " trees"));
+        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Max Tree Number", max + " trees"));
 
         if (max < MAX) {
             menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", max + " trees"));

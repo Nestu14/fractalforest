@@ -1,6 +1,7 @@
 package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.PopData;
+import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
@@ -29,45 +30,53 @@ public class Spawner implements PageContents {
         menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
 
-        menu.setItem(10, Icons.BACKGROUND_ITEM);
         ItemStack chanceItem = new ItemStack(Material.MELON_SEEDS);
         ItemMeta meta = chanceItem.getItemMeta();
         meta.setDisplayName(ChatColor.DARK_GRAY + "Chance per Chunk");
         NumberFormat formatter = new DecimalFormat("#0.00");
         meta.setLore(Collections.singletonList(ChatColor.GRAY + formatter.format(spawner.getChance() * 100) + "%"));
         chanceItem.setItemMeta(meta);
+        menu.setItem(10, chanceItem);
 
-        menu.setItem(11, chanceItem);
-        menu.setItem(12, Icons.BACKGROUND_ITEM);
+        menu.setItem(11, Icons.BACKGROUND_ITEM);
+
+        ItemStack overFlowItem = new ItemStack(Material.ENDER_PEARL);
+        meta = overFlowItem.getItemMeta();
+        meta.setDisplayName(ChatColor.DARK_GRAY + "Overflow Radius");
+        meta.setLore(Collections.singletonList(ChatColor.GRAY.toString() + spawner.getOverflow() + " blocks"));
+        overFlowItem.setItemMeta(meta);
+        menu.setItem(12, overFlowItem);
+
+        menu.setItem(13, Icons.BACKGROUND_ITEM);
 
         ItemStack minItem = new ItemStack(Material.MELON_SEEDS);
         meta = minItem.getItemMeta();
-        meta.setDisplayName(ChatColor.DARK_GRAY + "Min tree number");
+        meta.setDisplayName(ChatColor.DARK_GRAY + "Min Tree Number");
         meta.setLore(Collections.singletonList(ChatColor.GRAY.toString() + spawner.getMin()));
         minItem.setItemMeta(meta);
+        menu.setItem(14, minItem);
 
-        menu.setItem(13, minItem);
-        menu.setItem(14, Icons.BACKGROUND_ITEM);
+        menu.setItem(15, Icons.BACKGROUND_ITEM);
 
         ItemStack maxItem = new ItemStack(Material.MELON_SEEDS);
         meta = maxItem.getItemMeta();
-        meta.setDisplayName(ChatColor.DARK_GRAY + "Max tree number");
+        meta.setDisplayName(ChatColor.DARK_GRAY + "Max Tree Number");
         meta.setLore(Collections.singletonList(ChatColor.GRAY.toString() + spawner.getMax()));
         maxItem.setItemMeta(meta);
-
-        menu.setItem(15, maxItem);
-        menu.setItem(16, Icons.BACKGROUND_ITEM);
+        menu.setItem(16, maxItem);
 
         return menu;
     }
 
     @Override
     public void processClick(Player player, Inventory menu, SessionData sessionData, int slot, ClickType clickType) {
-        if (slot == 11) {
+        if (slot == 10) {
             sessionData.transition(player, PageType.CHANCE);
-        } else if (slot == 13) {
+        } else if (slot == 12) {
+            sessionData.transition(player, PageType.OVERFLOW);
+        } else if (slot == 14) {
             sessionData.transition(player, PageType.AMOUNT_MIN);
-        } else if (slot == 15) {
+        } else if (slot == 16) {
             sessionData.transition(player, PageType.AMOUNT_MAX);
         }
     }

@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest;
+package com.eclipsekingdom.fractalforest.util.system;
 
 import com.eclipsekingdom.fractalforest.trees.Species;
 import org.bukkit.command.CommandSender;
@@ -8,7 +8,7 @@ public class Permissions {
     private static final String SAPLING_PERM = "forest.sapling";
     private static final String PLANTER_PERM = "forest.plant.*";
     private static final String POP_PERM = "forest.pop";
-    private static final String GEN_PERM = "forest.worldgen";
+    private static final String GEN_PERM = "forest.gen";
     private static final String ENCYCLOPEDIA_PERM = "forest.encyclopedia";
     private static String RECORDS_PERM = "forest.trecords";
 

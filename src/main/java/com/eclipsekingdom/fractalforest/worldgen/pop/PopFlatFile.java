@@ -1,8 +1,8 @@
 package com.eclipsekingdom.fractalforest.worldgen.pop;
 
-import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
 import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.util.system.ConsoleSender;
+import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -28,12 +28,11 @@ public class PopFlatFile {
                 TreeBiome biome = entry.getKey();
                 List<TreeSpawner> spawners = entry.getValue();
                 String biomeKey = key + "." + biome.toString();
+                List<String> spawnersList = new ArrayList<>();
                 for (TreeSpawner spawner : spawners) {
-                    String spawnerKey = biomeKey + "." + spawner.getSpecies().toString();
-                    config.set(spawnerKey + ".chance", spawner.getChance());
-                    config.set(spawnerKey + ".min", spawner.getMin());
-                    config.set(spawnerKey + ".max", spawner.getMax());
+                    spawnersList.add(spawner.getSpecies().toString() + "=" + spawner.getChance() + "=" + spawner.getMin() + "<" + spawner.getMax() + "=" + spawner.getOverflow());
                 }
+                config.set(biomeKey, spawnersList);
             }
 
         }
@@ -53,14 +52,18 @@ public class PopFlatFile {
                             String biomeKey = key + "." + biomeString;
                             List<TreeSpawner> spawners = new ArrayList<>();
                             if (config.contains(biomeKey)) {
-                                for (String speciesName : config.getConfigurationSection(biomeKey).getKeys(false)) {
-                                    Species species = Species.from(speciesName);
-                                    if (species != null) {
-                                        String spawnerKey = biomeKey + "." + speciesName;
-                                        double chance = config.getDouble(spawnerKey + ".chance", 0.2);
-                                        int min = config.getInt(spawnerKey + ".min", 1);
-                                        int max = config.getInt(spawnerKey + ".max", 2);
-                                        spawners.add(new TreeSpawner(species, chance, min, max));
+                                List<String> spawnersList = config.getStringList(biomeKey);
+                                for (String item : spawnersList) {
+                                    try {
+                                        String[] parts = item.split("=");
+                                        Species species = Species.from(parts[0]);
+                                        double chance = Double.parseDouble(parts[1]);
+                                        String[] minMaxPart = parts[2].split("<");
+                                        int min = Integer.parseInt(minMaxPart[0]), max = Integer.parseInt(minMaxPart[1]);
+                                        int overflow = Integer.parseInt(parts[3]);
+                                        spawners.add(new TreeSpawner(species, chance, min, max, overflow));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
                                 }
                             }

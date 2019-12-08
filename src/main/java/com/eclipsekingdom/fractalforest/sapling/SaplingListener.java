@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.sapling;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
-import com.eclipsekingdom.fractalforest.Permissions;
+import com.eclipsekingdom.fractalforest.util.system.Permissions;
 import com.eclipsekingdom.fractalforest.util.config.PluginConfig;
 import com.eclipsekingdom.fractalforest.trees.Species;
 import org.bukkit.*;

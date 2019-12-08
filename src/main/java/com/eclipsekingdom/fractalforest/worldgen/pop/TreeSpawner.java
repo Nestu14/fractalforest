@@ -14,25 +14,26 @@ public class TreeSpawner {
     private double chance;
     private int min;
     private int max;
-
+    private int overflow;
 
     public static List<TreeSpawner> defaultTreeSpawners() {
         return new ArrayList<>();
     }
 
     public static TreeSpawner defaultTreeSpawner(Species species) {
-        return new TreeSpawner(species, 0, 0, 0);
+        return new TreeSpawner(species, 0, 0, 0, 0);
     }
 
-    public TreeSpawner(Species species, double chance, int min, int max) {
+    public TreeSpawner(Species species, double chance, int min, int max, int overflow) {
         this.species = species;
         this.chance = chance;
         this.min = min;
         this.max = max;
+        this.overflow = overflow;
     }
 
     public TreeSpawner clone() {
-        return new TreeSpawner(species, chance, min, max);
+        return new TreeSpawner(species, chance, min, max, overflow);
     }
 
     public int nextAmount() {
@@ -65,6 +66,14 @@ public class TreeSpawner {
 
     public void setMax(int max) {
         this.max = max;
+    }
+
+    public int getOverflow() {
+        return overflow;
+    }
+
+    public void setOverflow(int overflow) {
+        this.overflow = overflow;
     }
 
 }

@@ -16,14 +16,14 @@ public enum PageType {
     TREE_SELECT(new Page(POP, 6, "Tree Selection", new TreeSelect(), TREE_OVERVIEW)),
     SPAWNER(new Page(POP, 3, "Spawner", new Spawner(), POP_HOME)),
     CHANCE(new Page(POP, 3, "Spawn Chance", new Chance(), SPAWNER)),
-    AMOUNT_MIN(new Page(POP, 3, "Spawn AmountMax Min", new AmountMin(), SPAWNER)),
-    AMOUNT_MAX(new Page(POP, 3, "Spawn AmountMax Max", new AmountMax(), SPAWNER)),
+    AMOUNT_MIN(new Page(POP, 3, "Spawn Amount Min", new AmountMin(), SPAWNER)),
+    AMOUNT_MAX(new Page(POP, 3, "Spawn Amount Max", new AmountMax(), SPAWNER)),
+    OVERFLOW(new Page(POP, 3, "Overflow Radius", new Overflow(), SPAWNER)),
 
     SAPLING_OVERVIEW(new Page(SAPLING, 6, "Selection", new SaplingOverview(), null)),
 
     GEN_HOME(new Page(GEN, 6, "Overview", new GeneratorHome(), null)),
     POP_SELECT(new Page(GEN, 6, "Populator Selection", new PopSelection(), GEN_HOME)),
-
     ;
 
     private Page page;

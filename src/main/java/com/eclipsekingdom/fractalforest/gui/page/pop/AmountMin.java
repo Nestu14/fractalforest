@@ -22,7 +22,7 @@ public class AmountMin implements PageContents {
 
         int min = popData.getCurrentSpawner().getMin();
 
-        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Min tree number"));
+        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Min Tree Number"));
         menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
@@ -34,7 +34,7 @@ public class AmountMin implements PageContents {
             menu.setItem(12, BACKGROUND_ITEM);
         }
 
-        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Min tree number", min + " trees"));
+        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Min Tree Number", min + " trees"));
 
         if (min < popData.getCurrentSpawner().getMax()) {
             menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", min + " trees"));

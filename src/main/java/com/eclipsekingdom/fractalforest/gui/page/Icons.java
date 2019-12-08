@@ -1,9 +1,10 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
+import com.eclipsekingdom.fractalforest.trees.Species;
+import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreeSpawner;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
-import com.eclipsekingdom.fractalforest.trees.Species;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -39,8 +40,9 @@ public class Icons {
         List<String> lore = new ArrayList<>();
         NumberFormat formatter = new DecimalFormat("#0.00");
         lore.add(ChatColor.GRAY + "Chance: " + formatter.format(treeSpawner.getChance() * 100) + "%");
-        lore.add(ChatColor.GRAY + "min: " + treeSpawner.getMin() + " trees");
-        lore.add(ChatColor.GRAY + "max: " + treeSpawner.getMax() + " trees");
+        lore.add(ChatColor.GRAY + "Min: " + treeSpawner.getMin() + " trees");
+        lore.add(ChatColor.GRAY + "Max: " + treeSpawner.getMax() + " trees");
+        lore.add(ChatColor.GRAY + "Overflow: " + treeSpawner.getOverflow() + " blocks");
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
         return itemStack;
@@ -99,13 +101,14 @@ public class Icons {
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(populator.getName());
         List<String> lore = new ArrayList<>();
-
+        if (PopCache.isPreset(populator.getName())) lore.add(ChatColor.RED + "(Preset)");
         for (Map.Entry<TreeBiome, List<TreeSpawner>> entry : populator.getBiomeToTreeSpawner().entrySet()) {
             lore.add(ChatColor.GREEN + entry.getKey().toString());
             NumberFormat formatter = new DecimalFormat("#0.00");
-            for(TreeSpawner treeSpawner: entry.getValue()){
+            for (TreeSpawner treeSpawner : entry.getValue()) {
+                String overflowString = treeSpawner.getOverflow() > 0 ? " (+" + treeSpawner.getOverflow() + "b)" : "";
                 lore.add(ChatColor.GRAY + "> " + treeSpawner.getSpecies().toString() + " - " +
-                        formatter.format(treeSpawner.getChance()*100) + "% " + "[" + treeSpawner.getMin() + "-" + treeSpawner.getMax() + "]");
+                        formatter.format(treeSpawner.getChance() * 100) + "% " + "[" + treeSpawner.getMin() + "-" + treeSpawner.getMax() + "]" + overflowString);
             }
         }
 

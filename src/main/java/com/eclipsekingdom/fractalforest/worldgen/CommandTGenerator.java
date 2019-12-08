@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.worldgen;
 
-import com.eclipsekingdom.fractalforest.Permissions;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
+import com.eclipsekingdom.fractalforest.util.system.Permissions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

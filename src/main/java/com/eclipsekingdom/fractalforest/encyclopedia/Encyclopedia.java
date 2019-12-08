@@ -138,9 +138,9 @@ public class Encyclopedia {
     private static Scale getScale(Entry entry) {
         if (entry != null) {
             double vol = entry.getAverageVolume();
-            if (vol < 15) {
+            if (vol < 30) {
                 return Scale.SHRUB;
-            } else if (vol < 50) {
+            } else if (vol < 150) {
                 return Scale.SMALL;
             } else if (vol < 1000) {
                 return Scale.MEDIUM;

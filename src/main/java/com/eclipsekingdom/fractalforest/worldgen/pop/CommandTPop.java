@@ -1,6 +1,6 @@
 package com.eclipsekingdom.fractalforest.worldgen.pop;
 
-import com.eclipsekingdom.fractalforest.Permissions;
+import com.eclipsekingdom.fractalforest.util.system.Permissions;
 import com.eclipsekingdom.fractalforest.worldgen.Generator;
 import com.eclipsekingdom.fractalforest.worldgen.WorldData;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.NameValidation;
