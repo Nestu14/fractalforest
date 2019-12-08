@@ -43,7 +43,7 @@ public class GeneratorHome implements PageContents {
                 menu.setItem(index + 2, Icons.createIcon(getMaterial(world.getEnvironment()), world.getName()));
                 WorldData worldData = Generator.getWorldData(world);
                 if (worldData.hasTreePopulator()) {
-                    menu.setItem(index + 3, Icons.createIcon(Material.WHEAT_SEEDS, worldData.getTreePopulator().getName()));
+                    menu.setItem(index + 3, Icons.createPopItem(worldData.getTreePopulator()));
                 } else {
                     menu.setItem(index + 3, Icons.createIcon(Material.BARRIER, "None"));
                 }

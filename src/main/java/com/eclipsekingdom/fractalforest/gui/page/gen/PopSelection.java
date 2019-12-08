@@ -31,7 +31,7 @@ public class PopSelection implements PageContents {
 
         WorldData worldData = Generator.getWorldData(world);
         if (worldData.hasTreePopulator()) {
-            menu.setItem(4, Icons.createIcon(Material.WHEAT_SEEDS, worldData.getTreePopulator().getName()));
+            menu.setItem(4, Icons.createPopItem(worldData.getTreePopulator()));
         } else {
             menu.setItem(4, Icons.createIcon(Material.BARRIER, "None"));
         }

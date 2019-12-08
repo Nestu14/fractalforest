@@ -36,6 +36,7 @@ Tree types
 * menu fixes and changes
 * max tree count per chunk increased to 9
 * indicator when pop or gen edited after closing  menu
+* added ash tree to forest preset
 
 
 

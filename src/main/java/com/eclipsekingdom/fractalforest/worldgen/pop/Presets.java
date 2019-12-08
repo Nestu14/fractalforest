@@ -36,11 +36,13 @@ public class Presets {
         forestForest.add(new TreeSpawner(Species.BUCK_EYE, 0.04, 0, 1, 0));
         forestForest.add(new TreeSpawner(Species.ELM, 0.02, 0, 1, 0));
         forestForest.add(new TreeSpawner(Species.BIRCH, 0.01, 0, 1, 0));
+        forestForest.add(new TreeSpawner(Species.WHITE_ASH, 0.05, 1, 3, 20));
         forestMap.put(TreeBiome.FOREST, forestForest);
         List<TreeSpawner> forestPlains = new ArrayList<>();
         forestPlains.add(new TreeSpawner(Species.OAK, 0.08, 0, 1, 0));
         forestPlains.add(new TreeSpawner(Species.BUCK_EYE, 0.08, 0, 1, 0));
         forestPlains.add(new TreeSpawner(Species.ELM, 0.04, 0, 1, 0));
+        forestPlains.add(new TreeSpawner(Species.WHITE_ASH, 0.06, 1, 3, 20));
         forestMap.put(TreeBiome.PLAINS, forestPlains);
         List<TreeSpawner> forestBirch = new ArrayList<>();
         forestBirch.add(new TreeSpawner(Species.BIRCH, 0.22, 0, 1, 0));
