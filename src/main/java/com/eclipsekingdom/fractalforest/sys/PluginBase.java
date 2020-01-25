@@ -1,7 +1,6 @@
-package com.eclipsekingdom.fractalforest.util.system;
+package com.eclipsekingdom.fractalforest.sys;
 
 import com.eclipsekingdom.fractalforest.protection.CoreProtect;
-import com.eclipsekingdom.fractalforest.util.system.ConsoleSender;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -9,7 +8,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.CONSOLE_DETECT;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.CONSOLE_DETECT;
 
 
 public class PluginBase {
@@ -57,7 +56,7 @@ public class PluginBase {
             Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin(nameSpace);
             if (plugin != null && plugin.isEnabled()) {
                 regionPlugins.put(nameSpace, plugin);
-                ConsoleSender.sendMessage(CONSOLE_DETECT.getFromPlugin(nameSpace));
+                ConsoleSender.sendMessage(CONSOLE_DETECT.fromPlugin(nameSpace));
             }
         }
     }
@@ -68,7 +67,7 @@ public class PluginBase {
             coreProtect = new CoreProtect(plugin);
             usingCoreProtect = coreProtect.isEnabled();
             if (usingCoreProtect) {
-                ConsoleSender.sendMessage(CONSOLE_DETECT.getFromPlugin(coreProtectNameSpace));
+                ConsoleSender.sendMessage(CONSOLE_DETECT.fromPlugin(coreProtectNameSpace));
             }
         }
     }

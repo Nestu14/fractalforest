@@ -23,7 +23,7 @@ public class AmountMin implements PageContents {
         int min = popData.getCurrentSpawner().getMin();
 
         menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Min Tree Number"));
-        menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
+        menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
         menu.setItem(11, BACKGROUND_ITEM);

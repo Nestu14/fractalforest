@@ -39,7 +39,7 @@ public class BiomeOverview implements PageContents {
             int index = i + 10;
             if (biomesSize > i + offset) {
                 TreeBiome biome = biomes.get(i + offset);
-                menu.setItem(index, Icons.createBiome(biome));
+                menu.setItem(index, biome.getItemStack());
                 menu.setItem(index + 9, Icons.createIcon(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "X"));
             } else {
                 if (biomesSize > i - 1 + offset) {

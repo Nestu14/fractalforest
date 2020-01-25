@@ -24,7 +24,7 @@ public class Overflow implements PageContents {
         int overflow = popData.getCurrentSpawner().getOverflow();
 
         menu.setItem(4, Icons.createIcon(Material.ENDER_PEARL, ChatColor.DARK_GRAY + "Overflow Radius"));
-        menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
+        menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
 

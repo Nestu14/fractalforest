@@ -41,7 +41,7 @@ public class BiomeSelect implements PageContents {
         for (int i = 0; i < 28; i++) {
             int biomeIndex = i + (7 * offsetY);
             if (biomeIndex < biomes.size()) {
-                menu.setItem(index, Icons.createBiome(biomes.get(biomeIndex)));
+                menu.setItem(index, biomes.get(biomeIndex).getItemStack());
             } else {
                 menu.setItem(index, Icons.BACKGROUND_ITEM);
             }

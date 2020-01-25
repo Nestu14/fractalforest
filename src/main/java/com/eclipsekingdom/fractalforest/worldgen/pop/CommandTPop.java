@@ -1,11 +1,11 @@
 package com.eclipsekingdom.fractalforest.worldgen.pop;
 
-import com.eclipsekingdom.fractalforest.util.system.Permissions;
+import com.eclipsekingdom.fractalforest.sys.Permissions;
 import com.eclipsekingdom.fractalforest.worldgen.Generator;
 import com.eclipsekingdom.fractalforest.worldgen.WorldData;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.NameValidation;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
-import com.eclipsekingdom.fractalforest.util.system.PluginHelp;
+import com.eclipsekingdom.fractalforest.sys.PluginHelp;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Map;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.*;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
 
 public class CommandTPop implements CommandExecutor {
 
@@ -69,10 +69,10 @@ public class CommandTPop implements CommandExecutor {
                         player.sendMessage(ChatColor.RED + status.message);
                     }
                 } else {
-                    player.sendMessage(WARN_TPOP_EXISTS.getColoredFromPop(name, ChatColor.RED));
+                    player.sendMessage(WARN_TPOP_EXISTS.coloredFromPop(name, ChatColor.RED));
                 }
             } else {
-                player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LiveSessions.getPopEditor(name)));
+                player.sendMessage(WARN_BUSY_TPOP.fromPlayer(LiveSessions.getPopEditor(name)));
             }
         } else {
             player.sendMessage(ChatColor.RED + name + " is a preset tree populator.");
@@ -88,10 +88,10 @@ public class CommandTPop implements CommandExecutor {
                         TreePopulator pop = PopCache.getPopulator(name);
                         LiveSessions.launchPop(player, pop, false);
                     } else {
-                        player.sendMessage(WARN_BUSY_TPOP.getFromPlayer(LiveSessions.getPopEditor(name)));
+                        player.sendMessage(WARN_BUSY_TPOP.fromPlayer(LiveSessions.getPopEditor(name)));
                     }
                 } else {
-                    player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(name, ChatColor.RED));
+                    player.sendMessage(WARN_TPOP_NOT_FOUND.coloredFromPop(name, ChatColor.RED));
                 }
             } else {
                 player.sendMessage(ChatColor.RED + name + " is a preset tree populator.");
@@ -108,7 +108,7 @@ public class CommandTPop implements CommandExecutor {
                 TreePopulator pop = PopCache.getPopulator(name);
                 LiveSessions.launchPop(player, pop.clone(), true);
             } else {
-                player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(name, ChatColor.RED));
+                player.sendMessage(WARN_TPOP_NOT_FOUND.coloredFromPop(name, ChatColor.RED));
             }
         } else {
             player.sendMessage(ChatColor.RED + "Format is /ptree createfrom [populator]");
@@ -125,12 +125,12 @@ public class CommandTPop implements CommandExecutor {
                     NameValidation.Status status = NameValidation.clean(to);
                     if (status == NameValidation.Status.VALID) {
                         pop.setName(to);
-                        player.sendMessage(SUCCESS_TPOP_RENAME.getColoredFromPop(to, ChatColor.GREEN));
+                        player.sendMessage(SUCCESS_TPOP_RENAME.coloredFromPop(to, ChatColor.GREEN));
                     } else {
                         player.sendMessage(ChatColor.RED + status.message);
                     }
                 } else {
-                    player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));
+                    player.sendMessage(WARN_TPOP_NOT_FOUND.coloredFromPop(args[1], ChatColor.RED));
                 }
             } else {
                 player.sendMessage(ChatColor.RED + from + " is a preset tree populator.");
@@ -153,9 +153,9 @@ public class CommandTPop implements CommandExecutor {
                             worldData.setTreePopulator(entry.getKey(), null);
                         }
                     }
-                    player.sendMessage(SUCCESS_TPOP_REMOVE.getColoredFromPop(pop.getName(), ChatColor.GREEN));
+                    player.sendMessage(SUCCESS_TPOP_REMOVE.coloredFromPop(pop.getName(), ChatColor.GREEN));
                 } else {
-                    player.sendMessage(WARN_TPOP_NOT_FOUND.getColoredFromPop(args[1], ChatColor.RED));
+                    player.sendMessage(WARN_TPOP_NOT_FOUND.coloredFromPop(args[1], ChatColor.RED));
                 }
             } else {
                 player.sendMessage(ChatColor.RED + name + " is a preset tree populator.");

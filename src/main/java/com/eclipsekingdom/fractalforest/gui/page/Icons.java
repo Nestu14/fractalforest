@@ -88,14 +88,6 @@ public class Icons {
         return itemStack;
     }
 
-    public static ItemStack createBiome(TreeBiome treeBiome) {
-        ItemStack itemStack = new ItemStack(treeBiome.getMaterial());
-        ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(treeBiome.toString());
-        itemStack.setItemMeta(meta);
-        return itemStack;
-    }
-
     public static ItemStack createPopItem(TreePopulator populator) {
         ItemStack itemStack = new ItemStack(Material.WHEAT_SEEDS);
         ItemMeta meta = itemStack.getItemMeta();

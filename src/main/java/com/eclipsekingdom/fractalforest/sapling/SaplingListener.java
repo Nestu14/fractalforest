@@ -1,8 +1,8 @@
 package com.eclipsekingdom.fractalforest.sapling;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
-import com.eclipsekingdom.fractalforest.util.system.Permissions;
-import com.eclipsekingdom.fractalforest.util.config.PluginConfig;
+import com.eclipsekingdom.fractalforest.sys.Permissions;
+import com.eclipsekingdom.fractalforest.sys.config.PluginConfig;
 import com.eclipsekingdom.fractalforest.trees.Species;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -16,6 +16,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,7 +37,7 @@ public class SaplingListener implements Listener {
     }
 
     public SaplingListener() {
-        FractalForest plugin = FractalForest.plugin;
+        Plugin plugin = FractalForest.getPlugin();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
@@ -65,7 +66,7 @@ public class SaplingListener implements Listener {
     }
 
     private boolean canPlant(Player player, Species species) {
-        if (PluginConfig.isRequreSaplingPerm()) {
+        if (PluginConfig.isRequireSaplingPerm()) {
             return Permissions.canPlant(player, species);
         } else {
             return true;

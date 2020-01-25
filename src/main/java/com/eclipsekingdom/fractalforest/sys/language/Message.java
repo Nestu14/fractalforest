@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.util.language;
+package com.eclipsekingdom.fractalforest.sys.language;
 
 import org.bukkit.ChatColor;
 
@@ -30,7 +30,7 @@ public enum Message {
 
     FORMAT_EDIT_TPOP("Format - pop edit", "Format is /tpop edit [tpop]"),
 
-    STATUS_VALID("Status - sucess", "success"),
+    STATUS_VALID("Status - success", "success"),
     STATUS_SPECIAL_CHAR("Status - special characters", "Names must consist of only a-z, A-Z, 0-9, _, and -"),
     STATUS_TOO_LONG("Status - too long", "Names must be 20 characters or less"),
     STATUS_NOT_FOUND("Status - not found", "Not Found"),
@@ -56,33 +56,23 @@ public enum Message {
         return ChatColor.translateAlternateColorCodes('&', messageSetting.getMessage());
     }
 
-    public String getFromPlugin(String namespace) {
+    public String fromPlugin(String namespace) {
         return get().replaceAll("%plugin%", namespace);
     }
 
     private static ChatColor highlight = ChatColor.GRAY;
 
-    public String getColoredFromPop(String namespace, ChatColor base) {
+    public String coloredFromPop(String namespace, ChatColor base) {
         return base + get().replaceAll("%pop%", highlight + namespace + base);
     }
 
-    public String getFromPlayer(String playerName) {
+    public String fromPlayer(String playerName) {
         return get().replaceAll("%player%", playerName);
     }
 
 
-    public String getFromFile(String fileName) {
+    public String fromFile(String fileName) {
         return get().replaceAll("%file%", fileName);
     }
-
-    public String getFormatted() {
-        String formatted = get().toUpperCase();
-        if (formatted.length() > 1) {
-            return formatted.charAt(0) + formatted.substring(1).toLowerCase();
-        } else {
-            return formatted;
-        }
-    }
-
 
 }

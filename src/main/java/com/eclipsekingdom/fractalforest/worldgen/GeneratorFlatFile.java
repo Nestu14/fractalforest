@@ -2,7 +2,7 @@ package com.eclipsekingdom.fractalforest.worldgen;
 
 import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
-import com.eclipsekingdom.fractalforest.util.system.ConsoleSender;
+import com.eclipsekingdom.fractalforest.sys.ConsoleSender;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.CONSOLE_FILE_ERROR;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.CONSOLE_FILE_ERROR;
 
 public class GeneratorFlatFile {
 
@@ -61,7 +61,7 @@ public class GeneratorFlatFile {
         try {
             config.save(file);
         } catch (Exception e) {
-            ConsoleSender.sendMessage(CONSOLE_FILE_ERROR.getFromFile(file.getName()));
+            ConsoleSender.sendMessage(CONSOLE_FILE_ERROR.fromFile(file.getName()));
         }
     }
 

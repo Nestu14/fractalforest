@@ -27,7 +27,7 @@ public class Spawner implements PageContents {
         TreeSpawner spawner = popData.getCurrentSpawner();
 
         menu.setItem(4, Icons.createIcon(Material.DISPENSER, ChatColor.DARK_GRAY + "Tree Spawner"));
-        menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
+        menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
 
         ItemStack chanceItem = new ItemStack(Material.MELON_SEEDS);

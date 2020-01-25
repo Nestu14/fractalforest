@@ -16,11 +16,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
 public class InputListener implements Listener {
 
     public InputListener() {
-        FractalForest plugin = FractalForest.plugin;
+        Plugin plugin = FractalForest.getPlugin();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 

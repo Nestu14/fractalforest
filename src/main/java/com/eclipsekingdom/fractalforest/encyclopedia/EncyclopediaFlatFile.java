@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.encyclopedia;
 
 import com.eclipsekingdom.fractalforest.trees.Species;
-import com.eclipsekingdom.fractalforest.util.system.ConsoleSender;
+import com.eclipsekingdom.fractalforest.sys.ConsoleSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.CONSOLE_FILE_ERROR;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.CONSOLE_FILE_ERROR;
 
 public class EncyclopediaFlatFile {
 
@@ -65,7 +65,7 @@ public class EncyclopediaFlatFile {
         try {
             config.save(file);
         } catch (Exception e) {
-            ConsoleSender.sendMessage(CONSOLE_FILE_ERROR.getFromFile(file.getName()));
+            ConsoleSender.sendMessage(CONSOLE_FILE_ERROR.fromFile(file.getName()));
         }
     }
 

@@ -1,15 +1,15 @@
 package com.eclipsekingdom.fractalforest.worldgen;
 
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
-import com.eclipsekingdom.fractalforest.util.system.Permissions;
+import com.eclipsekingdom.fractalforest.sys.Permissions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.WARN_BUSY_TGEN;
-import static com.eclipsekingdom.fractalforest.util.language.Message.WARN_NO_PERMISSION;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.WARN_BUSY_TGEN;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.WARN_NO_PERMISSION;
 
 public class CommandTGenerator implements CommandExecutor {
 
@@ -22,7 +22,7 @@ public class CommandTGenerator implements CommandExecutor {
                 if (!LiveSessions.isBusyGen()) {
                     LiveSessions.launchGen(player);
                 } else {
-                    player.sendMessage(WARN_BUSY_TGEN.getFromPlayer(LiveSessions.getGenEditor()));
+                    player.sendMessage(WARN_BUSY_TGEN.fromPlayer(LiveSessions.getGenEditor()));
                 }
             } else {
                 sender.sendMessage(ChatColor.RED + WARN_NO_PERMISSION.toString());

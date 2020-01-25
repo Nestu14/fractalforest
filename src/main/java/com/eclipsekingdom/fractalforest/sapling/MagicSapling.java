@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.sapling;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
-import com.eclipsekingdom.fractalforest.util.config.PluginConfig;
+import com.eclipsekingdom.fractalforest.sys.config.PluginConfig;
 import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.trees.ITree;
 import org.bukkit.*;
@@ -20,7 +20,7 @@ public class MagicSapling extends BukkitRunnable {
         this.seed = seed;
         this.tree = species.getIndividual(planter, seed);
         this.saplingBlock = seed.getBlock();
-        runTaskTimer(FractalForest.plugin, 0, 20 * 1);
+        runTaskTimer(FractalForest.getPlugin(), 0, 20 * 1);
     }
 
     @Override

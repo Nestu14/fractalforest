@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.TabCompleteEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class AutoCompleteListener implements Listener {
 
     public AutoCompleteListener() {
-        FractalForest plugin = FractalForest.plugin;
+        Plugin plugin = FractalForest.getPlugin();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 

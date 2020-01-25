@@ -1,3 +1,24 @@
+Sounds (bamboo sizzle, pufferfish blowout), language file, version (1.8-1.15
+
+
+Seperate length and radius termination and decay
+Per iteration gene and alterations
+More accurate leaf radius ect
+Genome on Website:
+- direct inputs
+- upload inputs to continue edits
+- presets of all in game trees
+- expand and contract sections
+- loading animation ...
+- Root functions (poly not exponential?)
+- Buttons instead of rotation (NE LK < >)
+Check if tree has space above equal to trunk
+Improved growth, more time options
+tpop web app
+Leaf/fence decay
+[Tri, pine, space pop, en, cacti, palm]
+async post build calc
+plane translation takes vector instead of plane?
 
 
 *curve functions instead of just straight lines
@@ -8,35 +29,17 @@ Resources:
 * https://www.instructables.com/id/Procedurally-Generated-Trees/
 * https://github.com/jarikomppa/proctree
 
-
 * Cavery Calling and Team Tree integration
 
-Tree types
-- pine
-- cactus
-- palm
-- mongrove
-- jungle
-- end
-- underwater tree
+Tree types [pine, cactus, palm, mangrove, jungle, end, underwater]
 
 * web based tpop creator (grids with textures to show biomes and sized dots to show about how many trees and space will be taken up)
-
-* new language file system
-* version compatibility
 
 * multiple tree spawner of same species (store as 1 2 3 instead of species)
 * message on close after editing ("updated") and "generator updated";
 
 
 -- update --
-
-
-* overflow - warn new flat file format
-* menu fixes and changes
-* max tree count per chunk increased to 9
-* indicator when pop or gen edited after closing  menu
-* added ash tree to forest preset
 
 
 

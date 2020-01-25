@@ -69,7 +69,7 @@ public class PopHome implements PageContents {
     }
 
     private void createColumn(Inventory menu, int column, TreeBiome biome, List<TreeSpawner> treeSpawners, int offsetY) {
-        menu.setItem(column, Icons.createBiome(biome));
+        menu.setItem(column, biome.getItemStack());
         int offset = offsetY;
         int spawnersSize = treeSpawners.size();
         for (int i = 0; i < 3; i++) {

@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.util.system;
+package com.eclipsekingdom.fractalforest.sys;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -41,7 +41,7 @@ public class PluginHelp {
     }
 
     public static void showEncyclopedia(CommandSender sender) {
-        sender.sendMessage(ChatColor.YELLOW + "-------" + ChatColor.GOLD + " EncyclopediaCache Commands " + ChatColor.YELLOW + "-------");
+        sender.sendMessage(ChatColor.YELLOW + "-------" + ChatColor.GOLD + " Encyclopedia Commands " + ChatColor.YELLOW + "-------");
         sender.sendMessage(ChatColor.GOLD + "/tencyclopedia: " + ChatColor.RESET + "request an encyclopedia");
         sender.sendMessage(ChatColor.GOLD + "/updatetrecords: " + ChatColor.RESET + "update the records in inventory");
     }

@@ -1,6 +1,7 @@
 package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.PopData;
+import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
@@ -23,7 +24,7 @@ public class AmountMax implements PageContents {
         int max = popData.getCurrentSpawner().getMax();
 
         menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Max Tree Number"));
-        menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
+        menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
         menu.setItem(11, BACKGROUND_ITEM);

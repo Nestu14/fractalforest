@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.util.system;
+package com.eclipsekingdom.fractalforest.sys;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

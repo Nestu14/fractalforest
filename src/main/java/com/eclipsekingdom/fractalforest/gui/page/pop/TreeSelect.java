@@ -22,10 +22,9 @@ public class TreeSelect implements PageContents {
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
-        TreePopulator pop = popData.getPopulator();
         menu.setItem(4, Icons.createIcon(Material.OAK_SAPLING, "Tree Selection"));
         TreeBiome biome = popData.getCurrentBiome();
-        menu.setItem(8, Icons.createBiome(biome));
+        menu.setItem(8, biome.getItemStack());
 
         int index = 10;
         for (Species species : Species.values()) {

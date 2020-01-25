@@ -1,4 +1,4 @@
-package com.eclipsekingdom.fractalforest.util.system;
+package com.eclipsekingdom.fractalforest.sys;
 
 import com.eclipsekingdom.fractalforest.trees.Species;
 import org.bukkit.command.CommandSender;

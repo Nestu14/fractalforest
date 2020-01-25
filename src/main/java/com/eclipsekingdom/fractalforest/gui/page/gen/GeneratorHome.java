@@ -22,8 +22,8 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 import java.util.Set;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.LABEL_DISABLED;
-import static com.eclipsekingdom.fractalforest.util.language.Message.LABEL_ENABLED;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_DISABLED;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_ENABLED;
 
 public class GeneratorHome implements PageContents {
 

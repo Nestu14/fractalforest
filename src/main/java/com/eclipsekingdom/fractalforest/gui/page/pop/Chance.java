@@ -27,7 +27,7 @@ public class Chance implements PageContents {
         double chance = popData.getCurrentSpawner().getChance() * 100;
 
         menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Chance per Chunk"));
-        menu.setItem(7, Icons.createBiome(popData.getCurrentBiome()));
+        menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         NumberFormat formatter = new DecimalFormat("#0.00");
 

@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.worldgen.pop;
 
 import com.eclipsekingdom.fractalforest.trees.Species;
-import com.eclipsekingdom.fractalforest.util.system.ConsoleSender;
+import com.eclipsekingdom.fractalforest.sys.ConsoleSender;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.CONSOLE_FILE_ERROR;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.CONSOLE_FILE_ERROR;
 
 public class PopFlatFile {
 
@@ -84,7 +84,7 @@ public class PopFlatFile {
         try {
             config.save(file);
         } catch (Exception e) {
-            ConsoleSender.sendMessage(CONSOLE_FILE_ERROR.getFromFile(file.getName()));
+            ConsoleSender.sendMessage(CONSOLE_FILE_ERROR.fromFile(file.getName()));
         }
     }
 

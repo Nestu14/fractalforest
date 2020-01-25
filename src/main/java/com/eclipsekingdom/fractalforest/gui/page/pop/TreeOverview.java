@@ -29,7 +29,7 @@ public class TreeOverview implements PageContents {
         List<TreeSpawner> spawners = pop.getBiomeToTreeSpawner().get(biome);
 
         menu.setItem(4, Icons.createIcon(Material.WRITABLE_BOOK, ChatColor.DARK_GRAY + "Edit Tree Spawners"));
-        menu.setItem(8, Icons.createBiome(biome));
+        menu.setItem(8, biome.getItemStack());
 
         int offset = sessionData.getPageOffsetX();
         int treeSpawnerSize = spawners.size();

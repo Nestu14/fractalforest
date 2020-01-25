@@ -2,7 +2,7 @@ package com.eclipsekingdom.fractalforest.worldgen.pop.util;
 
 import org.bukkit.ChatColor;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.*;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
 
 public class NameValidation {
 

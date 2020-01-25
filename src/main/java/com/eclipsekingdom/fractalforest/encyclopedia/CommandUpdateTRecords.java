@@ -1,6 +1,6 @@
 package com.eclipsekingdom.fractalforest.encyclopedia;
 
-import com.eclipsekingdom.fractalforest.util.system.Permissions;
+import com.eclipsekingdom.fractalforest.sys.Permissions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,7 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.WARN_NO_PERMISSION;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.WARN_NO_PERMISSION;
 
 public class CommandUpdateTRecords implements CommandExecutor {
     @Override

@@ -1,6 +1,6 @@
 package com.eclipsekingdom.fractalforest.sapling;
 
-import com.eclipsekingdom.fractalforest.util.system.Permissions;
+import com.eclipsekingdom.fractalforest.sys.Permissions;
 import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.util.Amount;
 import org.bukkit.Bukkit;
@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-import static com.eclipsekingdom.fractalforest.util.language.Message.WARN_NO_PERMISSION;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.WARN_NO_PERMISSION;
 
 public class CommandGiftSapling implements CommandExecutor {
 

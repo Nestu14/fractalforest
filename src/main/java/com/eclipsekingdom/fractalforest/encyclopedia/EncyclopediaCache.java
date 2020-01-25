@@ -3,6 +3,7 @@ package com.eclipsekingdom.fractalforest.encyclopedia;
 import com.eclipsekingdom.fractalforest.FractalForest;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class EncyclopediaCache implements Listener {
     private static EncyclopediaFlatFile encyclopediaFlatFile = new EncyclopediaFlatFile();
 
     public EncyclopediaCache() {
-        FractalForest plugin = FractalForest.plugin;
+        Plugin plugin = FractalForest.getPlugin();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         load();
     }
