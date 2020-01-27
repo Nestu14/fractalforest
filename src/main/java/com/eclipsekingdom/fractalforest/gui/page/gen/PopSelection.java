@@ -1,13 +1,14 @@
 package com.eclipsekingdom.fractalforest.gui.page.gen;
 
-import com.eclipsekingdom.fractalforest.worldgen.Generator;
-import com.eclipsekingdom.fractalforest.worldgen.WorldData;
-import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
-import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
+import com.eclipsekingdom.fractalforest.worldgen.Generator;
+import com.eclipsekingdom.fractalforest.worldgen.WorldData;
+import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
+import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -82,7 +83,7 @@ public class PopSelection implements PageContents {
     }
 
     private Set<Material> popMaterial = new ImmutableSet.Builder<Material>()
-            .add(Material.WHEAT_SEEDS)
+            .add(XMaterial.WHEAT_SEEDS.parseMaterial())
             .add(Material.BARRIER)
             .build();
 

@@ -1,6 +1,6 @@
 package com.eclipsekingdom.fractalforest.util.theme.material;
 
-import org.bukkit.Material;
+import com.eclipsekingdom.fractalforest.util.X.FMaterial;
 
 import java.util.Collections;
 import java.util.Random;
@@ -8,19 +8,19 @@ import java.util.Set;
 
 public class MaterialSingleton implements IMaterialFactory {
 
-    private Material material;
+    private FMaterial material;
 
-    public MaterialSingleton(Material material){
+    public MaterialSingleton(FMaterial material){
         this.material = material;
     }
 
     @Override
-    public Material select(Random random) {
+    public FMaterial select(Random random) {
         return material;
     }
 
     @Override
-    public Set<Material> domain() {
+    public Set<FMaterial> domain() {
         return Collections.singleton(material);
     }
 

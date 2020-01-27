@@ -1,9 +1,12 @@
 package com.eclipsekingdom.fractalforest.gui.page.sapling;
 
+import com.eclipsekingdom.fractalforest.gui.MenuGlass;
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.trees.Species;
+import com.eclipsekingdom.fractalforest.util.X.FGlass;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -75,20 +78,20 @@ public class SaplingOverview implements PageContents {
                         player.setItemOnCursor(AIR);
                     }
                 }
-            } else if (itemStack != null && itemStack.getType() == Material.WHITE_STAINED_GLASS_PANE) {
+            } else if (itemStack != null && FGlass.equals(itemStack, MenuGlass.WHITE)) {
                 player.setItemOnCursor(AIR);
             }
         }
     }
 
     private static Set<Material> saplingMaterials = new ImmutableSet.Builder<Material>()
-            .add(Material.OAK_SAPLING)
-            .add(Material.SPRUCE_SAPLING)
-            .add(Material.ACACIA_SAPLING)
-            .add(Material.BIRCH_SAPLING)
-            .add(Material.DARK_OAK_SAPLING)
-            .add(Material.JUNGLE_SAPLING)
-            .add(Material.NETHER_WART)
+            .add(XMaterial.OAK_SAPLING.parseMaterial())
+            .add(XMaterial.SPRUCE_SAPLING.parseMaterial())
+            .add(XMaterial.ACACIA_SAPLING.parseMaterial())
+            .add(XMaterial.BIRCH_SAPLING.parseMaterial())
+            .add(XMaterial.DARK_OAK_SAPLING.parseMaterial())
+            .add(XMaterial.JUNGLE_SAPLING.parseMaterial())
+            .add(XMaterial.NETHER_WART.parseMaterial())
             .build();
 
     private ItemStack AIR = new ItemStack(Material.AIR);

@@ -1,6 +1,7 @@
 package com.eclipsekingdom.fractalforest.util.theme.type;
 
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
+import com.eclipsekingdom.fractalforest.util.X.FMaterial;
 import com.eclipsekingdom.fractalforest.util.theme.material.IMaterialFactory;
 import com.eclipsekingdom.fractalforest.util.theme.material.MaterialSingleton;
 import org.bukkit.Material;
@@ -12,22 +13,22 @@ public class BirchTheme implements ITheme {
 
     @Override
     public IMaterialFactory getLeaf() {
-        return new MaterialSingleton(Material.BIRCH_LEAVES);
+        return new MaterialSingleton(FMaterial.BIRCH_LEAVES);
     }
 
     @Override
     public IMaterialFactory getThickBranch() {
-        return new MaterialSingleton(Material.BIRCH_WOOD);
+        return new MaterialSingleton(FMaterial.BIRCH_WOOD);
     }
 
     @Override
     public IMaterialFactory getThinBranch() {
-        return new MaterialSingleton(Material.BIRCH_FENCE);
+        return new MaterialSingleton(FMaterial.BIRCH_FENCE);
     }
 
     @Override
     public IMaterialFactory getRoot() {
-        return new MaterialSingleton(Material.BIRCH_WOOD);
+        return new MaterialSingleton(FMaterial.BIRCH_WOOD);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.eclipsekingdom.fractalforest.util.theme.type;
 
+import com.eclipsekingdom.fractalforest.sys.Version;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
+import com.eclipsekingdom.fractalforest.util.X.FMaterial;
 import com.eclipsekingdom.fractalforest.util.theme.material.IMaterialFactory;
 import com.eclipsekingdom.fractalforest.util.theme.material.MaterialJumble;
 import com.eclipsekingdom.fractalforest.util.theme.material.MaterialSingleton;
@@ -13,25 +15,26 @@ public class FloweringHawthornTheme implements ITheme {
 
     @Override
     public IMaterialFactory getLeaf() {
-        return new MaterialJumble()
-                .add(Material.PINK_TERRACOTTA)
-                .add(Material.PINK_CONCRETE)
-                .add(Material.PINK_WOOL);
+        if (Version.current.value >= 112) {
+            return new MaterialJumble().add(FMaterial.PINK_TERRACOTTA).add(FMaterial.PINK_CONCRETE).add(FMaterial.PINK_WOOL);
+        } else {
+            return new MaterialJumble().add(FMaterial.PINK_TERRACOTTA).add(FMaterial.PINK_WOOL);
+        }
     }
 
     @Override
     public IMaterialFactory getThickBranch() {
-        return new MaterialSingleton(Material.OAK_WOOD);
+        return new MaterialSingleton(FMaterial.OAK_WOOD);
     }
 
     @Override
     public IMaterialFactory getThinBranch() {
-        return new MaterialSingleton(Material.SPRUCE_FENCE);
+        return new MaterialSingleton(FMaterial.SPRUCE_FENCE);
     }
 
     @Override
     public IMaterialFactory getRoot() {
-        return new MaterialSingleton(Material.OAK_WOOD);
+        return new MaterialSingleton(FMaterial.OAK_WOOD);
     }
 
     @Override

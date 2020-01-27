@@ -5,6 +5,7 @@ import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreeSpawner;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
@@ -21,11 +22,13 @@ import java.util.Set;
 
 public class BiomeSelect implements PageContents {
 
+    private static Material grassBlock = XMaterial.GRASS_BLOCK.parseMaterial();
+
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
         TreePopulator pop = popData.getPopulator();
-        menu.setItem(4, Icons.createIcon(Material.GRASS_BLOCK, "Biome Selection"));
+        menu.setItem(4, Icons.createIcon(grassBlock, "Biome Selection"));
         Set<TreeBiome> currentBiomes = pop.getBiomeToTreeSpawner().keySet();
 
 

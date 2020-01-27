@@ -5,6 +5,7 @@ import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.trees.Species;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreeSpawner;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
@@ -19,10 +20,12 @@ import java.util.List;
 
 public class TreeSelect implements PageContents {
 
+    private static Material log = XMaterial.OAK_SAPLING.parseMaterial();
+
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
-        menu.setItem(4, Icons.createIcon(Material.OAK_SAPLING, "Tree Selection"));
+        menu.setItem(4, Icons.createIcon(log, "Tree Selection"));
         TreeBiome biome = popData.getCurrentBiome();
         menu.setItem(8, biome.getItemStack());
 

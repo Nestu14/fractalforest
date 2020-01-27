@@ -2,9 +2,15 @@ package com.eclipsekingdom.fractalforest.sapling;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
 import com.eclipsekingdom.fractalforest.sys.Permissions;
+import com.eclipsekingdom.fractalforest.sys.Version;
 import com.eclipsekingdom.fractalforest.sys.config.PluginConfig;
 import com.eclipsekingdom.fractalforest.trees.Species;
-import org.bukkit.*;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
+import com.google.common.collect.ImmutableSet;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +32,7 @@ import java.util.Set;
 public class SaplingListener implements Listener {
 
     public static Map<Location, ItemStack> locationToSapling = new HashMap<>();
+    private static boolean hasSetDrop = Version.current.value >= 112;
 
     public static void shutdown() {
         for (Map.Entry<Location, ItemStack> entry : locationToSapling.entrySet()) {
@@ -78,7 +85,12 @@ public class SaplingListener implements Listener {
         Location location = e.getBlock().getLocation();
         if (locationToSapling.containsKey(location)) {
             if (e.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
-                e.setDropItems(false);
+                if(hasSetDrop){
+                    e.setDropItems(false);
+                }else{
+                    e.setCancelled(true);
+                    e.getBlock().setType(Material.AIR);
+                }
                 ItemStack itemStack = locationToSapling.get(location);
                 e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation().add(0.5, 0, 0.5), itemStack);
                 locationToSapling.remove(location);
@@ -123,7 +135,7 @@ public class SaplingListener implements Listener {
     }
 
     private boolean isSapling(ItemStack itemStack) {
-        return ((Tag.SAPLINGS.isTagged(itemStack.getType()) || itemStack.getType() == Material.NETHER_WART) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() && itemStack.getItemMeta().getLore().size() > 0);
+        return (MagicSapling.saplingMaterials.contains(itemStack.getType()) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasLore() && itemStack.getItemMeta().getLore().size() > 0);
     }
 
     private Species getSpecies(ItemStack sapling) {

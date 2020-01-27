@@ -1,27 +1,27 @@
 package com.eclipsekingdom.fractalforest.util.theme.material;
 
-import org.bukkit.Material;
+import com.eclipsekingdom.fractalforest.util.X.FMaterial;
 
 import java.util.*;
 
 public class MaterialJumble implements IMaterialFactory {
 
-    private List<Material> materials = new ArrayList<>();
-    private Set<Material> domain = new HashSet<>();
+    private List<FMaterial> materials = new ArrayList<>();
+    private Set<FMaterial> domain = new HashSet<>();
 
-    public MaterialJumble add(Material material){
+    public MaterialJumble add(FMaterial material){
         domain.add(material);
         materials.add(material);
         return this;
     }
 
     @Override
-    public Material select(Random random) {
+    public FMaterial select(Random random) {
         return materials.get(random.nextInt(materials.size()));
     }
 
     @Override
-    public Set<Material> domain() {
+    public Set<FMaterial> domain() {
         return domain;
     }
 }

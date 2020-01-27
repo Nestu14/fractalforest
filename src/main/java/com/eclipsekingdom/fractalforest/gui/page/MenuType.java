@@ -1,22 +1,23 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
+import com.eclipsekingdom.fractalforest.gui.MenuGlass;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 public enum MenuType {
-    POP(ChatColor.GOLD.toString() + ChatColor.BOLD + "Tree Populator", Material.ORANGE_STAINED_GLASS_PANE, ChatColor.GOLD),
-    GENOME(ChatColor.GREEN.toString() + ChatColor.BOLD + "Tree Genome", Material.GREEN_STAINED_GLASS_PANE, ChatColor.DARK_GREEN),
-    SAPLING(ChatColor.GREEN.toString() + ChatColor.BOLD + "Sapling", Material.GREEN_STAINED_GLASS_PANE, ChatColor.DARK_GREEN),
-    GEN(ChatColor.GREEN.toString() + ChatColor.BOLD + "Tree Generator", Material.GREEN_STAINED_GLASS_PANE, ChatColor.DARK_GREEN),
-    NOT_FOUND(ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "Page Not Found", Material.GRAY_STAINED_GLASS_PANE, ChatColor.GRAY),
+    POP(ChatColor.GOLD.toString() + ChatColor.BOLD + "Tree Populator", MenuGlass.ORANGE, ChatColor.GOLD),
+    GENOME(ChatColor.GREEN.toString() + ChatColor.BOLD + "Tree Genome", MenuGlass.GREEN, ChatColor.DARK_GREEN),
+    SAPLING(ChatColor.GREEN.toString() + ChatColor.BOLD + "Sapling", MenuGlass.GREEN, ChatColor.DARK_GREEN),
+    GEN(ChatColor.GREEN.toString() + ChatColor.BOLD + "Tree Generator", MenuGlass.GREEN, ChatColor.DARK_GREEN),
+    NOT_FOUND(ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "Page Not Found", MenuGlass.GRAY, ChatColor.GRAY),
     ;
     private String title;
-    private Material material;
+    private MenuGlass glass;
     private ChatColor color;
 
-    MenuType(String title, Material material, ChatColor color) {
+    MenuType(String title, MenuGlass glass, ChatColor color) {
         this.title = title;
-        this.material = material;
+        this.glass = glass;
         this.color = color;
     }
 
@@ -24,8 +25,8 @@ public enum MenuType {
         return title;
     }
 
-    public Material getMaterial() {
-        return material;
+    public MenuGlass getGlass() {
+        return glass;
     }
 
     public ChatColor getColor() {

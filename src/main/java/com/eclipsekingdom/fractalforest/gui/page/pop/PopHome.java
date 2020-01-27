@@ -5,6 +5,7 @@ import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreeSpawner;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
@@ -14,13 +15,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 public class PopHome implements PageContents {
+
+    private Material writtenBook = XMaterial.WRITABLE_BOOK.parseMaterial();
 
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
@@ -30,7 +32,7 @@ public class PopHome implements PageContents {
         LinkedHashMap<TreeBiome, List<TreeSpawner>> biomeToTreeSpawners = pop.getBiomeToTreeSpawner();
         List<TreeBiome> biomes = new ArrayList<>();
         for (TreeBiome biome : biomeToTreeSpawners.keySet()) {
-            if(biome != TreeBiome.NONE){
+            if (biome != TreeBiome.NONE) {
                 biomes.add(biome);
             }
         }
@@ -46,7 +48,7 @@ public class PopHome implements PageContents {
                 createColumn(menu, index, biome, biomeToTreeSpawners.get(biome), sessionData.getPageOffsetY());
             } else {
                 if (biomesSize > i - 1 + offset) {
-                    menu.setItem(index, Icons.createIcon(Material.WRITABLE_BOOK, ChatColor.GRAY + "Edit"));
+                    menu.setItem(index, Icons.createIcon(writtenBook, ChatColor.GRAY + "Edit"));
                 } else {
                     menu.setItem(index, Icons.BACKGROUND_ITEM);
                 }
@@ -79,7 +81,7 @@ public class PopHome implements PageContents {
                 menu.setItem(index, Icons.createTreeSpawner(treeSpawner));
             } else {
                 if (spawnersSize > i - 1 + offset) {
-                    menu.setItem(index, Icons.createIcon(Material.WRITABLE_BOOK, ChatColor.GRAY + "Edit"));
+                    menu.setItem(index, Icons.createIcon(writtenBook, ChatColor.GRAY + "Edit"));
                 } else {
                     menu.setItem(index, Icons.BACKGROUND_ITEM);
                 }
@@ -101,7 +103,7 @@ public class PopHome implements PageContents {
         } else {
             ItemStack itemStack = menu.getItem(slot);
             if (itemStack != null && itemStack.getType() != Icons.BACKGROUND_ITEM.getType()) {
-                if (itemStack.getType() == Material.WRITABLE_BOOK) {
+                if (itemStack.getType() == writtenBook) {
                     if (slot / 9 == 1) {
                         sessionData.transition(player, PageType.BIOME_OVERVIEW);
                     } else {
@@ -120,8 +122,8 @@ public class PopHome implements PageContents {
                             TreeBiome biome = TreeBiome.valueOf(biomeItem.getItemMeta().getDisplayName());
                             List<TreeSpawner> treeSpawners = pop.getBiomeToTreeSpawner().get(biome);
                             ItemStack spawnStack = menu.getItem(slot);
-                            if (spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType() && spawnStack.getType() != Material.WRITABLE_BOOK) {
-                                int index = (slot/9) -2 + sessionData.getPageOffsetY();
+                            if (spawnStack != null && spawnStack.getType() != Icons.BACKGROUND_ITEM.getType() && spawnStack.getType() != writtenBook) {
+                                int index = (slot / 9) - 2 + sessionData.getPageOffsetY();
                                 TreeSpawner spawner = treeSpawners.get(index);
                                 popData.setCurrentSpawner(spawner);
                                 popData.setCurrentBiome(biome);

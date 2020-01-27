@@ -1,6 +1,8 @@
 package com.eclipsekingdom.fractalforest.util.theme.type;
 
+import com.eclipsekingdom.fractalforest.sys.Version;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
+import com.eclipsekingdom.fractalforest.util.X.FMaterial;
 import com.eclipsekingdom.fractalforest.util.theme.material.IMaterialFactory;
 import com.eclipsekingdom.fractalforest.util.theme.material.MaterialJumble;
 import com.eclipsekingdom.fractalforest.util.theme.material.MaterialSingleton;
@@ -13,28 +15,37 @@ public class FallElmTheme implements ITheme {
 
     @Override
     public IMaterialFactory getLeaf() {
-        return new MaterialJumble()
-                .add(Material.BROWN_TERRACOTTA)
-                .add(Material.BROWN_CONCRETE)
-                .add(Material.BROWN_WOOL)
-                .add(Material.YELLOW_TERRACOTTA)
-                .add(Material.YELLOW_CONCRETE)
-                .add(Material.YELLOW_WOOL);
+        if (Version.current.value >= 112) {
+            return new MaterialJumble().add(FMaterial.BROWN_TERRACOTTA)
+                    .add(FMaterial.BROWN_TERRACOTTA)
+                    .add(FMaterial.BROWN_CONCRETE)
+                    .add(FMaterial.BROWN_WOOL)
+                    .add(FMaterial.YELLOW_TERRACOTTA)
+                    .add(FMaterial.YELLOW_CONCRETE)
+                    .add(FMaterial.YELLOW_WOOL);
+        } else {
+            return new MaterialJumble().add(FMaterial.BROWN_TERRACOTTA)
+                    .add(FMaterial.BROWN_TERRACOTTA)
+                    .add(FMaterial.BROWN_WOOL)
+                    .add(FMaterial.YELLOW_TERRACOTTA)
+                    .add(FMaterial.YELLOW_WOOL);
+        }
+
     }
 
     @Override
     public IMaterialFactory getThickBranch() {
-        return new MaterialSingleton(Material.OAK_WOOD);
+        return new MaterialSingleton(FMaterial.OAK_WOOD);
     }
 
     @Override
     public IMaterialFactory getThinBranch() {
-        return new MaterialSingleton(Material.SPRUCE_FENCE);
+        return new MaterialSingleton(FMaterial.SPRUCE_FENCE);
     }
 
     @Override
     public IMaterialFactory getRoot() {
-        return new MaterialSingleton(Material.OAK_WOOD);
+        return new MaterialSingleton(FMaterial.OAK_WOOD);
     }
 
     @Override

@@ -86,8 +86,8 @@ public class FractalGrowthPattern {
         double totalRadians = Math.PI * 2 * (1 - clumpGene.next());
         for (int i = 0; i < numBranches; i++) {
             double angle = angleGene.next();
-            Vector starting = randomPerp.clone().rotateAroundAxis(branch.getDirection(), i * totalRadians / (double) numBranches);
-            Vector axis = starting.clone().rotateAroundAxis(branch.getDirection(), totalRadians / (double) numBranches);
+            Vector starting = TreeMath.getRotatedVector(randomPerp, branch.getDirection(), i * totalRadians / (double) numBranches);
+            Vector axis = TreeMath.getRotatedVector(starting, branch.getDirection(), totalRadians / (double) numBranches);
             double decay = decayGene.next(angle, angleGene.getBounds());
             Branch child = branch.split(axis, angle, decay);
             if (child != null) {

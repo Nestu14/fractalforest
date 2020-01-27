@@ -24,7 +24,4 @@ public class LeafCluster {
         return center.clone();
     }
 
-    public void setCenter(Vector center) {
-        this.center = center;
-    }
 }

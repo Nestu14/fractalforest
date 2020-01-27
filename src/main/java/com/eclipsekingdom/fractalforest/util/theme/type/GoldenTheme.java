@@ -1,6 +1,7 @@
 package com.eclipsekingdom.fractalforest.util.theme.type;
 
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
+import com.eclipsekingdom.fractalforest.util.X.FMaterial;
 import com.eclipsekingdom.fractalforest.util.theme.material.IMaterialFactory;
 import com.eclipsekingdom.fractalforest.util.theme.material.MaterialSingleton;
 import com.eclipsekingdom.fractalforest.util.theme.material.WeightedMaterialJumble;
@@ -13,22 +14,22 @@ public class GoldenTheme implements ITheme {
 
     @Override
     public IMaterialFactory getLeaf() {
-        return new WeightedMaterialJumble().add(Material.OAK_LEAVES, 25).add(Material.GLOWSTONE, 1);
+        return new WeightedMaterialJumble().add(FMaterial.OAK_LEAVES, 25).add(FMaterial.GLOWSTONE, 1);
     }
 
     @Override
     public IMaterialFactory getThickBranch() {
-        return new MaterialSingleton(Material.OAK_WOOD);
+        return new MaterialSingleton(FMaterial.OAK_WOOD);
     }
 
     @Override
     public IMaterialFactory getThinBranch() {
-        return new MaterialSingleton(Material.SPRUCE_FENCE);
+        return new MaterialSingleton(FMaterial.SPRUCE_FENCE);
     }
 
     @Override
     public IMaterialFactory getRoot() {
-        return new MaterialSingleton(Material.OAK_WOOD);
+        return new MaterialSingleton(FMaterial.OAK_WOOD);
     }
 
     @Override

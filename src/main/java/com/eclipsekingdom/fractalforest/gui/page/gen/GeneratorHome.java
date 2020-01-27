@@ -1,14 +1,17 @@
 package com.eclipsekingdom.fractalforest.gui.page.gen;
 
-import com.eclipsekingdom.fractalforest.worldgen.Generator;
-import com.eclipsekingdom.fractalforest.worldgen.WorldData;
 import com.eclipsekingdom.fractalforest.gui.GenData;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
+import com.eclipsekingdom.fractalforest.gui.MenuGlass;
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
+import com.eclipsekingdom.fractalforest.util.X.FGlass;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
+import com.eclipsekingdom.fractalforest.worldgen.Generator;
+import com.eclipsekingdom.fractalforest.worldgen.WorldData;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,9 +30,11 @@ import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_ENABLE
 
 public class GeneratorHome implements PageContents {
 
+    private static Material craftingTable = XMaterial.CRAFTING_TABLE.parseMaterial();
+
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
-        menu.setItem(4, Icons.createIcon(Material.CRAFTING_TABLE, ChatColor.DARK_PURPLE + "Generator"));
+        menu.setItem(4, Icons.createIcon(craftingTable, ChatColor.DARK_PURPLE + "Generator"));
         List<World> worlds = Bukkit.getWorlds();
         int worldsSize = worlds.size();
         int worldIndex = 0;
@@ -48,8 +53,8 @@ public class GeneratorHome implements PageContents {
                     menu.setItem(index + 3, Icons.createIcon(Material.BARRIER, "None"));
                 }
                 boolean enabled = worldData.isEnabled();
-                ItemStack enabledStack = enabled ? Icons.createIcon(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + LABEL_ENABLED.toString()) :
-                        Icons.createIcon(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + LABEL_DISABLED.toString());
+                ItemStack enabledStack = enabled ? Icons.createGlass(MenuGlass.LIME, ChatColor.GREEN + LABEL_ENABLED.toString()) :
+                        Icons.createGlass(MenuGlass.RED, ChatColor.RED + LABEL_DISABLED.toString());
                 menu.setItem(index + 4, enabledStack);
                 menu.setItem(index + 5, enabledStack);
                 menu.setItem(index + 6, enabledStack);
@@ -76,11 +81,11 @@ public class GeneratorHome implements PageContents {
 
     private Material getMaterial(World.Environment environment) {
         if (environment == World.Environment.THE_END) {
-            return Material.END_STONE;
+            return XMaterial.END_STONE.parseMaterial();
         } else if (environment == World.Environment.NETHER) {
             return Material.NETHERRACK;
         } else {
-            return Material.GRASS_BLOCK;
+            return XMaterial.GRASS_BLOCK.parseMaterial();
         }
     }
 
@@ -102,7 +107,7 @@ public class GeneratorHome implements PageContents {
                     GenData genData = sessionData.getGenData();
                     genData.setCurrentWorld(world);
                     sessionData.transition(player, PageType.POP_SELECT);
-                } else if (itemStack != null && enabledMaterial.contains(itemStack.getType())) {
+                } else if (itemStack != null && (FGlass.equals(itemStack, MenuGlass.LIME) || FGlass.equals(itemStack, MenuGlass.RED))) {
                     WorldData worldData = Generator.getWorldData(world);
                     worldData.toggleEnabled(world);
                     sessionData.registerEdit();
@@ -113,16 +118,13 @@ public class GeneratorHome implements PageContents {
     }
 
     private World getWorld(Inventory menu, int slot) {
-        ItemStack worldItem = menu.getItem((slot / 9)*9 + 2);
+        ItemStack worldItem = menu.getItem((slot / 9) * 9 + 2);
         if (worldItem.hasItemMeta() && worldItem.getItemMeta().hasDisplayName()) {
             return Bukkit.getWorld(worldItem.getItemMeta().getDisplayName());
         } else {
             return null;
         }
     }
-
-    private Set<Material> enabledMaterial = new ImmutableSet.Builder<Material>()
-            .add(Material.LIME_STAINED_GLASS_PANE).add(Material.RED_STAINED_GLASS_PANE).build();
 
 
 }

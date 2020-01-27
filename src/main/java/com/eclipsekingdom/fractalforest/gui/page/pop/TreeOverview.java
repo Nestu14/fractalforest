@@ -6,6 +6,8 @@ import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
 import com.eclipsekingdom.fractalforest.gui.page.PageType;
 import com.eclipsekingdom.fractalforest.trees.Species;
+import com.eclipsekingdom.fractalforest.util.X.FGlass;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreeSpawner;
 import com.eclipsekingdom.fractalforest.worldgen.pop.util.TreeBiome;
@@ -21,6 +23,8 @@ import java.util.List;
 
 public class TreeOverview implements PageContents {
 
+    private Material writtenBook = XMaterial.WRITABLE_BOOK.parseMaterial();
+
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
@@ -28,7 +32,7 @@ public class TreeOverview implements PageContents {
         TreeBiome biome = popData.getCurrentBiome();
         List<TreeSpawner> spawners = pop.getBiomeToTreeSpawner().get(biome);
 
-        menu.setItem(4, Icons.createIcon(Material.WRITABLE_BOOK, ChatColor.DARK_GRAY + "Edit Tree Spawners"));
+        menu.setItem(4, Icons.createIcon(writtenBook, ChatColor.DARK_GRAY + "Edit Tree Spawners"));
         menu.setItem(8, biome.getItemStack());
 
         int offset = sessionData.getPageOffsetX();
@@ -39,10 +43,10 @@ public class TreeOverview implements PageContents {
             if (treeSpawnerSize > i + offset) {
                 TreeSpawner treeSpawner = spawners.get(i + offset);
                 menu.setItem(index, Icons.createTreeSpawner(treeSpawner));
-                menu.setItem(index + 9, Icons.createIcon(Material.RED_STAINED_GLASS_PANE, ChatColor.RED + "X"));
+                menu.setItem(index + 9, Icons.createGlass(MenuGlass.RED, ChatColor.RED + "X"));
             } else {
                 if (treeSpawnerSize > i - 1 + offset) {
-                    menu.setItem(index, Icons.createIcon(Material.LIME_STAINED_GLASS_PANE, ChatColor.GREEN + "+"));
+                    menu.setItem(index, Icons.createGlass(MenuGlass.LIME, ChatColor.GREEN + "+"));
                 } else {
                     menu.setItem(index, Icons.BACKGROUND_ITEM);
                 }
@@ -68,10 +72,9 @@ public class TreeOverview implements PageContents {
             ItemStack itemStack = menu.getItem(slot);
             TreePopulator pop = popData.getPopulator();
             if (itemStack != null) {
-                Material material = itemStack.getType();
-                if (material == Material.LIME_STAINED_GLASS_PANE) {
+                if (FGlass.equals(itemStack, MenuGlass.LIME)) {
                     sessionData.transition(player, PageType.TREE_SELECT);
-                } else if (material == Material.RED_STAINED_GLASS_PANE) {
+                } else if (FGlass.equals(itemStack, MenuGlass.RED)) {
                     ItemStack treeStack = menu.getItem(slot - 9);
                     if (treeStack != null && treeStack.getType() != Material.AIR) {
                         int index = (slot - 19) + sessionData.getPageOffsetX();

@@ -1,6 +1,8 @@
 package com.eclipsekingdom.fractalforest.util.theme.type;
 
+import com.eclipsekingdom.fractalforest.sys.Version;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
+import com.eclipsekingdom.fractalforest.util.X.FMaterial;
 import com.eclipsekingdom.fractalforest.util.theme.material.IMaterialFactory;
 import com.eclipsekingdom.fractalforest.util.theme.material.MaterialSingleton;
 import org.bukkit.Material;
@@ -12,22 +14,26 @@ public class BloodBush implements ITheme {
 
     @Override
     public IMaterialFactory getLeaf() {
-        return new MaterialSingleton(Material.NETHER_WART_BLOCK);
+        if (Version.current.value >= 110) {
+            return new MaterialSingleton(FMaterial.NETHER_WART_BLOCK);
+        } else {
+            return new MaterialSingleton(FMaterial.RED_WOOL);
+        }
     }
 
     @Override
     public IMaterialFactory getThickBranch() {
-        return new MaterialSingleton(Material.NETHER_BRICKS);
+        return new MaterialSingleton(FMaterial.NETHER_BRICKS);
     }
 
     @Override
     public IMaterialFactory getThinBranch() {
-        return new MaterialSingleton(Material.NETHER_BRICK_FENCE);
+        return new MaterialSingleton(FMaterial.NETHER_BRICK_FENCE);
     }
 
     @Override
     public IMaterialFactory getRoot() {
-        return new MaterialSingleton(Material.NETHER_BRICKS);
+        return new MaterialSingleton(FMaterial.NETHER_BRICKS);
     }
 
     @Override

@@ -17,7 +17,7 @@ public class SegmentIterator extends ArrayList<Block> {
             for (double r = 0; r < Math.PI * 2; r += Math.PI / 32) {
                 for (double j = 0; j < radius; j += 0.5) {
                     Vector up = dir.clone().multiply(i);
-                    Vector out = rPerp.clone().rotateAroundAxis(dir, r).multiply(j);
+                    Vector out = TreeMath.getRotatedVector(rPerp, dir, r).multiply(j);
                     Vector point = begin.clone().add(up).add(out);
                     if (isInRadius(point, begin, dir, radius)) {
                         Block block = world.getBlockAt(point.toLocation(world));

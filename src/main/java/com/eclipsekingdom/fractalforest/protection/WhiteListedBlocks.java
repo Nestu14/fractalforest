@@ -1,6 +1,6 @@
 package com.eclipsekingdom.fractalforest.protection;
 
-import com.google.common.collect.ImmutableSet;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import org.bukkit.Material;
 
 import java.util.HashSet;
@@ -10,30 +10,38 @@ public class WhiteListedBlocks {
 
     private static Set<Material> blankList = new HashSet<>();
 
-    public static ImmutableSet<Material> trunkWhitelist = new ImmutableSet.Builder<Material>()
-            .add(Material.DIRT)
-            .add(Material.GRASS_BLOCK)
-            .add(Material.COARSE_DIRT)
-            .add(Material.SOUL_SAND)
-            .add(Material.SAND)
-            .add(Material.GRAVEL)
-            .add(Material.GRASS_PATH)
-            .add(Material.SPRUCE_LEAVES)
-            .add(Material.JUNGLE_LEAVES)
-            .add(Material.DARK_OAK_LEAVES)
-            .add(Material.BIRCH_LEAVES)
-            .add(Material.OAK_LEAVES)
-            .add(Material.ACACIA_LEAVES)
-            .add().build();
+    public static Set<Material> trunkWhitelist = makeTrunkWhiteList();
 
 
-    public static ImmutableSet<Material> rootWhiteList = new ImmutableSet.Builder<Material>()
-            .addAll(trunkWhitelist)
-            .add(Material.STONE)
-            .add(Material.ANDESITE)
-            .add(Material.DIORITE)
-            .add(Material.GRANITE).build();
+    public static Set<Material> makeTrunkWhiteList() {
+        Set<Material> trunkWhitelist = new HashSet<>();
+        trunkWhitelist.add(Material.DIRT);
+        trunkWhitelist.add(XMaterial.GRASS_BLOCK.parseMaterial());
+        trunkWhitelist.add(XMaterial.COARSE_DIRT.parseMaterial());
+        trunkWhitelist.add(XMaterial.SOUL_SAND.parseMaterial());
+        trunkWhitelist.add(XMaterial.SAND.parseMaterial());
+        trunkWhitelist.add(XMaterial.GRAVEL.parseMaterial());
+        trunkWhitelist.add(XMaterial.GRASS_PATH.parseMaterial());
+        trunkWhitelist.add(XMaterial.OAK_LEAVES.parseMaterial());
+        trunkWhitelist.add(XMaterial.SPRUCE_LEAVES.parseMaterial());
+        trunkWhitelist.add(XMaterial.BIRCH_LEAVES.parseMaterial());
+        trunkWhitelist.add(XMaterial.JUNGLE_LEAVES.parseMaterial());
+        trunkWhitelist.add(XMaterial.ACACIA_LEAVES.parseMaterial());
+        trunkWhitelist.add(XMaterial.DARK_OAK_LEAVES.parseMaterial());
+        return trunkWhitelist;
+    }
 
+
+    public static Set<Material> rootWhiteList = makeRootWhiteList();
+
+    public static Set<Material> makeRootWhiteList() {
+        Set<Material> rootWhiteList = new HashSet<>();
+        rootWhiteList.add(Material.STONE);
+        rootWhiteList.add(XMaterial.ANDESITE.parseMaterial());
+        rootWhiteList.add(XMaterial.DIORITE.parseMaterial());
+        rootWhiteList.add(XMaterial.GRANITE.parseMaterial());
+        return rootWhiteList;
+    }
 
     //leaves -- empty
     //outerleaves -- empty, tree material

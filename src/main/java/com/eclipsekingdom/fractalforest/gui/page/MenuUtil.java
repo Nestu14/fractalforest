@@ -1,5 +1,6 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
+import com.eclipsekingdom.fractalforest.util.X.XSound;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -16,7 +17,7 @@ public class MenuUtil {
         menu = createInventory(rows, type, page.getTitle());
 
         //add border
-        ItemStack themeItem = Icons.createIcon(type.getMaterial(), type.getColor() + "~");
+        ItemStack themeItem = type.getGlass().getSwiggleItem();
 
         for (int i = 0; i < 9; i++) {
             ItemStack borderItem = i % 2 == 0 ? themeItem : Icons.BORDER_ITEM;
@@ -46,9 +47,12 @@ public class MenuUtil {
         return Bukkit.createInventory(null, rows * 9, menuType.getTitle() + " " + ChatColor.DARK_GRAY + ChatColor.ITALIC + "- " + subTitle);
     }
 
+    private static Sound sound = XSound.BLOCK_STONE_BUTTON_CLICK_ON.isSupported() ? XSound.BLOCK_STONE_BUTTON_CLICK_ON.parseSound() : XSound.UI_BUTTON_CLICK.parseSound();
+
     public static void playClickSound(Player player) {
-        player.playSound(player.getLocation(), Sound.BLOCK_STONE_BUTTON_CLICK_ON, 0.5f, 1.2f);
+        player.playSound(player.getLocation(), sound, 0.5f, 1.2f);
     }
+
 
 
 }

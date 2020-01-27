@@ -1,6 +1,8 @@
 package com.eclipsekingdom.fractalforest.gui.page;
 
+import com.eclipsekingdom.fractalforest.gui.MenuGlass;
 import com.eclipsekingdom.fractalforest.trees.Species;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreeSpawner;
@@ -16,16 +18,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
+
 public class Icons {
 
-    public static ItemStack BORDER_ITEM = createIcon(Material.BLACK_STAINED_GLASS_PANE, ChatColor.GRAY + "•");
-    public static ItemStack BACKGROUND_ITEM = createIcon(Material.WHITE_STAINED_GLASS_PANE, ChatColor.WHITE + "•");
-    public static ItemStack BACK_BUTTON = createIcon(Material.IRON_AXE, ChatColor.DARK_GRAY + "Back");
-    public static ItemStack CLOSE = createIcon(Material.BARRIER, ChatColor.RED + "Close");
+    private static Material wheatSeeds = XMaterial.WHEAT_SEEDS.parseMaterial();
+
+    public static ItemStack BORDER_ITEM = MenuGlass.BLACK.getDotItem();
+    public static ItemStack BACKGROUND_ITEM = MenuGlass.WHITE.getDotItem();
+    public static ItemStack BACK_BUTTON = createIcon(Material.IRON_AXE, ChatColor.DARK_GRAY + ICON_BACK.toString());
+    public static ItemStack CLOSE = XMaterial.BARRIER.isSupported() ? createIcon(XMaterial.BARRIER.parseMaterial(), ChatColor.RED + ICON_CLOSE.toString()) :
+            MenuGlass.getCustom(14, ChatColor.RED, ICON_CLOSE.toString());
 
 
     public static ItemStack createIcon(Material material, String name) {
         ItemStack icon = new ItemStack(material, 1);
+        ItemMeta meta = icon.getItemMeta();
+        meta.setDisplayName(name);
+        icon.setItemMeta(meta);
+        return icon;
+    }
+
+    public static ItemStack createGlass(MenuGlass glass, String name) {
+        ItemStack icon = glass.getItemStack();
         ItemMeta meta = icon.getItemMeta();
         meta.setDisplayName(name);
         icon.setItemMeta(meta);
@@ -89,11 +104,11 @@ public class Icons {
     }
 
     public static ItemStack createPopItem(TreePopulator populator) {
-        ItemStack itemStack = new ItemStack(Material.WHEAT_SEEDS);
+        ItemStack itemStack = new ItemStack(wheatSeeds);
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(populator.getName());
         List<String> lore = new ArrayList<>();
-        if (PopCache.isPreset(populator.getName())) lore.add(ChatColor.RED + "(Preset)");
+        if (PopCache.isPreset(populator.getName())) lore.add(ChatColor.RED + "(" + LABEL_PRESET + ")");
         for (Map.Entry<TreeBiome, List<TreeSpawner>> entry : populator.getBiomeToTreeSpawner().entrySet()) {
             lore.add(ChatColor.GREEN + entry.getKey().toString());
             NumberFormat formatter = new DecimalFormat("#0.00");

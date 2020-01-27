@@ -6,6 +6,7 @@ public enum Message {
 
     LABEL_ENABLED("Label - enabled", "Enabled"),
     LABEL_DISABLED("Label - disabled", "Disabled"),
+    LABEL_PRESET("Icon - preset", "Preset"),
 
     ARG_WORLD("Arg - world", "world"),
     ARG_TPOP("Arg - tpop", "tpop"),
@@ -29,6 +30,9 @@ public enum Message {
     SUGGEST_TPOP_HELP("Suggest - pop help", "Invalid format. Use /tpop help for a list of commands."),
 
     FORMAT_EDIT_TPOP("Format - pop edit", "Format is /tpop edit [tpop]"),
+
+    ICON_CLOSE("Icon - close", "Close"),
+    ICON_BACK("Icon - back", "Back"),
 
     STATUS_VALID("Status - success", "success"),
     STATUS_SPECIAL_CHAR("Status - special characters", "Names must consist of only a-z, A-Z, 0-9, _, and -"),

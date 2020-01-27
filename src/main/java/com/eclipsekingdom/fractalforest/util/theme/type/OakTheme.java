@@ -2,6 +2,7 @@ package com.eclipsekingdom.fractalforest.util.theme.type;
 
 
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
+import com.eclipsekingdom.fractalforest.util.X.FMaterial;
 import com.eclipsekingdom.fractalforest.util.theme.material.IMaterialFactory;
 import com.eclipsekingdom.fractalforest.util.theme.material.MaterialSingleton;
 import org.bukkit.Material;
@@ -13,22 +14,22 @@ public class OakTheme implements ITheme {
 
     @Override
     public IMaterialFactory getLeaf() {
-        return new MaterialSingleton(Material.OAK_LEAVES);
+        return new MaterialSingleton(FMaterial.OAK_LEAVES);
     }
 
     @Override
     public IMaterialFactory getThickBranch() {
-        return new MaterialSingleton(Material.OAK_WOOD);
+        return new MaterialSingleton(FMaterial.OAK_WOOD);
     }
 
     @Override
     public IMaterialFactory getThinBranch() {
-        return new MaterialSingleton(Material.SPRUCE_FENCE);
+        return new MaterialSingleton(FMaterial.SPRUCE_FENCE);
     }
 
     @Override
     public IMaterialFactory getRoot() {
-        return new MaterialSingleton(Material.OAK_WOOD);
+        return new MaterialSingleton(FMaterial.OAK_WOOD);
     }
 
     @Override

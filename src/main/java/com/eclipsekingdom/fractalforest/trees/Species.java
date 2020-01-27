@@ -10,6 +10,8 @@ import com.eclipsekingdom.fractalforest.trees.gen.fractal.genome.IGenome;
 import com.eclipsekingdom.fractalforest.trees.habitat.HabitatType;
 import com.eclipsekingdom.fractalforest.trees.habitat.IHabitat;
 import com.eclipsekingdom.fractalforest.util.ChatUtil;
+import com.eclipsekingdom.fractalforest.util.X.FSapling;
+import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
 import com.eclipsekingdom.fractalforest.util.theme.ThemeType;
 import org.bukkit.Bukkit;
@@ -27,43 +29,43 @@ import org.bukkit.plugin.PluginManager;
 import java.util.ArrayList;
 
 public enum Species {
-    MAGNOLIA(GenomeType.MAGNOLIA.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
-    BUCK_EYE(GenomeType.BUCK_EYE.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
-    FLOWERING_HAWTHORN(GenomeType.BUCK_EYE.value(), Material.OAK_SAPLING, ThemeType.FLOWERING_HAWTHORN.getTheme()),
-    OAK(GenomeType.OAK.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
-    ELM(GenomeType.ELM.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
-    BIRCH(GenomeType.BIRCH.value(), Material.BIRCH_SAPLING, ThemeType.BIRCH.getTheme()),
-    FALL_BIRCH(GenomeType.BIRCH.value(), Material.BIRCH_SAPLING, ThemeType.FALL_BIRCH.getTheme()),
-    FALL_OAK(GenomeType.OAK.value(), Material.OAK_SAPLING, ThemeType.FALL_OAK.getTheme()),
-    FALL_ELM(GenomeType.ELM.value(), Material.OAK_SAPLING, ThemeType.FALL_ELM.getTheme()),
-    FALL_MAPLE(GenomeType.OAK.value(), Material.OAK_SAPLING, ThemeType.FALL_MAPLE.getTheme()),
-    WEIRWOOD(GenomeType.WEIRWOOD.value(), Material.BIRCH_SAPLING, ThemeType.WEIRWOOD.getTheme()),
-    WHITE_ASH(GenomeType.WHITE_ASH.value(), Material.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    MAGNOLIA(GenomeType.MAGNOLIA.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    BUCK_EYE(GenomeType.BUCK_EYE.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    FLOWERING_HAWTHORN(GenomeType.BUCK_EYE.value(), FSapling.OAK_SAPLING, ThemeType.FLOWERING_HAWTHORN.getTheme()),
+    OAK(GenomeType.OAK.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    ELM(GenomeType.ELM.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    BIRCH(GenomeType.BIRCH.value(), FSapling.BIRCH_SAPLING, ThemeType.BIRCH.getTheme()),
+    FALL_BIRCH(GenomeType.BIRCH.value(), FSapling.BIRCH_SAPLING, ThemeType.FALL_BIRCH.getTheme()),
+    FALL_OAK(GenomeType.OAK.value(), FSapling.OAK_SAPLING, ThemeType.FALL_OAK.getTheme()),
+    FALL_ELM(GenomeType.ELM.value(), FSapling.OAK_SAPLING, ThemeType.FALL_ELM.getTheme()),
+    FALL_MAPLE(GenomeType.OAK.value(), FSapling.OAK_SAPLING, ThemeType.FALL_MAPLE.getTheme()),
+    WEIRWOOD(GenomeType.WEIRWOOD.value(), FSapling.BIRCH_SAPLING, ThemeType.WEIRWOOD.getTheme()),
+    WHITE_ASH(GenomeType.WHITE_ASH.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
 
-    BLOOD_BUSH(GenomeType.BLOOD_BUSH.value(), Material.NETHER_WART, ThemeType.BLOOD_BUSH.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
-    FLAME_TREE(GenomeType.FLAME_TREE.value(), Material.NETHER_WART, ThemeType.FLAME_TREE.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
+    BLOOD_BUSH(GenomeType.BLOOD_BUSH.value(), FSapling.NETHER_WART, ThemeType.BLOOD_BUSH.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
+    FLAME_TREE(GenomeType.FLAME_TREE.value(), FSapling.NETHER_WART, ThemeType.FLAME_TREE.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
 
     ;
 
     private FractalGrowthPattern growthPattern;
-    private Material saplingMaterial;
+    private FSapling fSapling;
     private IHabitat habitat;
     private IEffects effects;
     private ITheme theme;
     private String plantingPermString;
     private String formattedName;
 
-    Species(IGenome genome, Material saplingMaterial, ITheme theme, IHabitat habitat, IEffects effects) {
-        init(genome, saplingMaterial, theme, habitat, effects);
+    Species(IGenome genome, FSapling fSapling, ITheme theme, IHabitat habitat, IEffects effects) {
+        init(genome, fSapling, theme, habitat, effects);
     }
 
-    Species(IGenome genome, Material saplingMaterial, ITheme theme) {
-        init(genome, saplingMaterial, theme, HabitatType.FOREST.getHabitat(), EffectType.FOREST.getEffects());
+    Species(IGenome genome, FSapling fSapling, ITheme theme) {
+        init(genome, fSapling, theme, HabitatType.FOREST.getHabitat(), EffectType.FOREST.getEffects());
     }
 
-    private void init(IGenome genome, Material saplingMaterial, ITheme theme, IHabitat habitat, IEffects effects) {
+    private void init(IGenome genome, FSapling fSapling, ITheme theme, IHabitat habitat, IEffects effects) {
         this.growthPattern = new FractalGrowthPattern(genome);
-        this.saplingMaterial = saplingMaterial;
+        this.fSapling = fSapling;
         this.habitat = habitat;
         this.effects = effects;
         this.theme = theme;
@@ -77,7 +79,7 @@ public enum Species {
 
     public ItemStack getSapling() {
         String species = toString();
-        ItemStack itemStack = new ItemStack(saplingMaterial);
+        ItemStack itemStack = fSapling.getItemStack();
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(ChatColor.GREEN + formattedName + " Sapling");
         meta.addEnchant(Enchantment.DURABILITY, 1, true);
