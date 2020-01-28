@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
+
 public class LiveSessions {
 
     private static HashMap<UUID, SessionData> playerToData = new HashMap<>();
@@ -64,15 +66,16 @@ public class LiveSessions {
                 TreePopulator pop = popData.getPopulator();
                 if (popData.isInitialCreate()) {
                     pop.initialize();
-                    player.sendMessage(ChatColor.GREEN + "Tree pop " + ChatColor.GRAY + pop.getName() + ChatColor.GREEN + " created");
+                    player.sendMessage(ChatColor.GREEN + SUCCESS_TPOP_CREATE.fromPop(pop.getName()));
                 } else {
-                    if(sessionData.isEdited()) player.sendMessage(ChatColor.GREEN + "Tree pop " + ChatColor.GRAY + pop.getName() + ChatColor.GREEN + " updated");
+                    if (sessionData.isEdited()) player.sendMessage(ChatColor.GREEN + SUCCESS_TPOP_UPDATE.toString());
                 }
                 PopCache.save();
             }
 
             GenData genData = sessionData.getGenData();
-            if(genData!=null && sessionData.isEdited()) player.sendMessage(ChatColor.GREEN + "Tree generator updated");
+            if (genData != null && sessionData.isEdited())
+                player.sendMessage(ChatColor.GREEN + SUCCESS_GEN_UPDATE.toString());
 
             playerToData.remove(playerID);
         }

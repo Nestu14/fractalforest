@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
+
 public class BiomeSelect implements PageContents {
 
     private static Material grassBlock = XMaterial.GRASS_BLOCK.parseMaterial();
@@ -28,7 +30,7 @@ public class BiomeSelect implements PageContents {
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
         TreePopulator pop = popData.getPopulator();
-        menu.setItem(4, Icons.createIcon(grassBlock, "Biome Selection"));
+        menu.setItem(4, Icons.createIcon(grassBlock, LABEL_BIOME_SELECTION.toString()));
         Set<TreeBiome> currentBiomes = pop.getBiomeToTreeSpawner().keySet();
 
 
@@ -51,9 +53,9 @@ public class BiomeSelect implements PageContents {
             index += ((index + 2) % 9 == 0 ? 3 : 1);
         }
 
-        menu.setItem(17, Icons.createIcon(Material.TRIPWIRE_HOOK, "Scroll Up"));
+        menu.setItem(17, Icons.createIcon(Material.TRIPWIRE_HOOK, MENU_SCROLL_UP.toString()));
         menu.setItem(26, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetY()));
-        menu.setItem(35, Icons.createIcon(Material.HOPPER, "Scroll Down"));
+        menu.setItem(35, Icons.createIcon(Material.HOPPER, MENU_SCROLL_DOWN.toString()));
 
         return menu;
     }

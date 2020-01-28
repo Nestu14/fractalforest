@@ -12,7 +12,6 @@ import com.eclipsekingdom.fractalforest.util.X.FGlass;
 import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.eclipsekingdom.fractalforest.worldgen.Generator;
 import com.eclipsekingdom.fractalforest.worldgen.WorldData;
-import com.google.common.collect.ImmutableSet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,10 +22,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Set;
 
-import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_DISABLED;
-import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_ENABLED;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
 
 public class GeneratorHome implements PageContents {
 
@@ -34,7 +31,7 @@ public class GeneratorHome implements PageContents {
 
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
-        menu.setItem(4, Icons.createIcon(craftingTable, ChatColor.DARK_PURPLE + "Generator"));
+        menu.setItem(4, Icons.createIcon(craftingTable, ChatColor.DARK_PURPLE + MENU_GENERATOR.toString()));
         List<World> worlds = Bukkit.getWorlds();
         int worldsSize = worlds.size();
         int worldIndex = 0;
@@ -50,7 +47,7 @@ public class GeneratorHome implements PageContents {
                 if (worldData.hasTreePopulator()) {
                     menu.setItem(index + 3, Icons.createPopItem(worldData.getTreePopulator()));
                 } else {
-                    menu.setItem(index + 3, Icons.createIcon(Material.BARRIER, "None"));
+                    menu.setItem(index + 3, Icons.createIcon(Material.BARRIER, LABEL_NONE.toString()));
                 }
                 boolean enabled = worldData.isEnabled();
                 ItemStack enabledStack = enabled ? Icons.createGlass(MenuGlass.LIME, ChatColor.GREEN + LABEL_ENABLED.toString()) :
@@ -69,9 +66,9 @@ public class GeneratorHome implements PageContents {
         }
 
 
-        menu.setItem(17, Icons.createIcon(Material.TRIPWIRE_HOOK, "Scroll Up"));
+        menu.setItem(17, Icons.createIcon(Material.TRIPWIRE_HOOK, MENU_SCROLL_UP.toString()));
         menu.setItem(26, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetY()));
-        menu.setItem(35, Icons.createIcon(Material.HOPPER, "Scroll Down"));
+        menu.setItem(35, Icons.createIcon(Material.HOPPER, MENU_SCROLL_DOWN.toString()));
 
         menu.setItem(49, Icons.CLOSE);
 

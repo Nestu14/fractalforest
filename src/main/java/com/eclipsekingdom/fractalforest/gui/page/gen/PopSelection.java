@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
+
 public class PopSelection implements PageContents {
 
     @Override
@@ -34,7 +36,7 @@ public class PopSelection implements PageContents {
         if (worldData.hasTreePopulator()) {
             menu.setItem(4, Icons.createPopItem(worldData.getTreePopulator()));
         } else {
-            menu.setItem(4, Icons.createIcon(Material.BARRIER, "None"));
+            menu.setItem(4, Icons.createIcon(Material.BARRIER, LABEL_NONE.toString()));
         }
 
         int offsetY = sessionData.getPageOffsetY();
@@ -46,7 +48,7 @@ public class PopSelection implements PageContents {
                 if (populator != null) {
                     menu.setItem(index, Icons.createPopItem(populator));
                 } else {
-                    menu.setItem(index, Icons.createIcon(Material.BARRIER, "None"));
+                    menu.setItem(index, Icons.createIcon(Material.BARRIER, LABEL_NONE.toString()));
                 }
             } else {
                 menu.setItem(index, Icons.BACKGROUND_ITEM);
@@ -54,9 +56,9 @@ public class PopSelection implements PageContents {
             index += ((index + 2) % 9 == 0 ? 3 : 1);
         }
 
-        menu.setItem(17, Icons.createIcon(Material.TRIPWIRE_HOOK, "Scroll Up"));
+        menu.setItem(17, Icons.createIcon(Material.TRIPWIRE_HOOK, MENU_SCROLL_UP.toString()));
         menu.setItem(26, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetY()));
-        menu.setItem(35, Icons.createIcon(Material.HOPPER, "Scroll Down"));
+        menu.setItem(35, Icons.createIcon(Material.HOPPER, MENU_SCROLL_DOWN.toString()));
 
         return menu;
     }

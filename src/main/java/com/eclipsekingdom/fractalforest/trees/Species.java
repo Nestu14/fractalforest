@@ -11,13 +11,11 @@ import com.eclipsekingdom.fractalforest.trees.habitat.HabitatType;
 import com.eclipsekingdom.fractalforest.trees.habitat.IHabitat;
 import com.eclipsekingdom.fractalforest.util.ChatUtil;
 import com.eclipsekingdom.fractalforest.util.X.FSapling;
-import com.eclipsekingdom.fractalforest.util.X.XMaterial;
 import com.eclipsekingdom.fractalforest.util.theme.ITheme;
 import com.eclipsekingdom.fractalforest.util.theme.ThemeType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -27,6 +25,9 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
+
+import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_SAPLING;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_SPECIES;
 
 public enum Species {
     MAGNOLIA(GenomeType.MAGNOLIA.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
@@ -40,13 +41,18 @@ public enum Species {
     FALL_ELM(GenomeType.ELM.value(), FSapling.OAK_SAPLING, ThemeType.FALL_ELM.getTheme()),
     FALL_MAPLE(GenomeType.OAK.value(), FSapling.OAK_SAPLING, ThemeType.FALL_MAPLE.getTheme()),
     WEIRWOOD(GenomeType.WEIRWOOD.value(), FSapling.BIRCH_SAPLING, ThemeType.WEIRWOOD.getTheme()),
-    WHITE_ASH(GenomeType.WHITE_ASH.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    WHITE_ASH(GenomeType.WHITE_ASH.value(), FSapling.ACACIA_SAPLING, ThemeType.WHITE_ASH.getTheme()),
+    NARROW_LEAF_ASH(GenomeType.NARROW_LEAF_ASH.value(), FSapling.ACACIA_SAPLING, ThemeType.WHITE_ASH.getTheme()),
+    SHANTUNG_MAPLE(GenomeType.SHANTUNG_MAPLE.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
+    HICKORY(GenomeType.HICKORY.value(), FSapling.OAK_SAPLING, ThemeType.OAK.getTheme()),
 
     BLOOD_BUSH(GenomeType.BLOOD_BUSH.value(), FSapling.NETHER_WART, ThemeType.BLOOD_BUSH.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
     FLAME_TREE(GenomeType.FLAME_TREE.value(), FSapling.NETHER_WART, ThemeType.FLAME_TREE.getTheme(), HabitatType.NETHER.getHabitat(), EffectType.NETHER.getEffects()),
 
-    ;
+    CYGNI(GenomeType.CYGNI.value(), FSapling.CHORUS, ThemeType.CYGNI.getTheme(), HabitatType.END.getHabitat(), EffectType.END.getEffects()),
+    SECCHI(GenomeType.SECCHI.value(), FSapling.CHORUS, ThemeType.SECCHI.getTheme(), HabitatType.END.getHabitat(), EffectType.END.getEffects()),
 
+    ;
     private FractalGrowthPattern growthPattern;
     private FSapling fSapling;
     private IHabitat habitat;
@@ -81,11 +87,11 @@ public enum Species {
         String species = toString();
         ItemStack itemStack = fSapling.getItemStack();
         ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(ChatColor.GREEN + formattedName + " Sapling");
+        meta.setDisplayName(ChatColor.GREEN + formattedName + " " + LABEL_SAPLING);
         meta.addEnchant(Enchantment.DURABILITY, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         ArrayList<String> lore = new ArrayList();
-        lore.add(ChatColor.DARK_GREEN + "Species: " + ChatColor.GRAY + species);
+        lore.add(ChatColor.DARK_GREEN + LABEL_SPECIES.toString() + ": " + ChatColor.GRAY + species);
         lore.addAll(Encyclopedia.getSaplingDetails(this));
         meta.setLore(lore);
         itemStack.setItemMeta(meta);

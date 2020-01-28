@@ -61,6 +61,14 @@ public class Presets {
         TreePopulator nether = new TreePopulator("Nether", netherMap);
         presets.add(nether);
 
+        LinkedHashMap<TreeBiome, List<TreeSpawner>> endMap = new LinkedHashMap<>();
+        List<TreeSpawner> endForest = new ArrayList<>();
+        endForest.add(new TreeSpawner(Species.SECCHI, 0.022, 2, 9, 8));
+        endForest.add(new TreeSpawner(Species.CYGNI, 0.012, 1, 1, 0));
+        endMap.put(TreeBiome.END, endForest);
+        TreePopulator end = new TreePopulator("End", endMap);
+        presets.add(end);
+
         return presets;
     }
 

@@ -1,7 +1,7 @@
 package com.eclipsekingdom.fractalforest.sapling;
 
-import com.eclipsekingdom.fractalforest.sys.Permissions;
 import com.eclipsekingdom.fractalforest.gui.LiveSessions;
+import com.eclipsekingdom.fractalforest.sys.Permissions;
 import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.util.Amount;
 import org.bukkit.ChatColor;
@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import static com.eclipsekingdom.fractalforest.sys.language.Message.WARN_NO_PERMISSION;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
 
 public class CommandSapling implements CommandExecutor {
 
@@ -32,7 +32,7 @@ public class CommandSapling implements CommandExecutor {
                             sapling.setAmount(amount);
                             player.getInventory().addItem(sapling);
                         } else {
-                            player.sendMessage(ChatColor.RED + "Unrecognized species");
+                            player.sendMessage(ChatColor.RED + WARN_UNKNOWN_SPECIES.toString());
                         }
                     }
                 } else {
@@ -47,7 +47,7 @@ public class CommandSapling implements CommandExecutor {
     }
 
     private void sendSaplingList(Player player) {
-        player.sendMessage(ChatColor.DARK_GREEN + "Saplings:");
+        player.sendMessage(ChatColor.DARK_GREEN + LABEL_SAPLING.toString() + ":");
         for (Species species : Species.values()) {
             player.sendMessage("- " + species.toString());
         }

@@ -54,10 +54,10 @@ public class Icons {
         meta.setDisplayName(species.toString());
         List<String> lore = new ArrayList<>();
         NumberFormat formatter = new DecimalFormat("#0.00");
-        lore.add(ChatColor.GRAY + "Chance: " + formatter.format(treeSpawner.getChance() * 100) + "%");
-        lore.add(ChatColor.GRAY + "Min: " + treeSpawner.getMin() + " trees");
-        lore.add(ChatColor.GRAY + "Max: " + treeSpawner.getMax() + " trees");
-        lore.add(ChatColor.GRAY + "Overflow: " + treeSpawner.getOverflow() + " blocks");
+        lore.add(ChatColor.GRAY + LABEL_CHANCE.toString() + ": " + formatter.format(treeSpawner.getChance() * 100) + "%");
+        lore.add(ChatColor.GRAY + LABEL_MIN.toString() + ": " + treeSpawner.getMin() + " " + UNIT_TREES);
+        lore.add(ChatColor.GRAY + LABEL_MAX.toString() + ": " + treeSpawner.getMax() + " " + UNIT_TREES);
+        lore.add(ChatColor.GRAY + LABEL_OVERFLOW.toString() + ": " + treeSpawner.getOverflow() + " " + UNIT_BLOCKS);
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
         return itemStack;

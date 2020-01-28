@@ -13,6 +13,7 @@ public enum FSapling {
     ACACIA_SAPLING(XMaterial.ACACIA_SAPLING, 4),
     DARK_OAK_SAPLING(XMaterial.DARK_OAK_SAPLING, 5),
     NETHER_WART(XMaterial.NETHER_WART),
+    CHORUS(XMaterial.CHORUS_PLANT, XMaterial.OBSIDIAN),
 
     ;
 
@@ -21,20 +22,15 @@ public enum FSapling {
     private Material material;
     private byte aByte;
 
-
-    FSapling(Material material) {
-        this.material = material;
+    FSapling(XMaterial material, XMaterial backup) {
+        Material matOne = material.parseMaterial();
+        this.material = matOne == null? backup.parseMaterial() : matOne;
         aByte = -1;
     }
 
     FSapling(XMaterial material) {
         this.material = material.parseMaterial();
         aByte = -1;
-    }
-
-    FSapling(Material material, int aByte) {
-        this.material = material;
-        this.aByte = (byte) aByte;
     }
 
     FSapling(XMaterial material, int aByte) {

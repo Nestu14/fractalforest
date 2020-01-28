@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-import static com.eclipsekingdom.fractalforest.sys.language.Message.WARN_NO_PERMISSION;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
 
 public class CommandGiftSapling implements CommandExecutor {
 
@@ -38,15 +38,15 @@ public class CommandGiftSapling implements CommandExecutor {
                         for (ItemStack itemStack : overflow.values()) {
                             world.dropItemNaturally(location, itemStack);
                         }
-                        sender.sendMessage(ChatColor.GREEN.toString() + amount + " " + species.format() + " saplings gifted to " + player.getName());
+                        sender.sendMessage(ChatColor.GREEN.toString() + SUCCESS_GIFT_SAPLING.fromAmountSpeciesPlayer(amount, species.format(), player.getName()));
                     } else {
-                        player.sendMessage(ChatColor.RED + "Unrecognized species");
+                        player.sendMessage(ChatColor.RED + WARN_UNKNOWN_SPECIES.toString());
                     }
                 } else {
-                    sender.sendMessage(ChatColor.RED + "Player " + playerName + " is not online.");
+                    sender.sendMessage(ChatColor.RED + WARN_NOT_ONLINE.fromPlayer(playerName));
                 }
             } else {
-                sender.sendMessage(ChatColor.RED + "Format is /giftsapling [player] [species] [amount]");
+                sender.sendMessage(ChatColor.RED + INFO_FORMAT.fromFormat("/giftsapling [" + ARG_PLAYER + "] [" + ARG_SPECIES + "] [" + ARG_AMOUNT + "]"));
             }
         } else {
             sender.sendMessage(ChatColor.RED + WARN_NO_PERMISSION.toString());

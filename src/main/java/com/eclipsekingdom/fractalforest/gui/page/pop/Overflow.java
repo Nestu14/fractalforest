@@ -13,6 +13,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
 import static com.eclipsekingdom.fractalforest.gui.page.Icons.BACKGROUND_ITEM;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.MENU_OVERFLOW_RADIUS;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.UNIT_BLOCKS;
 
 public class Overflow implements PageContents {
 
@@ -23,24 +25,24 @@ public class Overflow implements PageContents {
 
         int overflow = popData.getCurrentSpawner().getOverflow();
 
-        menu.setItem(4, Icons.createIcon(Material.ENDER_PEARL, ChatColor.DARK_GRAY + "Overflow Radius"));
+        menu.setItem(4, Icons.createIcon(Material.ENDER_PEARL, ChatColor.DARK_GRAY + MENU_OVERFLOW_RADIUS.toString()));
         menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
 
         if (overflow > 0) {
-            menu.setItem(11, Icons.VALUE_MANIPULATOR("-10", overflow + " blocks"));
-            menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", overflow + " block"));
+            menu.setItem(11, Icons.VALUE_MANIPULATOR("-10", overflow + " " + UNIT_BLOCKS));
+            menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", overflow + " " + UNIT_BLOCKS));
         } else {
             menu.setItem(11, BACKGROUND_ITEM);
             menu.setItem(12, BACKGROUND_ITEM);
         }
 
-        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Overflow Radius", overflow + " blocks"));
+        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, MENU_OVERFLOW_RADIUS.toString(), overflow + " " + UNIT_BLOCKS));
 
         if (overflow < 64) {
-            menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", overflow + " block"));
-            menu.setItem(15, Icons.VALUE_MANIPULATOR("+10", overflow + " blocks"));
+            menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", overflow + " " + UNIT_BLOCKS));
+            menu.setItem(15, Icons.VALUE_MANIPULATOR("+10", overflow + " " + UNIT_BLOCKS));
         } else {
             menu.setItem(14, BACKGROUND_ITEM);
             menu.setItem(15, BACKGROUND_ITEM);

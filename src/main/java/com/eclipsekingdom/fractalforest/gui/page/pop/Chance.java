@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import static com.eclipsekingdom.fractalforest.gui.page.Icons.BACKGROUND_ITEM;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.MENU_CHANCE_PER_CHUNK;
 
 public class Chance implements PageContents {
 
@@ -26,7 +27,7 @@ public class Chance implements PageContents {
 
         double chance = popData.getCurrentSpawner().getChance() * 100;
 
-        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Chance per Chunk"));
+        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + MENU_CHANCE_PER_CHUNK.toString()));
         menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         NumberFormat formatter = new DecimalFormat("#0.00");
@@ -41,7 +42,7 @@ public class Chance implements PageContents {
             menu.setItem(12, BACKGROUND_ITEM);
         }
 
-        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Chance per Chunk", formatter.format(chance) + "%"));
+        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, MENU_CHANCE_PER_CHUNK.toString(), formatter.format(chance) + "%"));
 
         if (chance < 100) {
             menu.setItem(14, Icons.VALUE_MANIPULATOR("+0.1", formatter.format(chance) + "%"));

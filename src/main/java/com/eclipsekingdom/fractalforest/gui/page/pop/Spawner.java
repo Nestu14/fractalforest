@@ -18,6 +18,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Collections;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
+
 public class Spawner implements PageContents {
 
     @Override
@@ -26,13 +28,13 @@ public class Spawner implements PageContents {
 
         TreeSpawner spawner = popData.getCurrentSpawner();
 
-        menu.setItem(4, Icons.createIcon(Material.DISPENSER, ChatColor.DARK_GRAY + "Tree Spawner"));
+        menu.setItem(4, Icons.createIcon(Material.DISPENSER, ChatColor.DARK_GRAY + MENU_TREE_SPAWNER.toString()));
         menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
 
         ItemStack chanceItem = new ItemStack(Material.MELON_SEEDS);
         ItemMeta meta = chanceItem.getItemMeta();
-        meta.setDisplayName(ChatColor.DARK_GRAY + "Chance per Chunk");
+        meta.setDisplayName(ChatColor.DARK_GRAY + MENU_CHANCE_PER_CHUNK.toString());
         NumberFormat formatter = new DecimalFormat("#0.00");
         meta.setLore(Collections.singletonList(ChatColor.GRAY + formatter.format(spawner.getChance() * 100) + "%"));
         chanceItem.setItemMeta(meta);
@@ -42,8 +44,8 @@ public class Spawner implements PageContents {
 
         ItemStack overFlowItem = new ItemStack(Material.ENDER_PEARL);
         meta = overFlowItem.getItemMeta();
-        meta.setDisplayName(ChatColor.DARK_GRAY + "Overflow Radius");
-        meta.setLore(Collections.singletonList(ChatColor.GRAY.toString() + spawner.getOverflow() + " blocks"));
+        meta.setDisplayName(ChatColor.DARK_GRAY + MENU_OVERFLOW_RADIUS.toString());
+        meta.setLore(Collections.singletonList(ChatColor.GRAY.toString() + spawner.getOverflow() + " " + UNIT_BLOCKS));
         overFlowItem.setItemMeta(meta);
         menu.setItem(12, overFlowItem);
 
@@ -51,7 +53,7 @@ public class Spawner implements PageContents {
 
         ItemStack minItem = new ItemStack(Material.MELON_SEEDS);
         meta = minItem.getItemMeta();
-        meta.setDisplayName(ChatColor.DARK_GRAY + "Min Tree Number");
+        meta.setDisplayName(ChatColor.DARK_GRAY + MENU_MIN_TREE_NUMBER.toString());
         meta.setLore(Collections.singletonList(ChatColor.GRAY.toString() + spawner.getMin()));
         minItem.setItemMeta(meta);
         menu.setItem(14, minItem);
@@ -60,7 +62,7 @@ public class Spawner implements PageContents {
 
         ItemStack maxItem = new ItemStack(Material.MELON_SEEDS);
         meta = maxItem.getItemMeta();
-        meta.setDisplayName(ChatColor.DARK_GRAY + "Max Tree Number");
+        meta.setDisplayName(ChatColor.DARK_GRAY + MENU_MAX_TREE_NUMBER.toString());
         meta.setLore(Collections.singletonList(ChatColor.GRAY.toString() + spawner.getMax()));
         maxItem.setItemMeta(meta);
         menu.setItem(16, maxItem);

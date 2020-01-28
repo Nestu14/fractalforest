@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
+
 public class PopHome implements PageContents {
 
     private Material writtenBook = XMaterial.WRITABLE_BOOK.parseMaterial();
@@ -48,7 +50,7 @@ public class PopHome implements PageContents {
                 createColumn(menu, index, biome, biomeToTreeSpawners.get(biome), sessionData.getPageOffsetY());
             } else {
                 if (biomesSize > i - 1 + offset) {
-                    menu.setItem(index, Icons.createIcon(writtenBook, ChatColor.GRAY + "Edit"));
+                    menu.setItem(index, Icons.createIcon(writtenBook, ChatColor.GRAY + LABEL_EDIT.toString()));
                 } else {
                     menu.setItem(index, Icons.BACKGROUND_ITEM);
                 }
@@ -58,13 +60,13 @@ public class PopHome implements PageContents {
             }
         }
 
-        menu.setItem(26, Icons.createIcon(Material.TRIPWIRE_HOOK, "Scroll Up"));
+        menu.setItem(26, Icons.createIcon(Material.TRIPWIRE_HOOK, MENU_SCROLL_UP.toString()));
         menu.setItem(35, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetY()));
-        menu.setItem(44, Icons.createIcon(Material.HOPPER, "Scroll Down"));
+        menu.setItem(44, Icons.createIcon(Material.HOPPER, MENU_SCROLL_DOWN.toString()));
 
-        menu.setItem(48, Icons.createIcon(Material.ARROW, "Scroll Left"));
+        menu.setItem(48, Icons.createIcon(Material.ARROW, MENU_SCROLL_LEFT.toString()));
         menu.setItem(49, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetX()));
-        menu.setItem(50, Icons.createIcon(Material.ARROW, "Scroll Right"));
+        menu.setItem(50, Icons.createIcon(Material.ARROW, MENU_SCROLL_RIGHT.toString()));
 
 
         return menu;
@@ -81,7 +83,7 @@ public class PopHome implements PageContents {
                 menu.setItem(index, Icons.createTreeSpawner(treeSpawner));
             } else {
                 if (spawnersSize > i - 1 + offset) {
-                    menu.setItem(index, Icons.createIcon(writtenBook, ChatColor.GRAY + "Edit"));
+                    menu.setItem(index, Icons.createIcon(writtenBook, ChatColor.GRAY + LABEL_EDIT.toString()));
                 } else {
                     menu.setItem(index, Icons.BACKGROUND_ITEM);
                 }

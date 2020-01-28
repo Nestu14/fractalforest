@@ -35,6 +35,7 @@ public enum TreeBiome {
     BADLANDS(new Biome[]{XBiome.BADLANDS_PLATEAU.parseBiome(), XBiome.BADLANDS.parseBiome(), XBiome.MODIFIED_BADLANDS_PLATEAU.parseBiome(), XBiome.MODIFIED_WOODED_BADLANDS_PLATEAU.parseBiome(), XBiome.WOODED_BADLANDS_PLATEAU.parseBiome(), XBiome.ERODED_BADLANDS.parseBiome()}),
     FLOWER_FOREST(new Biome[]{XBiome.FLOWER_FOREST.parseBiome()}),
     NETHER(new Biome[]{XBiome.NETHER.parseBiome()}),
+    END(new Biome[]{XBiome.END_BARRENS.parseBiome(), XBiome.END_HIGHLANDS.parseBiome(), XBiome.END_MIDLANDS.parseBiome(), XBiome.SMALL_END_ISLANDS.parseBiome()}),
     NONE(new Biome[]{}),
     ;
 
@@ -86,6 +87,7 @@ public enum TreeBiome {
         BADLANDS.itemStack = makeBiomeStack(BADLANDS, XMaterial.TERRACOTTA.parseItem());
         FLOWER_FOREST.itemStack = makeBiomeStack(FLOWER_FOREST, XMaterial.POPPY.parseMaterial());
         NETHER.itemStack = makeBiomeStack(NETHER, Material.NETHERRACK);
+        END.itemStack = makeBiomeStack(END, Material.END_STONE);
         NONE.itemStack = makeBiomeStack(NONE, Material.BARRIER);
     }
 

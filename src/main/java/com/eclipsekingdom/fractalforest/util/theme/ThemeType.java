@@ -14,7 +14,9 @@ public enum ThemeType {
     WEIRWOOD(new WeirwoodTheme()),
     FLAME_TREE(new FlameTheme()),
     BLOOD_BUSH(new BloodBush()),
-    ;
+    WHITE_ASH(new WhiteAshTheme()),
+    CYGNI(new CygniTheme()),
+    SECCHI(new SecchiTheme());
 
     private Theme theme;
 
@@ -27,4 +29,4 @@ public enum ThemeType {
     }
 
 
-    }
+}

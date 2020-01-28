@@ -18,6 +18,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_TREE_SELECTION;
+
 public class TreeSelect implements PageContents {
 
     private static Material log = XMaterial.OAK_SAPLING.parseMaterial();
@@ -25,7 +27,7 @@ public class TreeSelect implements PageContents {
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
         PopData popData = sessionData.getPopData();
-        menu.setItem(4, Icons.createIcon(log, "Tree Selection"));
+        menu.setItem(4, Icons.createIcon(log, LABEL_TREE_SELECTION.toString()));
         TreeBiome biome = popData.getCurrentBiome();
         menu.setItem(8, biome.getItemStack());
 

@@ -55,34 +55,79 @@ public class FractalTreeBuilder extends Tree {
     public void growPhased(int phaseTicks) {
         UUID PID = UUID.randomUUID();
         int phase = 0;
-        boolean isAnimated = phaseTicks > 0;
-        if (isAnimated) {
-            locationsCache.put(PID, new HashSet<>());
-        }
+        locationsCache.put(PID, new HashSet<>());
         boolean finished = false;
         while (!finished) {
             finished = true;
 
             if (phase == 0) {
                 finished = false;
-                if (isAnimated) {
-                    locationsCache.get(PID).addAll(buildBranch(trunk));
-                } else {
-                    buildBranch(trunk);
-                }
+                species.getEffects().playGrowthSound(trunk.getBegin().clone().add(origin).toLocation(world));
+                locationsCache.get(PID).addAll(buildBranch(trunk));
             }
             if (phase == 1) {
                 finished = false;
-                if (isAnimated) {
+                Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
+                    for (Root root : roots) {
+                        locationsCache.get(PID).addAll(buildRoot(root));
+                    }
+                }, phase * phaseTicks);
+            }
+
+            if (this.branches.size() > phase) {
+                finished = false;
+                List<Branch> branches = this.branches.get(phase);
+                if (branches != null) {
                     Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
-                        for (Root root : roots) {
-                            locationsCache.get(PID).addAll(buildRoot(root));
+                        int count = 0;
+                        for (Branch branch : branches) {
+                            if (count < 3)
+                                species.getEffects().playGrowthSound(branch.getBegin().clone().add(origin).toLocation(world));
+                            count++;
+                            locationsCache.get(PID).addAll(buildBranch(branch));
                         }
                     }, phase * phaseTicks);
-                } else {
-                    for (Root root : roots) {
-                        buildRoot(root);
-                    }
+                }
+            }
+
+            if (this.leafClusters.size() > phase) {
+                finished = false;
+                List<LeafCluster> leafClusters = this.leafClusters.get(phase);
+                if (leafClusters != null) {
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
+                        for (LeafCluster leafCluster : leafClusters) {
+                            locationsCache.get(PID).addAll(buildLeafCluster(leafCluster));
+                        }
+                    }, phase * phaseTicks);
+                }
+            }
+
+            phase++;
+        }
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
+            TreeUtil.callEvent(new RecordSpecimenEvent(species.toString(), new Specimen(locationsCache.get(PID))));
+            locationsCache.remove(PID);
+        }, phase * phaseTicks);
+
+    }
+
+    @Override
+    public void growInstant() {
+
+        int phase = 0;
+        boolean finished = false;
+        while (!finished) {
+            finished = true;
+
+            if (phase == 0) {
+                finished = false;
+                buildBranch(trunk);
+            }
+            if (phase == 1) {
+                finished = false;
+                for (Root root : roots) {
+                    buildRoot(root);
                 }
             }
 
@@ -90,16 +135,8 @@ public class FractalTreeBuilder extends Tree {
                 finished = false;
                 List<Branch> branches = this.branches.get(phase);
                 if (branches != null) {
-                    if (isAnimated) {
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
-                            for (Branch branch : branches) {
-                                locationsCache.get(PID).addAll(buildBranch(branch));
-                            }
-                        }, phase * phaseTicks);
-                    } else {
-                        for (Branch branch : branches) {
-                            buildBranch(branch);
-                        }
+                    for (Branch branch : branches) {
+                        buildBranch(branch);
                     }
                 }
             }
@@ -108,16 +145,8 @@ public class FractalTreeBuilder extends Tree {
                 finished = false;
                 List<LeafCluster> leafClusters = this.leafClusters.get(phase);
                 if (leafClusters != null) {
-                    if (isAnimated) {
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
-                            for (LeafCluster leafCluster : leafClusters) {
-                                locationsCache.get(PID).addAll(buildLeafCluster(leafCluster));
-                            }
-                        }, phase * phaseTicks);
-                    } else {
-                        for (LeafCluster leafCluster : leafClusters) {
-                            buildLeafCluster(leafCluster);
-                        }
+                    for (LeafCluster leafCluster : leafClusters) {
+                        buildLeafCluster(leafCluster);
                     }
                 }
             }
@@ -125,25 +154,13 @@ public class FractalTreeBuilder extends Tree {
             phase++;
         }
 
-        if (isAnimated) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
-                TreeUtil.callEvent(new RecordSpecimenEvent(species.toString(), new Specimen(locationsCache.get(PID))));
-                locationsCache.remove(PID);
-            }, phase * phaseTicks);
-        }
-
-    }
-
-    @Override
-    public void growInstant() {
-        growPhased(0);
     }
 
     private Set<Location> buildBranch(Branch branch) {
         Set<Location> branchLocations = new HashSet<>();
         IMaterialFactory materialFactory = branch.getThickness() == Branch.Thickness.THICK ? theme.getThickBranch() : theme.getThinBranch();
         for (Block block : new SegmentIterator(world, branch.getBegin().add(origin), branch.getEnd().add(origin), branch.getRadius())) {
-            if (TreeUtil.isPassable(block.getType()) || WhiteListedBlocks.trunkWhitelist.contains(block.getType())) {
+            if (TreeUtil.isPassable(block.getType()) || (random.nextDouble() < 0.22 && selfMaterial.contains(block.getType()))) {
                 attemptBranch(materialFactory, block);
                 branchLocations.add(block.getLocation());
             }

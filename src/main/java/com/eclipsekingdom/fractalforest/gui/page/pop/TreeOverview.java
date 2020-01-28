@@ -1,6 +1,8 @@
 package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.MenuGlass;
+import com.eclipsekingdom.fractalforest.gui.PopData;
+import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
@@ -21,6 +23,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
+
 public class TreeOverview implements PageContents {
 
     private Material writtenBook = XMaterial.WRITABLE_BOOK.parseMaterial();
@@ -32,7 +36,7 @@ public class TreeOverview implements PageContents {
         TreeBiome biome = popData.getCurrentBiome();
         List<TreeSpawner> spawners = pop.getBiomeToTreeSpawner().get(biome);
 
-        menu.setItem(4, Icons.createIcon(writtenBook, ChatColor.DARK_GRAY + "Edit Tree Spawners"));
+        menu.setItem(4, Icons.createIcon(writtenBook, ChatColor.DARK_GRAY + MENU_EDIT_TREE_SPAWNERS.toString()));
         menu.setItem(8, biome.getItemStack());
 
         int offset = sessionData.getPageOffsetX();
@@ -54,9 +58,9 @@ public class TreeOverview implements PageContents {
             }
         }
 
-        menu.setItem(30, Icons.createIcon(Material.ARROW, "Scroll Left"));
+        menu.setItem(30, Icons.createIcon(Material.ARROW, MENU_SCROLL_LEFT.toString()));
         menu.setItem(31, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetX()));
-        menu.setItem(32, Icons.createIcon(Material.ARROW, "Scroll Right"));
+        menu.setItem(32, Icons.createIcon(Material.ARROW, MENU_SCROLL_RIGHT.toString()));
 
         return menu;
     }

@@ -5,18 +5,15 @@ import com.eclipsekingdom.fractalforest.util.math.TreeMath;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.Sound;
 
-public class ForestEffects implements IEffects {
-
+public class EndEffects implements IEffects {
 
     @Override
     public void playGrowthSound(Location location) {
-        if (XSound.BLOCK_BAMBOO_SAPLING_PLACE.isSupported()) {
-            location.getWorld().playSound(location, XSound.BLOCK_BAMBOO_SAPLING_PLACE.parseSound(), 0.5f, 1f);
-            location.getWorld().playSound(location, Sound.BLOCK_BAMBOO_PLACE, 1f, 1f);
-        } else if (XSound.BLOCK_GRASS_PLACE.isSupported()) {
-            location.getWorld().playSound(location, XSound.BLOCK_GRASS_PLACE.parseSound(), 0.5f, 1.2f);
+        if (XSound.ENTITY_PUFFER_FISH_BLOW_OUT.isSupported()) {
+            location.getWorld().playSound(location, XSound.ENTITY_PUFFER_FISH_BLOW_OUT.parseSound(), 0.5f, 1.2f);
+        } else if (XSound.ENTITY_ENDER_EYE_DEATH.isSupported()) {
+            location.getWorld().playSound(location, XSound.ENTITY_ENDER_EYE_DEATH.parseSound(), 0.5f, 1.2f);
         }
     }
 
@@ -27,10 +24,10 @@ public class ForestEffects implements IEffects {
                 double offX = TreeMath.randomDouble(-0.5, 0.5);
                 double offY = TreeMath.randomDouble(-0.7, 0.7);
                 double offZ = TreeMath.randomDouble(-0.5, 0.5);
-                location.getWorld().playEffect(location.clone().add(offX, offY, offZ), Effect.valueOf("HAPPY_VILLAGER"), 1);
+                location.getWorld().playEffect(location.clone().add(offX, offY, offZ), Effect.valueOf("PORTAL"), 1);
             }
         } else {
-            location.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, location, 7, 0.5, 0.7, 0.5);
+            location.getWorld().spawnParticle(Particle.PORTAL, location, 7, 0.5, 0.7, 0.5);
         }
     }
 }

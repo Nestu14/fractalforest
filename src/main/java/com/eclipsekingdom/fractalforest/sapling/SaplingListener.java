@@ -5,8 +5,6 @@ import com.eclipsekingdom.fractalforest.sys.Permissions;
 import com.eclipsekingdom.fractalforest.sys.Version;
 import com.eclipsekingdom.fractalforest.sys.config.PluginConfig;
 import com.eclipsekingdom.fractalforest.trees.Species;
-import com.eclipsekingdom.fractalforest.util.X.XMaterial;
-import com.google.common.collect.ImmutableSet;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -28,6 +26,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import static com.eclipsekingdom.fractalforest.sys.language.Message.LABEL_SPECIES;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.WARN_SAPLING_NOT_PERMITTED;
 
 public class SaplingListener implements Listener {
 
@@ -65,7 +66,7 @@ public class SaplingListener implements Listener {
                         new MagicSapling(e.getPlayer(), species, location.clone().add(0.5, 0, 0.5));
                     } else {
                         e.setCancelled(true);
-                        player.sendMessage(ChatColor.RED + "You do not have permission to plant a " + species.format() + " sapling");
+                        player.sendMessage(ChatColor.RED + WARN_SAPLING_NOT_PERMITTED.fromSpecies(species.format()));
                     }
                 }
             }
@@ -85,9 +86,9 @@ public class SaplingListener implements Listener {
         Location location = e.getBlock().getLocation();
         if (locationToSapling.containsKey(location)) {
             if (e.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
-                if(hasSetDrop){
+                if (hasSetDrop) {
                     e.setDropItems(false);
-                }else{
+                } else {
                     e.setCancelled(true);
                     e.getBlock().setType(Material.AIR);
                 }
@@ -139,7 +140,7 @@ public class SaplingListener implements Listener {
     }
 
     private Species getSpecies(ItemStack sapling) {
-        String string = sapling.getItemMeta().getLore().get(0).split(ChatColor.DARK_GREEN + "Species: " + ChatColor.GRAY)[1];
+        String string = sapling.getItemMeta().getLore().get(0).split(ChatColor.DARK_GREEN + LABEL_SPECIES.toString() + ": " + ChatColor.GRAY)[1];
         return Species.from(string);
     }
 

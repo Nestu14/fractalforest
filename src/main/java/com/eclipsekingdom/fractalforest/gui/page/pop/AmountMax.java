@@ -13,6 +13,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 
 import static com.eclipsekingdom.fractalforest.gui.page.Icons.BACKGROUND_ITEM;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.MENU_MAX_TREE_NUMBER;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.UNIT_TREES;
 
 public class AmountMax implements PageContents {
 
@@ -23,22 +25,22 @@ public class AmountMax implements PageContents {
         PopData popData = sessionData.getPopData();
         int max = popData.getCurrentSpawner().getMax();
 
-        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + "Max Tree Number"));
+        menu.setItem(4, Icons.createIcon(Material.MELON_SEEDS, ChatColor.DARK_GRAY + MENU_MAX_TREE_NUMBER.toString()));
         menu.setItem(7, popData.getCurrentBiome().getItemStack());
         menu.setItem(8, Icons.createSpecies(popData.getCurrentSpawner().getSpecies()));
         menu.setItem(10, BACKGROUND_ITEM);
         menu.setItem(11, BACKGROUND_ITEM);
 
         if (max > popData.getCurrentSpawner().getMin()) {
-            menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", max + " trees"));
+            menu.setItem(12, Icons.VALUE_MANIPULATOR("-1", max + " " + UNIT_TREES));
         } else {
             menu.setItem(12, BACKGROUND_ITEM);
         }
 
-        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, "Max Tree Number", max + " trees"));
+        menu.setItem(13, Icons.CURRENT_VALUE(Material.NETHER_STAR, MENU_MAX_TREE_NUMBER.toString(), max + " " + UNIT_TREES));
 
         if (max < MAX) {
-            menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", max + " trees"));
+            menu.setItem(14, Icons.VALUE_MANIPULATOR("+1", max + " " + UNIT_TREES));
         } else {
             menu.setItem(14, BACKGROUND_ITEM);
         }

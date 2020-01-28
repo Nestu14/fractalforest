@@ -1,6 +1,8 @@
 package com.eclipsekingdom.fractalforest.gui.page.pop;
 
-import com.eclipsekingdom.fractalforest.gui.*;
+import com.eclipsekingdom.fractalforest.gui.MenuGlass;
+import com.eclipsekingdom.fractalforest.gui.PopData;
+import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.MenuUtil;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
@@ -20,6 +22,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
+
 public class BiomeOverview implements PageContents {
 
     private Material writtenBook = XMaterial.WRITABLE_BOOK.parseMaterial();
@@ -30,11 +34,11 @@ public class BiomeOverview implements PageContents {
         TreePopulator pop = popData.getPopulator();
         List<TreeBiome> biomes = new ArrayList<>();
         for (TreeBiome biome : pop.getBiomeToTreeSpawner().keySet()) {
-            if(biome != TreeBiome.NONE){
+            if (biome != TreeBiome.NONE) {
                 biomes.add(biome);
             }
         }
-        menu.setItem(4, Icons.createIcon(writtenBook, ChatColor.DARK_GRAY + "Edit Biomes"));
+        menu.setItem(4, Icons.createIcon(writtenBook, ChatColor.DARK_GRAY + MENU_EDIT_BIOMES.toString()));
 
         int offset = sessionData.getPageOffsetX();
         int biomesSize = biomes.size();
@@ -55,9 +59,9 @@ public class BiomeOverview implements PageContents {
             }
         }
 
-        menu.setItem(30, Icons.createIcon(Material.ARROW, "Scroll Left"));
+        menu.setItem(30, Icons.createIcon(Material.ARROW, MENU_SCROLL_LEFT.toString()));
         menu.setItem(31, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetX()));
-        menu.setItem(32, Icons.createIcon(Material.ARROW, "Scroll Right"));
+        menu.setItem(32, Icons.createIcon(Material.ARROW, MENU_SCROLL_RIGHT.toString()));
 
         return menu;
     }

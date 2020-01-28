@@ -1,11 +1,11 @@
 package com.eclipsekingdom.fractalforest.trees.effect;
 
-import javax.xml.stream.Location;
+import org.bukkit.Location;
 
 public interface IEffects {
 
-    boolean playGrowthSound(Location location);
+    void playGrowthSound(Location location);
 
-    boolean playSaplingParticles(Location location);
+    void playSaplingParticles(Location location);
 
 }

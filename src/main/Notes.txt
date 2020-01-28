@@ -1,7 +1,7 @@
-Sounds (bamboo sizzle, pufferfish blowout), language file, version (1.8-1.15
 
+https://deserthorizonnursery.com/trees-and-palms/desert-trees  (desert trees
 
-Seperate length and radius termination and decay
+Seperate length and radius termination and decay (fence sapling)
 Per iteration gene and alterations
 More accurate leaf radius ect
 Genome on Website:
@@ -31,7 +31,7 @@ Resources:
 
 * Cavery Calling and Team Tree integration
 
-Tree types [pine, cactus, palm, mangrove, jungle, end, underwater]
+Tree types [pine, cactus, palm, mangrove (w/ jungel wood + special sapling placement listeners to keep it placed), jungle, end, underwater]
 
 * web based tpop creator (grids with textures to show biomes and sized dots to show about how many trees and space will be taken up)
 
@@ -47,7 +47,7 @@ Tree types [pine, cactus, palm, mangrove, jungle, end, underwater]
 * end: 1
 * Genome: 1
 * Leaves/Hanging/Vines : 1
-* Palm/Swamp/Cactus/ever : 2
+* Palm/Swamp/Cactus/evergreen : 2
 * algorithms and genes
 
 -- Goal 12$

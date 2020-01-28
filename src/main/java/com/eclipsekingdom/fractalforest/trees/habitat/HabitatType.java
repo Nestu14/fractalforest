@@ -2,7 +2,9 @@ package com.eclipsekingdom.fractalforest.trees.habitat;
 
 public enum HabitatType {
     FOREST(new Forest()),
-    NETHER(new Nether());
+    NETHER(new Nether()),
+    END(new End()),
+    ;
 
     private IHabitat habitat;
 

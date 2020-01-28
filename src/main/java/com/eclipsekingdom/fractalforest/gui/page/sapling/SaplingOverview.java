@@ -18,6 +18,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Set;
 
+import static com.eclipsekingdom.fractalforest.sys.language.Message.MENU_SCROLL_DOWN;
+import static com.eclipsekingdom.fractalforest.sys.language.Message.MENU_SCROLL_UP;
+
 public class SaplingOverview implements PageContents {
     @Override
     public Inventory populate(Inventory menu, SessionData sessionData) {
@@ -40,9 +43,9 @@ public class SaplingOverview implements PageContents {
             index += ((index + 2) % 9 == 0 ? 3 : 1);
         }
 
-        menu.setItem(17, Icons.createIcon(Material.TRIPWIRE_HOOK, "Scroll Up"));
+        menu.setItem(17, Icons.createIcon(Material.TRIPWIRE_HOOK, MENU_SCROLL_UP.toString()));
         menu.setItem(26, Icons.createIcon(Material.STONE_BUTTON, "+" + sessionData.getPageOffsetY()));
-        menu.setItem(35, Icons.createIcon(Material.HOPPER, "Scroll Down"));
+        menu.setItem(35, Icons.createIcon(Material.HOPPER, MENU_SCROLL_DOWN.toString()));
 
         return menu;
     }
@@ -92,6 +95,8 @@ public class SaplingOverview implements PageContents {
             .add(XMaterial.DARK_OAK_SAPLING.parseMaterial())
             .add(XMaterial.JUNGLE_SAPLING.parseMaterial())
             .add(XMaterial.NETHER_WART.parseMaterial())
+            .add(XMaterial.OBSIDIAN.parseMaterial())
+            .add(XMaterial.CHORUS_PLANT.parseMaterial())
             .build();
 
     private ItemStack AIR = new ItemStack(Material.AIR);
