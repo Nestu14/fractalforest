@@ -59,11 +59,16 @@ public class SaplingListener implements Listener {
                 Species species = getSpecies(itemStack);
                 if (species != null) {
                     Player player = e.getPlayer();
-                    if (canPlant(player, species)) {
-                        if (player.getGameMode() != GameMode.CREATIVE) itemStack.setAmount(itemStack.getAmount() - 1);
+                    if (hasPerm(player, species)) {
                         Location location = e.getBlock().getLocation();
-                        locationToSapling.put(location, singleSapling);
-                        new MagicSapling(e.getPlayer(), species, location.clone().add(0.5, 0, 0.5));
+                        if (canPlaceIn(location.clone().add(0, -1, 0).getBlock().getType(), species)) {
+                            if (player.getGameMode() != GameMode.CREATIVE)
+                                itemStack.setAmount(itemStack.getAmount() - 1);
+                            locationToSapling.put(location, singleSapling);
+                            new MagicSapling(e.getPlayer(), species, location.clone().add(0.5, 0, 0.5));
+                        } else {
+                            e.setCancelled(true);
+                        }
                     } else {
                         e.setCancelled(true);
                         player.sendMessage(ChatColor.RED + WARN_SAPLING_NOT_PERMITTED.fromSpecies(species.format()));
@@ -73,12 +78,16 @@ public class SaplingListener implements Listener {
         }
     }
 
-    private boolean canPlant(Player player, Species species) {
+    private boolean hasPerm(Player player, Species species) {
         if (PluginConfig.isRequireSaplingPerm()) {
             return Permissions.canPlant(player, species);
         } else {
             return true;
         }
+    }
+
+    private boolean canPlaceIn(Material material, Species species) {
+        return species.getHabitat().isSoil(material);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)

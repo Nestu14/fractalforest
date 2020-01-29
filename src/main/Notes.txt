@@ -1,5 +1,7 @@
 
-https://deserthorizonnursery.com/trees-and-palms/desert-trees  (desert trees
+https://deserthorizonnursery.com/trees-and-palms/desert-trees  (desert trees)
+
+populator that removes default trees!
 
 Seperate length and radius termination and decay (fence sapling)
 Per iteration gene and alterations

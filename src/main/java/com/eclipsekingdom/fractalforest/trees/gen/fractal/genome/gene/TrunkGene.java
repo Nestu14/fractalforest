@@ -21,7 +21,7 @@ public class TrunkGene implements ITrunkGene {
     public Branch next() {
         double height = heightBounds.nextValue();
         double radius = TreeMath.map(height, heightBounds, radiusBounds);
-        Vector begin = new Vector(offSetBounds.nextValue(), 0, offSetBounds.nextValue());
+        Vector begin = new Vector(0, 0, 0);
         Vector end = new Vector(offSetBounds.nextValue(), height, offSetBounds.nextValue());
         return new Branch(begin, end, radius);
     }

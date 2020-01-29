@@ -8,9 +8,9 @@ import java.util.Set;
 
 public class WhiteListedBlocks {
 
-    private static Set<Material> blankList = new HashSet<>();
-
     public static Set<Material> trunkWhitelist = makeTrunkWhiteList();
+
+    public static Set<Material> branchWhitelist = makeBranchWhiteList();
 
 
     public static Set<Material> makeTrunkWhiteList() {
@@ -31,6 +31,17 @@ public class WhiteListedBlocks {
         return trunkWhitelist;
     }
 
+    public static Set<Material> makeBranchWhiteList() {
+        Set<Material> leafWhiteList = new HashSet<>();
+        leafWhiteList.add(XMaterial.OAK_LEAVES.parseMaterial());
+        leafWhiteList.add(XMaterial.SPRUCE_LEAVES.parseMaterial());
+        leafWhiteList.add(XMaterial.BIRCH_LEAVES.parseMaterial());
+        leafWhiteList.add(XMaterial.JUNGLE_LEAVES.parseMaterial());
+        leafWhiteList.add(XMaterial.ACACIA_LEAVES.parseMaterial());
+        leafWhiteList.add(XMaterial.DARK_OAK_LEAVES.parseMaterial());
+        return leafWhiteList;
+    }
+
 
     public static Set<Material> rootWhiteList = makeRootWhiteList();
 
@@ -42,11 +53,5 @@ public class WhiteListedBlocks {
         rootWhiteList.add(XMaterial.GRANITE.parseMaterial());
         return rootWhiteList;
     }
-
-    //leaves -- empty
-    //outerleaves -- empty, tree material
-    //branches -- empty, tree material
-    //trunk -- empty, passable, dirt block, tree material
-    //roots -- empty, passable, dirt block, tree material, stone blocks.
 
 }

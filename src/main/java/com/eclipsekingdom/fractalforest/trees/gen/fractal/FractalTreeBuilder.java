@@ -63,7 +63,7 @@ public class FractalTreeBuilder extends Tree {
             if (phase == 0) {
                 finished = false;
                 species.getEffects().playGrowthSound(trunk.getBegin().clone().add(origin).toLocation(world));
-                locationsCache.get(PID).addAll(buildBranch(trunk));
+                locationsCache.get(PID).addAll(buildTrunk(trunk));
             }
             if (phase == 1) {
                 finished = false;
@@ -122,7 +122,7 @@ public class FractalTreeBuilder extends Tree {
 
             if (phase == 0) {
                 finished = false;
-                buildBranch(trunk);
+                buildTrunk(trunk);
             }
             if (phase == 1) {
                 finished = false;
@@ -156,11 +156,26 @@ public class FractalTreeBuilder extends Tree {
 
     }
 
+
+    private Set<Location> buildTrunk(Branch branch) {
+        Set<Location> branchLocations = new HashSet<>();
+        IMaterialFactory materialFactory = branch.getThickness() == Branch.Thickness.THICK ? theme.getThickBranch() : theme.getThinBranch();
+        for (Block block : new SegmentIterator(world, branch.getBegin().add(origin), branch.getEnd().add(origin), branch.getRadius())) {
+            Material material = block.getType();
+            if (TreeUtil.isPassable(material) || WhiteListedBlocks.trunkWhitelist.contains(material)) {
+                attemptBranch(materialFactory, block);
+                branchLocations.add(block.getLocation());
+            }
+        }
+        return branchLocations;
+    }
+
     private Set<Location> buildBranch(Branch branch) {
         Set<Location> branchLocations = new HashSet<>();
         IMaterialFactory materialFactory = branch.getThickness() == Branch.Thickness.THICK ? theme.getThickBranch() : theme.getThinBranch();
         for (Block block : new SegmentIterator(world, branch.getBegin().add(origin), branch.getEnd().add(origin), branch.getRadius())) {
-            if (TreeUtil.isPassable(block.getType()) || (random.nextDouble() < 0.22 && selfMaterial.contains(block.getType()))) {
+            Material material = block.getType();
+            if (TreeUtil.isPassable(material) || WhiteListedBlocks.branchWhitelist.contains(material)) {
                 attemptBranch(materialFactory, block);
                 branchLocations.add(block.getLocation());
             }

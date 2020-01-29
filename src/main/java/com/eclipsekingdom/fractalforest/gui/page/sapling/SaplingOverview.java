@@ -4,6 +4,7 @@ import com.eclipsekingdom.fractalforest.gui.MenuGlass;
 import com.eclipsekingdom.fractalforest.gui.SessionData;
 import com.eclipsekingdom.fractalforest.gui.page.Icons;
 import com.eclipsekingdom.fractalforest.gui.page.PageContents;
+import com.eclipsekingdom.fractalforest.sapling.MagicSapling;
 import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.util.X.FGlass;
 import com.eclipsekingdom.fractalforest.util.X.XMaterial;
@@ -61,7 +62,7 @@ public class SaplingOverview implements PageContents {
             ItemMeta meta = itemStack.getItemMeta();
             meta.removeItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
             itemStack.setItemMeta(meta);
-            if (itemStack != null && saplingMaterials.contains(itemStack.getType())) {
+            if (itemStack != null && MagicSapling.saplingMaterials.contains(itemStack.getType())) {
                 ItemStack cursor = player.getItemOnCursor();
                 if (cursor == null || cursor.getType() == Material.AIR) {
                     if (clickType.isShiftClick()) {
@@ -86,18 +87,6 @@ public class SaplingOverview implements PageContents {
             }
         }
     }
-
-    private static Set<Material> saplingMaterials = new ImmutableSet.Builder<Material>()
-            .add(XMaterial.OAK_SAPLING.parseMaterial())
-            .add(XMaterial.SPRUCE_SAPLING.parseMaterial())
-            .add(XMaterial.ACACIA_SAPLING.parseMaterial())
-            .add(XMaterial.BIRCH_SAPLING.parseMaterial())
-            .add(XMaterial.DARK_OAK_SAPLING.parseMaterial())
-            .add(XMaterial.JUNGLE_SAPLING.parseMaterial())
-            .add(XMaterial.NETHER_WART.parseMaterial())
-            .add(XMaterial.OBSIDIAN.parseMaterial())
-            .add(XMaterial.CHORUS_PLANT.parseMaterial())
-            .build();
 
     private ItemStack AIR = new ItemStack(Material.AIR);
 }

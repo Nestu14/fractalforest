@@ -17,6 +17,11 @@ public class Forest implements IHabitat {
         return soilMaterials.contains(location.getBlock().getType()) && TreeUtil.isPassable(above.getType()) && !liquid.contains(above.getType());
     }
 
+    @Override
+    public boolean isSoil(Material material) {
+        return soilMaterials.contains(material);
+    }
+
     private Set<Material> soilMaterials = new ImmutableSet.Builder<Material>()
             .add(XMaterial.GRASS_BLOCK.parseMaterial())
             .add(XMaterial.DIRT.parseMaterial())

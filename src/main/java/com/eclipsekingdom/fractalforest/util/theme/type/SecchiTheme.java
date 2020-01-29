@@ -23,19 +23,33 @@ public class SecchiTheme implements ITheme {
 
     }
 
+    private static boolean legacy = Version.current.value <= 112;
+
     @Override
     public IMaterialFactory getThickBranch() {
-        return new MaterialSingleton(FMaterial.MUSHROOM);
+        if (!legacy) {
+            return new MaterialSingleton(FMaterial.MUSHROOM_STEM);
+        } else {
+            return new MaterialSingleton(FMaterial.MUSHROOM_LEGACY);
+        }
     }
 
     @Override
     public IMaterialFactory getThinBranch() {
-        return new MaterialSingleton(FMaterial.MUSHROOM);
+        if (!legacy) {
+            return new MaterialSingleton(FMaterial.MUSHROOM_STEM);
+        } else {
+            return new MaterialSingleton(FMaterial.MUSHROOM_LEGACY);
+        }
     }
 
     @Override
     public IMaterialFactory getRoot() {
-        return new MaterialSingleton(FMaterial.MUSHROOM);
+        if (!legacy) {
+            return new MaterialSingleton(FMaterial.MUSHROOM_STEM);
+        } else {
+            return new MaterialSingleton(FMaterial.MUSHROOM_LEGACY);
+        }
     }
 
     @Override
