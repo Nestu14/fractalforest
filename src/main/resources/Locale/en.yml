@@ -1,0 +1,101 @@
+Label - enabled: Enabled
+Label - disabled: Disabled
+Label - preset: Preset
+Label - pop: Tree Populators
+Label - general commands: General Commands
+Label - pop commands: Populator Commands
+Label - sapling: Sapling
+Label - saplings: Saplings
+Label - species: Species
+Label - overview: Overview
+Label - biomes: Biomes
+Label - biome selection: Biome Selection
+Label - trees: Trees
+Label - tree selection: Tree Selection
+Label - spawner: Spawner
+Label - spawn chance: Spawn Chance
+Label - spawn min: Spawn Amount Min
+Label - spawn max: Spawn Amount Max
+Label - overflow rad: Overflow Radius
+Label - selection: Selection
+Label - pop selection: Populator Selection
+Label - genome: Tree Genome
+Label - generator: Tree Generator
+Label - no page: Page Not Found
+Label - chance: Chance
+Label - min: Min
+Label - max: Max
+Label - overflow: Overflow
+Label - edit: Edit
+Label - none: None
+
+Unit - blocks: blocks
+Unit - trees: trees
+
+Text - open sapling: select saplings
+Text - get saplings: get saplings
+Text - gift saplings: give saplings to player
+Text - tencyclopedia: request an encyclopedia
+Text - updatetrecords: update the records in inventory
+Text - tgenerator: edit the tree generator
+Text - pop list: list all populators
+Text - pop help: display populator commands
+Text - pop create: create populator
+Text - createfrom: create populator from template
+Text - edit: edit populator
+Text - delete: delete populator
+Text - rename: rename populator
+
+Arg - world: world
+Arg - tpop: populator
+Arg - player: player
+Arg - amount: amount
+Arg - species: species
+Arg - old: old
+Arg - new: new
+
+Console - plugin detected: %plugin% detected
+Console - file error: Error saving %file%
+Console - world loaded: %world% loaded
+
+Warn - no permission: You do not have permission for this command
+Warn - sapling not permitted: You do not have permission to plant a %species% sapling
+Warn - pop not found: Populator %pop% not found
+Console - pop exists: A pop named %pop% already exists
+Warn - busy pop: Player %player% is busy editing the requested populator
+Warn - busy tgen: Player %player% is busy editing the requested generator
+Warn - preset: %pop% is a preset tree populator.
+Warn - unknown species: Unrecognized species
+Warn - not online: Player %player% is not online
+
+Success - gen update: generator updated
+Success - pop update: populator updated
+Success - pop create: populator %pop% was created
+Success - pop rename: populator renamed to %pop%
+Success - pop remove: populator %pop% was removed
+Success - gift sapling: %amount% %species% saplings gifted to %player%
+
+Suggest - pop help: Invalid format. Use /tpop help for a list of commands.
+
+Format - format: Format is %format%
+
+Icon - close: Close
+Icon - back: Back
+
+Menu - min tree number: Min Tree Number
+Menu - max tree number: Max Tree Number
+Menu - scroll up: Scroll Up
+Menu - scroll down: Scroll Down
+Menu - scroll left: Scroll Left
+Menu - scroll right: Scroll Right
+Menu - edit biomes: Edit Biomes
+Menu - chance per chunk: Chance per Chunk
+Menu - overflow radius: Overflow Radius
+Menu - tree spawner: Tree Spawner
+Menu - edit spawners: Edit Tree Spawners
+Menu - generator: Generator
+
+Status - success: success
+Status - special characters: Names must consist of only a-z, A-Z, 0-9, _, and -
+Status - too long: Names must be 20 characters or less
+Status - not found: Not Found

@@ -1,0 +1,58 @@
+
+https://deserthorizonnursery.com/trees-and-palms/desert-trees  (desert trees)
+
+Click Sound on enable and disabled tpop in tgenerator menu
+
+populator that removes default trees!
+
+* leaf blower radius axe
+Seperate length and radius termination and decay (fence sapling)
+Per iteration gene and alterations
+More accurate leaf radius ect
+Genome on Website:
+- direct inputs
+- upload inputs to continue edits
+- presets of all in game trees
+- expand and contract sections
+- loading animation ...
+- Root functions (poly not exponential?)
+- Buttons instead of rotation (NE LK < >)
+Check if tree has space above equal to trunk
+Improved growth, more time options
+tpop web app
+Leaf/fence decay
+[Tri, pine, space pop, en, cacti, palm]
+async post build calc
+plane translation takes vector instead of plane?
+creative instant place mode with green border showing how big it will be!!!!!
+
+
+*curve functions instead of just straight lines
+* fib
+
+Resources:
+* https://github.com/supereggbert/proctree.js/ - proctree
+* https://www.instructables.com/id/Procedurally-Generated-Trees/
+* https://github.com/jarikomppa/proctree
+
+* Cavery Calling and Team Tree integration
+
+Tree types [pine, cactus, palm, mangrove (w/ jungel wood + special sapling placement listeners to keep it placed), jungle, end, underwater]
+
+* web based tpop creator (grids with textures to show biomes and sized dots to show about how many trees and space will be taken up)
+
+* multiple tree spawner of same species (store as 1 2 3 instead of species)
+* message on close after editing ("updated") and "generator updated";
+
+
+-- update --
+- added back /sapling to select in sapling in creative
+
+--- Milestones ---
+* end: 1
+* Genome: 1
+* Leaves/Hanging/Vines : 1
+* Palm/Swamp/Cactus/evergreen : 2
+* algorithms and genes
+
+-- Goal 12$

@@ -1,0 +1,40 @@
+name: FractalForest
+version: 1.11.2
+main: com.eclipsekingdom.fractalforest.FractalForest
+api-version: 1.13
+authors: [sword7]
+description: A spigot plugin that adds procedurally generated trees to Minecraft
+website: eclipsekingdom.com
+softdepend: [PlayerPlot, WorldGuard, RedProtect, Towny, CoreProtect, GriefPrevention, Residence, Civs]
+load: POSTWORLD
+
+commands:
+  fractalforest:
+    description: display plugin information
+  sapling:
+    description: summon a magic sapling
+    permission: forest.sapling
+  tpop:
+    description: edit tree populators
+    permission: forest.pop
+  tgenerator:
+    description: edit the tree generator
+    permission: forest.worldgen
+
+
+permissions:
+  forest.*:
+    description: grants all user
+    default: op
+  forest.sapling:
+    description: grants access to sapling commands
+    default: op
+  forest.pop:
+    description: grants access to tpop commands
+    default: op
+  forest.gen:
+    description: grants access to /tgeneration
+    default: op
+  forest.plant.*:
+    description: allows player to plant all sapling species
+    default: op
