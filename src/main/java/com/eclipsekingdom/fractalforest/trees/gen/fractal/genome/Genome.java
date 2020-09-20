@@ -1,6 +1,7 @@
 package com.eclipsekingdom.fractalforest.trees.gen.fractal.genome;
 
 import com.eclipsekingdom.fractalforest.trees.gen.fractal.genome.gene.*;
+import com.eclipsekingdom.fractalforest.util.Scale;
 
 public class Genome implements IGenome {
 
@@ -12,7 +13,7 @@ public class Genome implements IGenome {
     private ILeafGene leafGene;
     private IRootGene rootGene;
 
-    public Genome(IClumpGene clumpGene, ISplitGene splitGene, IAngleGene angleGene, IDecayGene decayGene, ITrunkGene trunkGene, ILeafGene leafGene, IRootGene rootGene){
+    public Genome(IClumpGene clumpGene, ISplitGene splitGene, IAngleGene angleGene, IDecayGene decayGene, ITrunkGene trunkGene, ILeafGene leafGene, IRootGene rootGene) {
         this.clumpGene = clumpGene;
         this.splitGene = splitGene;
         this.angleGene = angleGene;

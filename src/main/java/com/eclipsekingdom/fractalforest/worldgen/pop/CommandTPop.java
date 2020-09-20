@@ -179,12 +179,12 @@ public class CommandTPop implements CommandExecutor {
     }
 
     private String getDefaultString() {
-        String stormBase = ARG_TPOP + "_";
+        String popBase = ARG_TPOP + "_";
         int num = 1;
-        String attempt = stormBase + num;
+        String attempt = popBase + num;
         while (PopCache.hasPopulator(attempt)) {
             num++;
-            attempt = stormBase + num;
+            attempt = popBase + num;
         }
         return attempt;
     }

@@ -40,12 +40,12 @@ public class TreePopulator extends BlockPopulator {
     }
 
     private String getCloneString() {
-        String meteorBase = name + "_COPY_";
+        String popBase = name + "_COPY_";
         int num = 1;
-        String attempt = meteorBase + num;
+        String attempt = popBase + num;
         while (PopCache.hasPopulator(attempt)) {
             num++;
-            attempt = meteorBase + num;
+            attempt = popBase + num;
         }
         return attempt;
     }

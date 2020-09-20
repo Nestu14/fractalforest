@@ -21,6 +21,7 @@ package com.eclipsekingdom.fractalforest.util.X;
  * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import com.google.common.base.Enums;
 import com.google.common.base.Optional;
 import com.google.common.cache.Cache;
@@ -37,22 +38,16 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.regex.Pattern;
-
-/*
- * References
- *
- * * * GitHub: https://github.com/CryptoMorin/XSeries/blob/master/XBiome.java
- * * XSeries: https://www.spigotmc.org/threads/378136/
- * Biomes: https://minecraft.gamepedia.com/Biome
- * Biome: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/block/Biome.html
- */
 
 /**
  * <b>XBiome</b> - Cross-version support for biome names.<br>
+ * Biomes: https://minecraft.gamepedia.com/Biome
+ * Biome: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/block/Biome.html
  *
  * @author Crypto Morin
- * @version 1.0.0
+ * @version 1.1.0
  * @see Biome
  */
 public enum XBiome {
@@ -99,7 +94,11 @@ public enum XBiome {
     MOUNTAIN_EDGE("SMALLER_EXTREME_HILLS"),
     MUSHROOM_FIELDS("MUSHROOM_ISLAND"),
     MUSHROOM_FIELD_SHORE("MUSHROOM_ISLAND_SHORE", "MUSHROOM_SHORE"),
-    NETHER("HELL"),
+    SOUL_SAND_VALLEY,
+    CRIMSON_FOREST,
+    WARPED_FOREST,
+    BASALT_DELTAS,
+    NETHER_WASTES("NETHER", "HELL"),
     OCEAN("OCEAN"),
     PLAINS("PLAINS"),
     RIVER("RIVER"),
@@ -139,7 +138,15 @@ public enum XBiome {
      * @since 1.0.0
      */
     public static final EnumSet<XBiome> VALUES = EnumSet.allOf(XBiome.class);
-
+    /**
+     * Guava (Google Core Libraries for Java)'s cache for performance and timed caches.
+     * Caches the parsed {@link Biome} objects instead of string. Because it has to go through catching exceptions again
+     * since {@link Biome} class doesn't have a method like {@link org.bukkit.Material#getMaterial(String)}.
+     * So caching these would be more efficient.
+     * This cache will not expire since there are only a few biome names.
+     *
+     * @since 1.0.0
+     */
     private static final Cache<XBiome, Optional<Biome>> CACHE = CacheBuilder.newBuilder()
             .softValues().build();
     /**
@@ -149,7 +156,7 @@ public enum XBiome {
      * @since 1.0.0
      */
     private static final Pattern FORMAT_PATTERN = Pattern.compile("\\d+|\\W+");
-    private String[] legacy;
+    private final String[] legacy;
 
     XBiome(String... legacy) {
         this.legacy = legacy;
@@ -263,21 +270,25 @@ public enum XBiome {
      * @param chunk the chunk to change the biome.
      * @since 1.0.0
      */
-    public void setBiome(Chunk chunk) {
+    @Nonnull
+    public CompletableFuture<Void> setBiome(@Nonnull Chunk chunk) {
         Objects.requireNonNull(chunk, "Cannot set biome of null chunk");
         if (!chunk.isLoaded()) {
-            if (!chunk.load(true)) throw new IllegalArgumentException("Could not load chunk at " + chunk.getX() + ", " + chunk.getZ());
+            Validate.isTrue(chunk.load(true), "Could not load chunk at " + chunk.getX() + ", " + chunk.getZ());
         }
 
         Biome biome = this.parseBiome();
-        if (biome == null) throw new IllegalArgumentException("Unsupported Biome: " + this.name());
+        Validate.isTrue(biome != null, "Unsupported Biome: " + this.name());
 
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                Block block = chunk.getBlock(x, 0, z);
-                if (block.getBiome() != biome) block.setBiome(biome);
+        // Apparently setBiome is thread-safe.
+        return CompletableFuture.runAsync(() -> {
+            for (int x = 0; x < 16; x++) {
+                for (int z = 0; z < 16; z++) {
+                    Block block = chunk.getBlock(x, 0, z);
+                    if (block.getBiome() != biome) block.setBiome(biome);
+                }
             }
-        }
+        });
     }
 
     /**
@@ -289,20 +300,23 @@ public enum XBiome {
      * @param end   the end position.
      * @since 1.0.0
      */
-    public void setBiome(Location start, Location end) {
+    @Nonnull
+    public CompletableFuture<Void> setBiome(@Nonnull Location start, @Nonnull Location end) {
         Objects.requireNonNull(start, "Start location cannot be null");
         Objects.requireNonNull(end, "End location cannot be null");
-        if (!start.getWorld().getName().equals(end.getWorld().getName()))
-            throw new IllegalArgumentException("Location worlds mismatch");
+        Validate.isTrue(start.getWorld().getUID().equals(end.getWorld().getUID()), "Location worlds mismatch");
 
         Biome biome = this.parseBiome();
-        if (biome == null) throw new IllegalArgumentException("Unsupported Biome: " + this.name());
+        Validate.isTrue(biome != null, "Unsupported Biome: " + this.name());
 
-        for (int x = start.getBlockX(); x < end.getBlockX(); x++) {
-            for (int z = start.getBlockZ(); z < end.getBlockZ(); z++) {
-                Block block = new Location(start.getWorld(), x, 0, z).getBlock();
-                if (block.getBiome() != biome) block.setBiome(biome);
+        // Apparently setBiome is thread-safe.
+        return CompletableFuture.runAsync(() -> {
+            for (int x = start.getBlockX(); x < end.getBlockX(); x++) {
+                for (int z = start.getBlockZ(); z < end.getBlockZ(); z++) {
+                    Block block = new Location(start.getWorld(), x, 0, z).getBlock();
+                    if (block.getBiome() != biome) block.setBiome(biome);
+                }
             }
-        }
+        });
     }
 }

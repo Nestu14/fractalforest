@@ -3,6 +3,7 @@ package com.eclipsekingdom.fractalforest.sys;
 import org.bukkit.Bukkit;
 
 public enum Version {
+    V1_16(116),
     V1_15(115),
     V1_14(114),
     V1_13(113),
@@ -25,7 +26,9 @@ public enum Version {
 
     private static Version getVersion() {
         String versionString = Bukkit.getVersion();
-        if (versionString.contains("1.15")) {
+        if (versionString.contains("1.16")) {
+            return V1_16;
+        } else if (versionString.contains("1.15")) {
             return V1_15;
         } else if (versionString.contains("1.14")) {
             return V1_14;

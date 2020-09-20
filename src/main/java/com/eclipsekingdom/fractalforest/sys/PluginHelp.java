@@ -8,7 +8,7 @@ import static com.eclipsekingdom.fractalforest.sys.language.Message.*;
 public class PluginHelp {
 
     public static void showHelp(CommandSender sender) {
-        sender.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "Fractal Forest");
+        sender.sendMessage(ChatColor.GREEN + ChatColor.BOLD.toString() + "__Fractal Forest_______");
         showCommands(sender);
         showPop(sender);
     }
@@ -17,8 +17,7 @@ public class PluginHelp {
     public static void showCommands(CommandSender sender) {
         sender.sendMessage(ChatColor.YELLOW + "-------" + ChatColor.GOLD + " " + LABEL_GENERAL_COMMANDS + " " + ChatColor.YELLOW + "-------");
         sendMessage(sender, "&6/sapling: &rselect saplings");
-        sendMessage(sender, "&6/sapling &c[" + ARG_SPECIES + "] [" + ARG_AMOUNT + "]&6: &r" + TEXT_GET_SAPLINGS);
-        sendMessage(sender, "&6/giftsapling &c[" + ARG_PLAYER + "] [" + ARG_SPECIES + "] [" + ARG_AMOUNT + "]&6: &r" + TEXT_GIFT_SAPLINGS);
+        sendMessage(sender, "&6/sapling &c[" + ARG_PLAYER + "] [" + ARG_SPECIES + "] [" + ARG_AMOUNT + "]&6: &r" + TEXT_GIFT_SAPLINGS);
         sender.sendMessage(ChatColor.GOLD + "/tencyclopedia: " + ChatColor.RESET + TEXT_TENCYCLOPEDIA);
         sender.sendMessage(ChatColor.GOLD + "/updatetrecords: " + ChatColor.RESET + TEXT_UPDATE_TRECORDS);
         sender.sendMessage(ChatColor.GOLD + "/tgenerator: " + ChatColor.RESET + TEXT_TGENERATOR);

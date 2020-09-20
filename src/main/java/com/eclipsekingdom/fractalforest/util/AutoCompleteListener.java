@@ -1,9 +1,9 @@
 package com.eclipsekingdom.fractalforest.util;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
+import com.eclipsekingdom.fractalforest.trees.Species;
 import com.eclipsekingdom.fractalforest.worldgen.pop.PopCache;
 import com.eclipsekingdom.fractalforest.worldgen.pop.TreePopulator;
-import com.eclipsekingdom.fractalforest.trees.Species;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,6 +13,7 @@ import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AutoCompleteListener implements Listener {
@@ -26,13 +27,18 @@ public class AutoCompleteListener implements Listener {
     public void onComplete(TabCompleteEvent e) {
         String buffer = e.getBuffer().toLowerCase();
         if (e.getSender() instanceof Player) {
-            if (buffer.contains("/sapling ")) {
-                e.setCompletions(getRefinedCompletions("/sapling", buffer, getSpeciesNames()));
-            } else if (buffer.contains("/giftsapling ") && numberOfFullArgs(buffer) > 0) {
-                String root = "/giftsapling " + getArg(buffer, 0);
-                e.setCompletions(getRefinedCompletions(root, buffer, getSpeciesNames()));
-            } else if (buffer.contains("/giftsapling ")) {
-                e.setCompletions(getRefinedCompletions("/giftsapling", buffer, getPlayerNames()));
+            if (buffer.startsWith("/sapling ")) {
+                int args = numberOfFullArgs(buffer);
+                String base = "/sapling";
+                if (args == 0) {
+                    String root = base;
+                    e.setCompletions(getRefinedCompletions(root, buffer, getSpeciesNames()));
+                } else if (args == 1) {
+                    String root = base + " " + getArg(buffer, 0);
+                    e.setCompletions(getRefinedCompletions(root, buffer, getPlayerNames()));
+                } else {
+                    e.setCompletions(Collections.EMPTY_LIST);
+                }
             } else if (buffer.contains("/tpop delete ")) {
                 e.setCompletions(getRefinedCompletions("/tpop delete", buffer, getCustomPopNames()));
             } else if (buffer.contains("/tpop createfrom ")) {

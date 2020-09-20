@@ -57,7 +57,7 @@ public class Presets {
         List<TreeSpawner> netherForest = new ArrayList<>();
         netherForest.add(new TreeSpawner(Species.BLOOD_BUSH, 0.046, 3, 9, 8));
         netherForest.add(new TreeSpawner(Species.FLAME_TREE, 0.09, 1, 1, 0));
-        netherMap.put(TreeBiome.NETHER, netherForest);
+        netherMap.put(TreeBiome.NETHER_WASTES, netherForest);
         TreePopulator nether = new TreePopulator("Nether", netherMap);
         presets.add(nether);
 

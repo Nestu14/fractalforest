@@ -1,8 +1,11 @@
 
 https://deserthorizonnursery.com/trees-and-palms/desert-trees  (desert trees)
 
+Click Sound on enable and disabled tpop in tgenerator menu
+
 populator that removes default trees!
 
+* leaf blower radius axe
 Seperate length and radius termination and decay (fence sapling)
 Per iteration gene and alterations
 More accurate leaf radius ect
@@ -21,6 +24,7 @@ Leaf/fence decay
 [Tri, pine, space pop, en, cacti, palm]
 async post build calc
 plane translation takes vector instead of plane?
+creative instant place mode with green border showing how big it will be!!!!!
 
 
 *curve functions instead of just straight lines
@@ -42,8 +46,7 @@ Tree types [pine, cactus, palm, mangrove (w/ jungel wood + special sapling place
 
 
 -- update --
-
-
+- added back /sapling to select in sapling in creative
 
 --- Milestones ---
 * end: 1

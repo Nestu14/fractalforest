@@ -1,6 +1,7 @@
 package com.eclipsekingdom.fractalforest.trees.gen.fractal.genome;
 
 import com.eclipsekingdom.fractalforest.trees.gen.fractal.genome.gene.*;
+import com.eclipsekingdom.fractalforest.util.Scale;
 
 public interface IGenome {
 

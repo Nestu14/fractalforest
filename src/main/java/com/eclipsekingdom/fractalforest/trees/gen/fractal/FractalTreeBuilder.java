@@ -1,8 +1,6 @@
 package com.eclipsekingdom.fractalforest.trees.gen.fractal;
 
 import com.eclipsekingdom.fractalforest.FractalForest;
-import com.eclipsekingdom.fractalforest.encyclopedia.RecordSpecimenEvent;
-import com.eclipsekingdom.fractalforest.encyclopedia.Specimen;
 import com.eclipsekingdom.fractalforest.protection.RegionValidation;
 import com.eclipsekingdom.fractalforest.protection.WhiteListedBlocks;
 import com.eclipsekingdom.fractalforest.sys.PluginBase;
@@ -49,13 +47,9 @@ public class FractalTreeBuilder extends Tree {
         this.leafClusters = blueprint.getLeafClusters();
     }
 
-    private static Map<UUID, Set<Location>> locationsCache = new HashMap<>();
-
     @Override
     public void growPhased(int phaseTicks) {
-        UUID PID = UUID.randomUUID();
         int phase = 0;
-        locationsCache.put(PID, new HashSet<>());
         boolean finished = false;
         while (!finished) {
             finished = true;
@@ -63,13 +57,13 @@ public class FractalTreeBuilder extends Tree {
             if (phase == 0) {
                 finished = false;
                 species.getEffects().playGrowthSound(trunk.getBegin().clone().add(origin).toLocation(world));
-                locationsCache.get(PID).addAll(buildTrunk(trunk));
+                buildTrunk(trunk);
             }
             if (phase == 1) {
                 finished = false;
                 Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
                     for (Root root : roots) {
-                        locationsCache.get(PID).addAll(buildRoot(root));
+                        buildRoot(root);
                     }
                 }, phase * phaseTicks);
             }
@@ -84,7 +78,7 @@ public class FractalTreeBuilder extends Tree {
                             if (count < 3)
                                 species.getEffects().playGrowthSound(branch.getBegin().clone().add(origin).toLocation(world));
                             count++;
-                            locationsCache.get(PID).addAll(buildBranch(branch));
+                            buildBranch(branch);
                         }
                     }, phase * phaseTicks);
                 }
@@ -96,7 +90,7 @@ public class FractalTreeBuilder extends Tree {
                 if (leafClusters != null) {
                     Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
                         for (LeafCluster leafCluster : leafClusters) {
-                            locationsCache.get(PID).addAll(buildLeafCluster(leafCluster));
+                            buildLeafCluster(leafCluster);
                         }
                     }, phase * phaseTicks);
                 }
@@ -104,11 +98,6 @@ public class FractalTreeBuilder extends Tree {
 
             phase++;
         }
-
-        Bukkit.getScheduler().scheduleSyncDelayedTask(FractalForest.getPlugin(), () -> {
-            TreeUtil.callEvent(new RecordSpecimenEvent(species.toString(), new Specimen(locationsCache.get(PID))));
-            locationsCache.remove(PID);
-        }, phase * phaseTicks);
 
     }
 

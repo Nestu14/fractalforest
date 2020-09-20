@@ -36,7 +36,7 @@ public class BiomeSelect implements PageContents {
 
         int offsetY = sessionData.getPageOffsetY();
         List<TreeBiome> biomes = new ArrayList<>();
-        for (TreeBiome biome : TreeBiome.values()) {
+        for (TreeBiome biome : TreeBiome.getSupportedBiomes()) {
             if (!currentBiomes.contains(biome) && biome != TreeBiome.NONE) {
                 biomes.add(biome);
             }

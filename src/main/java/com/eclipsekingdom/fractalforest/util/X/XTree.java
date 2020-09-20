@@ -1,6 +1,8 @@
 package com.eclipsekingdom.fractalforest.util.X;
 
+import com.eclipsekingdom.fractalforest.sys.Version;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public enum XTree {
 
@@ -28,5 +30,11 @@ public enum XTree {
     public byte getaByte() {
         return aByte;
     }
+
+    public ItemStack getItemStack(){
+        return Version.current.value >= 113 ? new ItemStack(material) : new ItemStack(material, 1, aByte);
+    }
+
+
 
 }
