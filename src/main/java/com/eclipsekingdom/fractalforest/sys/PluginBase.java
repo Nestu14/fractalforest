@@ -13,25 +13,11 @@ import static com.eclipsekingdom.fractalforest.sys.language.Message.CONSOLE_DETE
 
 public class PluginBase {
 
-    public static String playerPlotNameSpace = "PlayerPlot";
     public static String worldGuardNameSpace = "WorldGuard";
-    public static String redProtectNameSpace = "RedProtect";
     public static String coreProtectNameSpace = "CoreProtect";
-    public static String townyNameSpace = "Towny";
-    public static String residenceNameSpace = "Residence";
-    public static String griefPreventionNameSpace = "GriefPrevention";
-    public static String landsNameSpace = "Lands";
-    public static String civsNameSpace = "Civs";
 
     private static ImmutableList<String> possibleRegionDependencies = new ImmutableList.Builder<String>()
-            .add(playerPlotNameSpace)
             .add(worldGuardNameSpace)
-            .add(redProtectNameSpace)
-            .add(townyNameSpace)
-            .add(griefPreventionNameSpace)
-            .add(residenceNameSpace)
-            .add(landsNameSpace)
-            .add(civsNameSpace)
             .build();
 
     private static Map<String, Plugin> regionPlugins = new HashMap<>();

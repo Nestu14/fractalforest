@@ -53,7 +53,6 @@ public final class FractalForest extends JavaPlugin {
         LiveSessions.disable();
         Generator.save();
         PopCache.save();
-        RegionValidation.shutdown();
     }
 
     public static Plugin getPlugin() {
